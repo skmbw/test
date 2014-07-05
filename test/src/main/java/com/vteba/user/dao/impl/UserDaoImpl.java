@@ -1,15 +1,11 @@
 package com.vteba.user.dao.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.vteba.tx.jdbc.spring.SpringJdbcTemplate;
 import com.vteba.tx.jdbc.spring.impl.SpringGenericDaoImpl;
 import com.vteba.user.dao.UserDao;
-import com.vteba.user.model.EmpUser;
 import com.vteba.user.model.User;
 
 /**
@@ -34,17 +30,17 @@ public class UserDaoImpl extends SpringGenericDaoImpl<User, Long> implements Use
         this.springJdbcTemplate = skmbwJdbcTemplate;
     }
 
-    @Override
-    public EmpUser mapRows(ResultSet rs, String sql, Class<?> clazz) throws SQLException {
-        // TODO Auto-generated method stub
-        if (clazz == User.class) {
-            
-        } else if (clazz == EmpUser.class) {
-            
-        }
-        
-        return null;
-    }
+//    @Override
+//    public EmpUser mapRows(ResultSet rs, String sql, Class<?> clazz) throws SQLException {
+//        // TODO Auto-generated method stub
+//        if (clazz == User.class) {
+//            
+//        } else if (clazz == EmpUser.class) {
+//            
+//        }
+//        
+//        return null;
+//    }
 
 //    @Override
 //    public User mapRows(ResultSet rs, int rowNum) throws SQLException {

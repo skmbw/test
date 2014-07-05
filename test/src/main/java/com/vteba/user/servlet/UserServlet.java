@@ -74,8 +74,37 @@ public class UserServlet extends AutowiredHttpServlet {
         String sql = "select * from user where age = ? and state = 1";
         userDaoImpl.queryForPage(page, sql, 14);
         
+        userDaoImpl.query(sql, 14);
+        
+        userDaoImpl.query(params);
+        
+        sql = "select * from user where age = :age and state = 1";;
+        userDaoImpl.query(sql, params);
+        
+        userDaoImpl.queryList(sql, params);
+        
+        userDaoImpl.queryPageList(page, sql, params);
+        
+        sql = "select * from user where age = ? and state = 1";
+        userDaoImpl.queryPageList(page, sql, User.class, 14);
+        
+        sql = "select age from user where id = ?";
+        userDaoImpl.queryForObject(sql, Integer.class, 3);
+        
+        sql = "select age from user where id = :id";
+        Map<String, Object> paramMap = Maps.newHashMap();
+        paramMap.put("id", 14);
+        userDaoImpl.queryForObject(sql, paramMap, Integer.class);
+        
 //        int ii = userDaoImpl.delete(id);
 //        System.out.println("删除条数：" + ii);
         
+//        entity.setId(id);
+//        i = userDaoImpl.deleteBatch(entity);
+//        System.out.println("批量删除实体数：" + i);
+        
+//        sql = "delete from user where id = ? and age = ?";
+//        i = userDaoImpl.deleteBatch(sql, id, 19);
+//        System.out.println("批量删除实体数：" + i);
     }
 }

@@ -1,7 +1,6 @@
 package com.vteba.user.servlet;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,10 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import com.google.common.collect.Maps;
+import com.vteba.tx.generic.Order;
 import com.vteba.tx.generic.Page;
 import com.vteba.user.dao.UserDao;
 import com.vteba.user.model.User;
+import com.vteba.utils.ofbiz.Lang;
 import com.vteba.web.servlet.AutowiredHttpServlet;
 
 /**
@@ -67,10 +67,10 @@ public class UserServlet extends AutowiredHttpServlet {
         //System.out.println("updateBatch：" + i);
         
         Page<User> page = new Page<User>();
-        Map<String, String> orders = Maps.newHashMap();
-        orders.put("user_name", "desc");
-        orders.put("email", "asc");
-        page.setOrders(orders);
+//        Map<String, String> orders = Maps.newHashMap();
+//        orders.put("user_name", "desc");
+//        orders.put("email", "asc");
+        page.setOrders(Lang.toMap("user_name", Order.DESC, "email", Order.ASC));
         
         User params = new User();
         params.setAge(14);
@@ -102,10 +102,8 @@ public class UserServlet extends AutowiredHttpServlet {
         userDaoImpl.queryForObject(sql, Integer.class, 3);
         
         sql = "select age from user where id = :id";
-        Map<String, Object> paramMap = Maps.newHashMap();
-        paramMap.put("id", 14);
         long d5 = System.currentTimeMillis();
-        userDaoImpl.queryForObject(sql, paramMap, Integer.class);
+        userDaoImpl.queryForObject(sql, Lang.toMap("id", 14), Integer.class);
         System.out.println("queryForObject时间：" + (System.currentTimeMillis() - d5));
 //        int ii = userDaoImpl.delete(id);
 //        System.out.println("删除条数：" + ii);

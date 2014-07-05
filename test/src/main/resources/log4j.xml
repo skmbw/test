@@ -30,7 +30,7 @@
 <!--     	<appender-ref ref="console"/> -->
     </logger> 
     <logger name="com.vteba" additivity="true">
-    	<level value="DEBUG"/>
+    	<level value="INFO"/>
 <!--     	<appender-ref ref="console"/> -->
     </logger>
     <!-- 
@@ -43,7 +43,7 @@
 	</logger> -->
 	<!--  -->
     <logger name="com.vteba.user.dao" additivity="true">
-    	<level value="TRACE"/>
+    	<level value="INFO"/>
     	<!--<appender-ref ref="console"/>  这里如果不注释掉，会打印重复的日志 -->
     </logger>
     <!-- 
@@ -57,7 +57,7 @@
     	<appender-ref ref="console"/>
     </logger> -->
     <logger name="com.vteba.tx.jdbc" additivity="true">
-    	<level value="DEBUG"/>
+    	<level value="INFO"/>
 <!--     	<appender-ref ref="console"/> -->
     </logger>
     <logger name="org.jboss" additivity="true">
@@ -88,7 +88,7 @@
 
     <!--Root logger打印所有日志，但不包含perf4j的信息。原因是在TimingLogger配置中设置了additivity为false-->
     <root>
-        <level value="DEBUG"/>
+        <level value="INFO"/>
         <appender-ref ref="console"/>
         <appender-ref ref="R"/>
     </root>

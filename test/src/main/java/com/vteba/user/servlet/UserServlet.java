@@ -1,6 +1,7 @@
 package com.vteba.user.servlet;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,11 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.google.common.collect.Maps;
 import com.vteba.tx.generic.Order;
 import com.vteba.tx.generic.Page;
 import com.vteba.user.dao.UserDao;
 import com.vteba.user.model.User;
-import com.vteba.utils.ofbiz.Lang;
+import com.vteba.utils.ofbiz.LangUtils;
 import com.vteba.web.servlet.AutowiredHttpServlet;
 
 /**
@@ -70,7 +72,7 @@ public class UserServlet extends AutowiredHttpServlet {
 //        Map<String, String> orders = Maps.newHashMap();
 //        orders.put("user_name", "desc");
 //        orders.put("email", "asc");
-        page.setOrders(Lang.toMap("user_name", Order.DESC, "email", Order.ASC));
+        page.setOrders(LangUtils.toMap("user_name", Order.DESC, "email", Order.ASC));
         
         User params = new User();
         params.setAge(14);
@@ -103,7 +105,7 @@ public class UserServlet extends AutowiredHttpServlet {
         
         sql = "select age from user where id = :id";
         long d5 = System.currentTimeMillis();
-        userDaoImpl.queryForObject(sql, Lang.toMap("id", 14), Integer.class);
+        userDaoImpl.queryForObject(sql, LangUtils.toMap("id", 14), Integer.class);
         System.out.println("queryForObject时间：" + (System.currentTimeMillis() - d5));
 //        int ii = userDaoImpl.delete(id);
 //        System.out.println("删除条数：" + ii);
@@ -115,5 +117,15 @@ public class UserServlet extends AutowiredHttpServlet {
 //        sql = "delete from user where id = ? and age = ?";
 //        i = userDaoImpl.deleteBatch(sql, id, 19);
 //        System.out.println("批量删除实体数：" + i);
+    }
+    
+    public static void main(String[] a) {
+        Map<String, String> map = Maps.newHashMap();
+        
+        putMap(map);
+    }
+    
+    public static void putMap(Map<String, ?> map) {
+        //map.put("", 2L);
     }
 }

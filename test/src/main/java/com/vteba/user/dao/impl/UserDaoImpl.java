@@ -42,7 +42,10 @@ public class UserDaoImpl extends SpringGenericDaoImpl<User, Long> implements Use
         if (clazz == User.class) {
             return mapRows(rs, 0);
         } else if (clazz == EmpUser.class) {
-            
+            EmpUser empUser = new EmpUser();
+            empUser.setAge(rs.getInt("age"));
+            empUser.setUserName(rs.getString("user_name"));
+            return empUser;
         }
         return null;
     }

@@ -2,8 +2,11 @@ package com.vteba.user.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "user", schema = "skmbw")
@@ -15,7 +18,9 @@ public class User {
     private String  email;
     private String  password;
     private boolean state = true;// 要给对应的默认值，如果使用了原生类型
-
+    
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     @Id
     @Column(name = "id")
     public Long getId() {

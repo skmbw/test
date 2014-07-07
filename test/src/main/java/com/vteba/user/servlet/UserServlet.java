@@ -39,7 +39,7 @@ public class UserServlet extends AutowiredHttpServlet {
         user.setState(true);
         user.setUserName("yinlei");
         long dd = System.currentTimeMillis();
-        Long id = userDaoImpl.save(user);
+        long id = userDaoImpl.save(user);
         System.out.println("save时间：" + (System.currentTimeMillis() - dd));
         //System.out.println(id);
         

@@ -1,23 +1,23 @@
 package com.vteba.user.model;
 
 public class EmpUser {
-    private Long id;
-    private String name;
+    private String userName;
+    private Integer age;
     
-    public Long getId() {
-        return id;
+    public String getUserName() {
+        return userName;
     }
     
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
     
-    public String getName() {
-        return name;
+    public Integer getAge() {
+        return age;
     }
     
-    public void setName(String name) {
-        this.name = name;
+    public void setAge(Integer age) {
+        this.age = age;
     }
     
 }

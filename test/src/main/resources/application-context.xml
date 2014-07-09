@@ -55,8 +55,42 @@
 	    <property name="filters" value="stat" /> 
 	</bean>     
 
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-  		<property name="dataSource" ref="skmbwDataSource" />
+	<bean id="skmbwSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="skmbwDataSource" />
+		<property name="packagesToScan">
+    		<list>
+     			<value>com.vteba.user.model</value>
+    		</list>
+   		</property>
+		<property name="namingStrategy">
+			<bean class="org.hibernate.cfg.ImprovedNamingStrategy" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.jdbc.batch_size">50</prop>
+				<prop key="hibernate.jdbc.fetch_size">10</prop>
+				<prop key="hibernate.default_batch_fetch_size">50</prop>
+				<prop key="hibernate.jdbc.use_reflection_optimizer">true</prop>
+				<prop key="hibernate.jdbc.use_scrollable_resultset">false</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.use_sql_comments">true</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="javax.persistence.validation.mode">none</prop>
+
+				<!--org.springframework.orm.hibernate4.SpringSessionContext-->
+<!-- 				<prop key="hibernate.current_session_context_class">spring</prop> -->
+			</props>
+		</property>
+	</bean>
+
+<!-- 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> -->
+<!--   		<property name="dataSource" ref="skmbwDataSource" /> -->
+<!-- 	</bean> -->
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="skmbwSessionFactory"/>
 	</bean>
 
 	<!-- SpringJdbcTemplate -->

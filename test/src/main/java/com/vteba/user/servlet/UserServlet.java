@@ -13,7 +13,10 @@ import org.springframework.stereotype.Controller;
 import com.google.common.collect.Maps;
 import com.vteba.tx.generic.Order;
 import com.vteba.tx.generic.Page;
+import com.vteba.user.dao.IUserDao;
 import com.vteba.user.dao.UserDao;
+import com.vteba.user.dao.impl.IUserDaoImpl;
+import com.vteba.user.model.EmpUser;
 import com.vteba.user.model.User;
 import com.vteba.utils.ofbiz.LangUtils;
 import com.vteba.web.servlet.AutowiredHttpServlet;
@@ -30,6 +33,9 @@ public class UserServlet extends AutowiredHttpServlet {
 
     @Autowired
     private UserDao userDaoImpl;
+    
+    @Autowired
+    private IUserDao iuserDaoImpl;
     
     public void servlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = new User();
@@ -117,6 +123,10 @@ public class UserServlet extends AutowiredHttpServlet {
 //        sql = "delete from user where id = ? and age = ?";
 //        i = userDaoImpl.deleteBatch(sql, id, 19);
 //        System.out.println("批量删除实体数：" + i);
+        
+        String hql = "select a.userName, a.age from User a ";
+        IUserDaoImpl real = (IUserDaoImpl) iuserDaoImpl;
+        real.getListByHql(hql, EmpUser.class);
     }
     
     public static void main(String[] a) {

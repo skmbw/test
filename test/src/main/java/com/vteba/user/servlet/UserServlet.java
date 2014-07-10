@@ -172,6 +172,10 @@ public class UserServlet extends AutowiredHttpServlet {
         iuserDaoImpl.getListByLike("userName", "yin");
         iuserDaoImpl.getListByLike(setValue);
         iuserDaoImpl.getListByLike(setValue, LangUtils.toMap("userName", "desc"));
+        
+//        IUserDaoImpl real = (IUserDaoImpl)iuserDaoImpl;
+//        String hql = "select sum(User.age) count from User User";
+//        real.hqlQueryForObject(hql, Integer.class);
     }
     
     public static void main(String[] a) {

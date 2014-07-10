@@ -276,7 +276,7 @@ public class UserDaoImpl extends SpringGenericDaoImpl<User, Long> implements Use
             }
         }
         
-        resultMap.put("state", entity.isState() ? 1 : 0);
+        resultMap.put("state", entity.getState() ? 1 : 0);
         if (append) {
             columns.append(" where state = :state");
             append = false;

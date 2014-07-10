@@ -16,7 +16,7 @@ public class User {
     private Integer age;
     private String  email;
     private String  password;
-    private boolean state = true;// 要给对应的默认值，如果使用了原生类型
+    private Boolean state;// 要给对应的默认值，如果使用了原生类型
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,11 +66,11 @@ public class User {
     }
 
     @Column(name = "state")
-    public boolean isState() {
+    public Boolean getState() {
         return state;
     }
 
-    public void setState(boolean state) {
+    public void setState(Boolean state) {
         this.state = state;
     }
 

@@ -15,8 +15,6 @@ import com.vteba.tx.generic.Order;
 import com.vteba.tx.generic.Page;
 import com.vteba.user.dao.IUserDao;
 import com.vteba.user.dao.UserDao;
-import com.vteba.user.dao.impl.IUserDaoImpl;
-import com.vteba.user.model.EmpUser;
 import com.vteba.user.model.User;
 import com.vteba.utils.ofbiz.LangUtils;
 import com.vteba.web.servlet.AutowiredHttpServlet;
@@ -124,9 +122,56 @@ public class UserServlet extends AutowiredHttpServlet {
 //        i = userDaoImpl.deleteBatch(sql, id, 19);
 //        System.out.println("批量删除实体数：" + i);
         
-        String hql = "select a.userName, a.age from User a ";
-        IUserDaoImpl real = (IUserDaoImpl) iuserDaoImpl;
-        real.getListByHql(hql, EmpUser.class);
+//        String hql = "select a.userName, a.age from User a ";
+//        IUserDaoImpl real = (IUserDaoImpl) iuserDaoImpl;
+//        real.getListByHql(hql, EmpUser.class);
+        
+        iuserDaoImpl.getEntityList(LangUtils.toMap("userName", "yinlei"));
+        
+        User user2 = new User();
+        user2.setUserName("yinlei");
+        iuserDaoImpl.getEntityList(params);
+        
+        iuserDaoImpl.getEntityList("userName", "yinlei");
+        
+        iuserDaoImpl.getEntityList(LangUtils.toMap("userName", "yinlei"), LangUtils.toMap("userName", "desc"));
+        
+        iuserDaoImpl.getEntityList(user2, LangUtils.toMap("userName", "asc", "age", "desc"));
+        
+        iuserDaoImpl.getEntityList("userName", "yinlei", "age", 15, LangUtils.toMap("userName", "asc", "age", "desc"));
+        
+        iuserDaoImpl.queryForPage(page, params);
+        
+        iuserDaoImpl.queryForPage(page, user2);
+        
+        User user3 = new User();
+        user3.setId(1232L);
+        iuserDaoImpl.deleteBatch(user3);
+        
+        iuserDaoImpl.deleteBatch(LangUtils.toMap("id", 567L));
+        
+        User user4 = new User();
+        user4.setId(12L);
+        iuserDaoImpl.uniqueResult(user4);
+        
+        iuserDaoImpl.uniqueResult(LangUtils.toMap("id", 51116L));
+        
+        iuserDaoImpl.uniqueResult("id", 313L);
+        
+        User setValue = new User();
+        setValue.setUserName("OK");
+        setValue.setAge(23);
+        iuserDaoImpl.updateBatch(setValue, user3);
+        
+        iuserDaoImpl.updateBatch(setValue, LangUtils.toMap("id", 33L));
+        
+        iuserDaoImpl.pagedQueryList(page, params);
+        
+        iuserDaoImpl.pagedQueryList(page, LangUtils.toMap("userName", "yinlei"));
+        
+        iuserDaoImpl.getListByLike("userName", "yin");
+        iuserDaoImpl.getListByLike(setValue);
+        iuserDaoImpl.getListByLike(setValue, LangUtils.toMap("userName", "desc"));
     }
     
     public static void main(String[] a) {

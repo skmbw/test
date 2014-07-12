@@ -5,12 +5,12 @@ import javax.inject.Named;
 
 import org.hibernate.SessionFactory;
 
-import com.vteba.tx.hibernate.impl.HibernateGenericDaoImpl;
+import com.vteba.tx.hibernate.impl.BaseGenericDaoImpl;
 import com.vteba.user.dao.IUserDao;
 import com.vteba.user.model.User;
 
 @Named
-public class IUserDaoImpl extends HibernateGenericDaoImpl<User, Long> implements IUserDao {
+public class IUserDaoImpl extends BaseGenericDaoImpl<User, Long> implements IUserDao {
 
     @Inject
     @Override

@@ -38,6 +38,16 @@
 		<url-pattern>/userServlet</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>image</servlet-name>
+		<servlet-class>com.vteba.user.servlet.ImageServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>image</servlet-name>
+		<url-pattern>/image</url-pattern>
+	</servlet-mapping>
+
 	<filter>
 		<filter-name>characterEncodingFilter</filter-name>
 		<filter-class>com.vteba.web.filter.CharacterEncodingFilter</filter-class>

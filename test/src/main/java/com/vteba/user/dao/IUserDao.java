@@ -1,9 +1,9 @@
 package com.vteba.user.dao;
 
-import com.vteba.tx.hibernate.IHibernateGenericDao;
+import com.vteba.tx.hibernate.BaseGenericDao;
 import com.vteba.user.model.User;
 
 
-public interface IUserDao extends IHibernateGenericDao<User, Long> {
+public interface IUserDao extends BaseGenericDao<User, Long> {
 
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import com.google.common.collect.Maps;
 import com.vteba.tx.generic.Order;
 import com.vteba.tx.generic.Page;
+import com.vteba.tx.jdbc.sequence.KeyGenerator;
 import com.vteba.user.dao.IUserDao;
 import com.vteba.user.dao.UserDao;
 import com.vteba.user.model.User;
@@ -35,7 +36,16 @@ public class UserServlet extends AutowiredHttpServlet {
     @Autowired
     private IUserDao iuserDaoImpl;
     
+    @Autowired
+    private KeyGenerator singleTableGenerator;
+    
     public void servlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String incre = singleTableGenerator.nextString();
+        System.out.println(incre);
+        
+        
+        String userName = request.getParameter("userName");
+        System.out.println(userName);
         User user = new User();
         user.setAge(14);
         user.setEmail("email@126.com");

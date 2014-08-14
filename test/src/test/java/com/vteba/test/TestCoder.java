@@ -9,18 +9,18 @@ public class TestCoder {
 
 	public static void main(String[] args) {
 	    //项目绝对路径
-		String rootPath = "C:\\Users\\Administrator\\git\\test\\test\\";
-		CodeBuilder builder = new CodeBuilder(rootPath, TempType.Generic);
+		String rootPath = "C:/Users/Administrator/git/test/test/";
+		CodeBuilder builder = new CodeBuilder(rootPath, TempType.Base);
 		builder.setConfigFilePath("src/main/resources/config.properties")
-		.schema("skmbw")
-		.className("EmpUser")
+		.schema("public")
+		.className("User")
 		.setDb(DB.MySQL)
-		.keyType(KeyType.Integer)
+		.keyType(KeyType.String)
 		.tableDesc("系统用户")
-		.tableName("emp_user")
-		.module("com.vteba.user2")
+		.tableName("user")
+		.module("com.vteba.finance.account")
 		.setPojo(false)
-		.setMongo(false)
+		.setMongo(true)
 		.build();
 
 	}

@@ -14,7 +14,7 @@
 	<!-- auto scan bean base package , 可以有多个值，以逗号分开-->
 	<context:component-scan base-package="com.vteba"/>
 
-	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<bean id="propertyConfigurer" class="com.vteba.service.context.config.PropUtils">
 		<property name="locations">
 			<list>
 				<value>classpath:jndi.properties</value>
@@ -135,4 +135,40 @@
 		<aop:advisor advice-ref="transactionAdvice" pointcut-ref="remoteTxMethodPointCut"/>
 	</aop:config>
 
+	<bean id="httpSolrServerFactory" class="org.springframework.data.solr.server.support.HttpSolrServerFactoryBean">
+		<property name="url" value="http://localhost:8080/solr/db"/>
+	</bean>
+
+	<bean id="solrTemplate" class="org.springframework.data.solr.core.SolrTemplate">
+		<constructor-arg ref="httpSolrServerFactory"/>
+	</bean>
+	
+	<bean id="singleTableGenerator" class="com.vteba.tx.jdbc.sequence.SingleTableGenerator">
+		<property name="dataSource" ref="skmbwDataSource"/>
+		<!-- 模拟sequence的表名 -->
+		<property name="incrementerName" value="sequences"/>
+		<property name="databaseType" value="mysql"/>
+		<!-- sequence的名字 -->
+		<property name="sequenceName" value="USER_SEQ"/>
+		<!-- sequence值的栏位名 -->
+		<property name="seqValueColumn" value="seq_value"/>
+		<!-- sequence名的栏位名 -->
+		<property name="seqNameColumn" value="seq_name"/>
+	</bean>
+	
+	<bean id="mailSenderImpl" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${email.host}" />
+		<property name="protocol" value="smtp"/>
+		<property name="port" value="25"/>
+		<property name="defaultEncoding" value="UTF-8"/>
+		<property name="username" value="${email.username}" />
+		<property name="password" value="${email.password}" />
+		<property name="javaMailProperties">
+			<props>
+<!-- 				<prop key="mail.smtp.auth">true</prop> -->
+				<!-- 使用gmail smtp server的必须参数 -->
+<!-- 				<prop key="mail.smtp.starttls.enable">true</prop> -->
+			</props>
+		</property>
+	</bean>
 </beans>

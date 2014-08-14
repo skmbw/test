@@ -12,9 +12,10 @@ public class TestCoder {
 		String rootPath = "C:/Users/Administrator/git/test/test/";
 		CodeBuilder builder = new CodeBuilder(rootPath, TempType.Base);
 		builder.setConfigFilePath("src/main/resources/config.properties")
+		.setSrcPath("src/main/java/")
 		.schema("public")
 		.className("User")
-		.setDb(DB.MySQL)
+		.setDb(DB.PostgreSQL)// 可以不使用，只要jdbc url是正确的
 		.keyType(KeyType.String)
 		.tableDesc("系统用户")
 		.tableName("user")

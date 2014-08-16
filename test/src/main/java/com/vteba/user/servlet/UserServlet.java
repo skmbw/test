@@ -3,20 +3,14 @@ package com.vteba.user.servlet;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 
 import com.google.common.collect.Maps;
-import com.vteba.service.context.config.PropUtils;
 import com.vteba.tx.generic.Order;
 import com.vteba.tx.generic.Page;
 import com.vteba.tx.jdbc.sequence.KeyGenerator;
@@ -45,28 +39,28 @@ public class UserServlet extends AutowiredHttpServlet {
     @Autowired
     private KeyGenerator singleTableGenerator;
     
-    @Inject
-    private JavaMailSender mailSenderImpl;
+//    @Inject
+//    private JavaMailSender mailSenderImpl;
     
     public void servlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String incre = singleTableGenerator.nextString();
         System.out.println(incre);
         
-        MimeMessage mimeMessage = mailSenderImpl.createMimeMessage();
-        
-        MimeMessageHelper helper;
-        try {
-            helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-            helper.setFrom(PropUtils.get("email.username"));
-            helper.setTo("yinlei_nb@126.com");
-            
-            mimeMessage.setSubject("ce好啊");
-            mimeMessage.setText("OKme没有问题", "UTF-8");
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-        
-        mailSenderImpl.send(mimeMessage);
+//        MimeMessage mimeMessage = mailSenderImpl.createMimeMessage();
+//        
+//        MimeMessageHelper helper;
+//        try {
+//            helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+//            helper.setFrom(PropUtils.get("email.username"));
+//            helper.setTo("yinlei_nb@126.com");
+//            
+//            mimeMessage.setSubject("ce好啊");
+//            mimeMessage.setText("OKme没有问题", "UTF-8");
+//        } catch (MessagingException e) {
+//            e.printStackTrace();
+//        }
+//        
+//        mailSenderImpl.send(mimeMessage);
         
         String userName = request.getParameter("userName");
         System.out.println(userName);

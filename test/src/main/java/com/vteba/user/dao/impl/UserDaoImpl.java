@@ -62,185 +62,185 @@ public class UserDaoImpl extends SpringGenericDaoImpl<User, Long> implements Use
         return user;
     }
 
-//    @Override
-//    public Map<String, Object> mapBean(User entity, SqlType sqlType) {
-//        Map<String, Object> resultMap = new HashMap<String, Object>();
-//        
-//        StringBuilder columns = new StringBuilder();
-//        boolean append = true;
-//        
-//        if (entity != null) {
-//            switch (sqlType) {
-//                case INSERT:// 对于insert语句根本不需要考虑，是否要前缀
-//                    columns.append("insert into ").append(tableName).append("(");
-//                    
-//                    StringBuilder holders = new StringBuilder(") values(");
-//                    
-//                    if (entity.getUserName() != null) {
-//                        resultMap.put("user_name", entity.getUserName());
-//                        columns.append("user_name,");
-//                        holders.append(":user_name,");
-//                    }
-//                    if (entity.getAge() != null) {
-//                        resultMap.put("age", entity.getAge());
-//                        columns.append("age,");
-//                        holders.append(":age,");
-//                    }
-//                    if (entity.getId() != null) {// 这个id属性，如果数据库自动生成主键，可能不需要
-//                        resultMap.put("id", entity.getId());
-//                        columns.append("id,");
-//                        holders.append(":id,");
-//                    }
-//                    if (entity.getEmail() != null) {
-//                        resultMap.put("email", entity.getEmail());
-//                        columns.append("email,");
-//                        holders.append(":email,");
-//                    }
-//                    if (entity.getPassword() != null) {
-//                        resultMap.put("password", entity.getPassword());
-//                        columns.append("password,");
-//                        holders.append(":password,");
-//                    }
-//                    resultMap.put("state", entity.isState() ? 1 : 0);
-//                    columns.append("state");
-//                    holders.append(":state");
-//                    
-//                    columns.append(holders).append(")");
-//                    resultMap.put(SQL_KEY, columns.toString());
-//                    break;
-//                case SELECT:
-//                    columns.append("select * from ").append(tableName);
-//                    
-//                    buildWhere(entity, resultMap, columns, append);
-//                    break;
-//                case DELETE:
-//                    columns.append("delete from ").append(tableName);
-//                    
-//                    buildWhere(entity, resultMap, columns, append);
-//                    break;
-//                case UPDATE:
-//                    columns.append("update ").append(tableName);
-//                    if (entity.getUserName() != null) {
-//                        resultMap.put("user_name", entity.getUserName());
-//                        columns.append(" set user_name = :user_name");
-//                        append = false;
-//                    }
-//                    if (entity.getAge() != null) {
-//                        resultMap.put("age", entity.getAge());
-//                        if (append) {
-//                            columns.append(" set age = :age");
-//                            append = false;
-//                        } else {
-//                            columns.append(", age = :age");
-//                        }
-//                    }
-//                    if (entity.getEmail() != null) {
-//                        resultMap.put("email", entity.getEmail());
-//                        if (append) {
-//                            columns.append(" set email = :email");
-//                            append = false;
-//                        } else {
-//                            columns.append(", email = :email");
-//                        }
-//                    }
-//                    if (entity.getPassword() != null) {
-//                        resultMap.put("password", entity.getPassword());
-//                        if (append) {
-//                            columns.append(" set password = :password");
-//                            append = false;
-//                        } else {
-//                            columns.append(", password = :password");
-//                        }
-//                    }
-//                    
-//                    resultMap.put("state", entity.isState() ? 1 : 0);
-//                    if (append) {
-//                        columns.append(" set state = :state");
-//                        append = false;
-//                    } else {
-//                        columns.append(", state = :state");
-//                    }
-//                    
-//                    if (entity.getId() != null) {
-//                        resultMap.put("id", entity.getId());
-//                    } else {
-//                        throw new NullPointerException("update方法是根据ID更新实体，ID属性为空，请设置ID属性值；要么使用updateBatch。");
-//                    }
-//                    columns.append(" where id = :id");
-//                    
-//                    resultMap.put(SQL_KEY, columns.toString());
-//                    break;
-//                case WHERE:
-//                    buildWhere(entity, resultMap, columns, append);
-//                    break;
-//                case UPDATESET:
-//                    columns.append("update ").append(tableName);
-//                    if (entity.getUserName() != null) {
-//                        resultMap.put("_user_name", entity.getUserName());
-//                        columns.append(" set user_name = :_user_name");
-//                        append = false;
-//                    }
-//                    if (entity.getAge() != null) {
-//                        resultMap.put("_age", entity.getAge());
-//                        if (append) {
-//                            columns.append(" set age = :_age");
-//                            append = false;
-//                        } else {
-//                            columns.append(", age = :_age");
-//                        }
-//                    }
-//                    if (entity.getEmail() != null) {
-//                        resultMap.put("_email", entity.getEmail());
-//                        if (append) {
-//                            columns.append(" set email = :_email");
-//                            append = false;
-//                        } else {
-//                            columns.append(", email = :_email");
-//                        }
-//                    }
-//                    if (entity.getPassword() != null) {
-//                        resultMap.put("_password", entity.getPassword());
-//                        if (append) {
-//                            columns.append(" set password = :_password");
-//                            append = false;
-//                        } else {
-//                            columns.append(", password = :_password");
-//                        }
-//                    }
-//                    
-//                    resultMap.put("_state", entity.isState() ? 1 : 0);
-//                    if (append) {
-//                        columns.append(" set state = :_state");
-//                        append = false;
-//                    } else {
-//                        columns.append(", state = :_state");
-//                    }
-//                    resultMap.put(SQL_KEY, columns.toString());
-//                    break;
-//                case NULL:
-//
-//                default:
-//                    if (entity.getUserName() != null) {
-//                        resultMap.put("user_name", entity.getUserName());
-//                    }
-//                    if (entity.getAge() != null) {
-//                        resultMap.put("age", entity.getAge());
-//                    }
-//                    if (entity.getId() != null) {
-//                        resultMap.put("id", entity.getId());
-//                    }
-//                    if (entity.getEmail() != null) {
-//                        resultMap.put("email", entity.getEmail());
-//                    }
-//                    if (entity.getPassword() != null) {
-//                        resultMap.put("password", entity.getPassword());
-//                    }
-//                    resultMap.put("state", entity.isState() ? 1 : 0);
-//                    break;
-//            }
-//        }
-//        return resultMap;
-//    }
+    @Override
+    public Map<String, Object> mapBean(User entity, SqlType sqlType) {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        
+        StringBuilder columns = new StringBuilder();
+        boolean append = true;
+        
+        if (entity != null) {
+            switch (sqlType) {
+                case INSERT:// 对于insert语句根本不需要考虑，是否要前缀
+                    columns.append("insert into ").append(tableName).append("(");
+                    
+                    StringBuilder holders = new StringBuilder(") values(");
+                    
+                    if (entity.getUserName() != null) {
+                        resultMap.put("user_name", entity.getUserName());
+                        columns.append("user_name,");
+                        holders.append(":user_name,");
+                    }
+                    if (entity.getAge() != null) {
+                        resultMap.put("age", entity.getAge());
+                        columns.append("age,");
+                        holders.append(":age,");
+                    }
+                    if (entity.getId() != null) {// 这个id属性，如果数据库自动生成主键，可能不需要
+                        resultMap.put("id", entity.getId());
+                        columns.append("id,");
+                        holders.append(":id,");
+                    }
+                    if (entity.getEmail() != null) {
+                        resultMap.put("email", entity.getEmail());
+                        columns.append("email,");
+                        holders.append(":email,");
+                    }
+                    if (entity.getPassword() != null) {
+                        resultMap.put("password", entity.getPassword());
+                        columns.append("password,");
+                        holders.append(":password,");
+                    }
+                    resultMap.put("state", entity.getState() ? 1 : 0);
+                    columns.append("state");
+                    holders.append(":state");
+                    
+                    columns.append(holders).append(")");
+                    resultMap.put(SQL_KEY, columns.toString());
+                    break;
+                case SELECT:
+                    columns.append("select * from ").append(tableName);
+                    
+                    buildWhere(entity, resultMap, columns, append);
+                    break;
+                case DELETE:
+                    columns.append("delete from ").append(tableName);
+                    
+                    buildWhere(entity, resultMap, columns, append);
+                    break;
+                case UPDATE:
+                    columns.append("update ").append(tableName);
+                    if (entity.getUserName() != null) {
+                        resultMap.put("user_name", entity.getUserName());
+                        columns.append(" set user_name = :user_name");
+                        append = false;
+                    }
+                    if (entity.getAge() != null) {
+                        resultMap.put("age", entity.getAge());
+                        if (append) {
+                            columns.append(" set age = :age");
+                            append = false;
+                        } else {
+                            columns.append(", age = :age");
+                        }
+                    }
+                    if (entity.getEmail() != null) {
+                        resultMap.put("email", entity.getEmail());
+                        if (append) {
+                            columns.append(" set email = :email");
+                            append = false;
+                        } else {
+                            columns.append(", email = :email");
+                        }
+                    }
+                    if (entity.getPassword() != null) {
+                        resultMap.put("password", entity.getPassword());
+                        if (append) {
+                            columns.append(" set password = :password");
+                            append = false;
+                        } else {
+                            columns.append(", password = :password");
+                        }
+                    }
+                    
+                    resultMap.put("state", entity.getState() ? 1 : 0);
+                    if (append) {
+                        columns.append(" set state = :state");
+                        append = false;
+                    } else {
+                        columns.append(", state = :state");
+                    }
+                    
+                    if (entity.getId() != null) {
+                        resultMap.put("id", entity.getId());
+                    } else {
+                        throw new NullPointerException("update方法是根据ID更新实体，ID属性为空，请设置ID属性值；要么使用updateBatch。");
+                    }
+                    columns.append(" where id = :id");
+                    
+                    resultMap.put(SQL_KEY, columns.toString());
+                    break;
+                case WHERE:
+                    buildWhere(entity, resultMap, columns, append);
+                    break;
+                case UPDATESET:
+                    columns.append("update ").append(tableName);
+                    if (entity.getUserName() != null) {
+                        resultMap.put("_user_name", entity.getUserName());
+                        columns.append(" set user_name = :_user_name");
+                        append = false;
+                    }
+                    if (entity.getAge() != null) {
+                        resultMap.put("_age", entity.getAge());
+                        if (append) {
+                            columns.append(" set age = :_age");
+                            append = false;
+                        } else {
+                            columns.append(", age = :_age");
+                        }
+                    }
+                    if (entity.getEmail() != null) {
+                        resultMap.put("_email", entity.getEmail());
+                        if (append) {
+                            columns.append(" set email = :_email");
+                            append = false;
+                        } else {
+                            columns.append(", email = :_email");
+                        }
+                    }
+                    if (entity.getPassword() != null) {
+                        resultMap.put("_password", entity.getPassword());
+                        if (append) {
+                            columns.append(" set password = :_password");
+                            append = false;
+                        } else {
+                            columns.append(", password = :_password");
+                        }
+                    }
+                    
+                    resultMap.put("_state", entity.getState() ? 1 : 0);
+                    if (append) {
+                        columns.append(" set state = :_state");
+                        append = false;
+                    } else {
+                        columns.append(", state = :_state");
+                    }
+                    resultMap.put(SQL_KEY, columns.toString());
+                    break;
+                case NULL:
+
+                default:
+                    if (entity.getUserName() != null) {
+                        resultMap.put("user_name", entity.getUserName());
+                    }
+                    if (entity.getAge() != null) {
+                        resultMap.put("age", entity.getAge());
+                    }
+                    if (entity.getId() != null) {
+                        resultMap.put("id", entity.getId());
+                    }
+                    if (entity.getEmail() != null) {
+                        resultMap.put("email", entity.getEmail());
+                    }
+                    if (entity.getPassword() != null) {
+                        resultMap.put("password", entity.getPassword());
+                    }
+                    resultMap.put("state", entity.getState() ? 1 : 0);
+                    break;
+            }
+        }
+        return resultMap;
+    }
 
     protected void buildWhere(User entity, Map<String, Object> resultMap, StringBuilder columns, boolean append) {
         if (entity.getUserName() != null) {

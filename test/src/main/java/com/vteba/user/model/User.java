@@ -19,6 +19,8 @@ public class User {
     private Boolean state;// 要给对应的默认值，如果使用了原生类型
     
     @Id
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_user_name")
+    //@SequenceGenerator(name = "seq_user_name", sequenceName = "bizili.seq_user", schema = "bizili", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public Long getId() {

@@ -50,11 +50,12 @@ public class CreatePdf {
      */
     public String getPdfContext(String inputFilePath, String outputFilePath) {
         // 读取DOC文件内容
-        String htmlText = new FileExtracter().extractDoc(inputFilePath, outputFilePath);
-        // 把读取的HTML文件,生成一个字符串
-        String pdf = new FileExtracter().getContext(htmlText);
+//        String htmlText = new FileExtracter().extractDoc(inputFilePath, outputFilePath);
+//        // 把读取的HTML文件,生成一个字符串
+//        String pdf = new FileExtracter().getContext(htmlText);
 
-        return pdf;
+//        return pdf;
+        return null;
     }
 
     /**

@@ -36,17 +36,18 @@ public class Demo4HTMLFile2PDF {
      * @param args
      */
     public static void main(String[] args) throws Exception {
-        String htmlFile = "d:/dd.html";
+        String htmlFile = "d:/template/w63.htm";
 
         // 直接把HTML文件转为PDF文件
         String pdfFile = "d:/demo-htmlfile.pdf";
-        Demo4HTMLFile2PDF.parseHTML2PDFFile(pdfFile, new FileInputStream(
-                htmlFile));
+        Demo4HTMLFile2PDF.parseHTML2PDFFile(pdfFile, new FileInputStream(htmlFile));
 
         // HTML文件转为PDF中的Elements
         String pdfFile2 = "d:/demo-htmlfile2.pdf";
-        Demo4HTMLFile2PDF.parseHTML2PDFElement(pdfFile2, new FileInputStream(
-                htmlFile));
+        Demo4HTMLFile2PDF.parseHTML2PDFElement(pdfFile2, new FileInputStream(htmlFile));
+        
+        String pdfFile3 = "d:/demo-htmlfile3.pdf";
+        Demo4HTMLFile2PDF.parsePDFElement(pdfFile3);
     }
 
     /**
@@ -62,32 +63,29 @@ public class Demo4HTMLFile2PDF {
                 false);
         // 中文字体定义
         Font chFont = new Font(bfCN, 12, Font.NORMAL, BaseColor.BLUE);
-        Font secFont = new Font(bfCN, 12, Font.NORMAL, new BaseColor(0, 204,
-                255));
+        Font secFont = new Font(bfCN, 12, Font.NORMAL, new BaseColor(0, 204, 255));
 
         Document document = new Document();
-        PdfWriter pdfwriter = PdfWriter.getInstance(document,
-                new FileOutputStream(pdfFile));
-        pdfwriter.setViewerPreferences(PdfWriter.HideToolbar);
+        PdfWriter pdfwriter = PdfWriter.getInstance(document, new FileOutputStream(pdfFile));
+        //pdfwriter.setViewerPreferences(PdfWriter.HideToolbar);
         document.open();
 
         int chNum = 1;
-        Chapter chapter = new Chapter(new Paragraph("HTML文件转PDF测试", chFont),
-                chNum++);
-
-        Section section = chapter.addSection(new Paragraph("/dev/null 2>&1 详解",
-                secFont));
-        // section.setNumberDepth(2);
-        // section.setBookmarkTitle("基本信息");
-        section.setIndentation(10);
-        section.setIndentationLeft(10);
-        section.setBookmarkOpen(false);
-        section.setNumberStyle(Section.NUMBERSTYLE_DOTTED_WITHOUT_FINAL_DOT);
-        section.add(Chunk.NEWLINE);
-        document.add(chapter);
+        
+//        Chapter chapter = new Chapter(new Paragraph("HTML文件转PDF测试", chFont), chNum++);
+//
+//        Section section = chapter.addSection(new Paragraph("/dev/null 2>&1 详解", secFont));
+//        // section.setNumberDepth(2);
+//        // section.setBookmarkTitle("基本信息");
+//        section.setIndentation(10);
+//        section.setIndentationLeft(10);
+//        section.setBookmarkOpen(false);
+//        section.setNumberStyle(Section.NUMBERSTYLE_DOTTED_WITHOUT_FINAL_DOT);
+//        section.add(Chunk.NEWLINE);
+//        document.add(chapter);
 
         // html文件
-        InputStreamReader isr = new InputStreamReader(htmlFileStream, "UTF-8");
+        InputStreamReader isr = new InputStreamReader(htmlFileStream, "gb2312");
 
         // 方法一：默认参数转换
         XMLWorkerHelper.getInstance().parseXHtml(pdfwriter, document, isr);
@@ -123,15 +121,15 @@ public class Demo4HTMLFile2PDF {
             Document document = new Document(PageSize.A4);
 
             FileOutputStream outputStream = new FileOutputStream(pdfFile);
-            PdfWriter pdfwriter = PdfWriter.getInstance(document, outputStream);
+            PdfWriter.getInstance(document, outputStream);
             // pdfwriter.setViewerPreferences(PdfWriter.HideToolbar);
             document.open();
 
-            BaseFont bfCN = BaseFont.createFont("STSongStd-Light", "UniGB-UCS2-H", false);
+            BaseFont baseFont = BaseFont.createFont("STSongStd-Light", "UniGB-UCS2-H", false);
             // 中文字体定义
-            Font chFont = new Font(bfCN, 12, Font.NORMAL, BaseColor.BLUE);
-            Font secFont = new Font(bfCN, 12, Font.NORMAL, new BaseColor(0, 204, 255));
-            Font textFont = new Font(bfCN, 12, Font.NORMAL, BaseColor.BLACK);
+            Font chFont = new Font(baseFont, 12, Font.NORMAL, BaseColor.BLUE);
+            Font secFont = new Font(baseFont, 12, Font.NORMAL, new BaseColor(0, 204, 255));
+            Font textFont = new Font(baseFont, 12, Font.NORMAL, BaseColor.BLACK);
 
             int chNum = 1;
             Chapter chapter = new Chapter(new Paragraph("HTML文件转PDF元素，便于追加其他内容", chFont), chNum++);
@@ -154,7 +152,7 @@ public class Demo4HTMLFile2PDF {
 
                 }
             };
-            InputStreamReader isr = new InputStreamReader(htmlFileStream, "UTF-8");
+            InputStreamReader isr = new InputStreamReader(htmlFileStream, "gb2312");
             XMLWorkerHelper.getInstance().parseXHtml(elemH, isr);
 
             List<Element> list = new ArrayList<Element>();
@@ -166,14 +164,67 @@ public class Demo4HTMLFile2PDF {
                 list.add(ele);
             }
             section.addAll(list);
+//
+//            section = chapter.addSection(new Paragraph("继续添加章节", secFont));
+//
+//            section.setIndentation(10);
+//            section.setIndentationLeft(10);
+//            section.setBookmarkOpen(false);
+//            section.setNumberStyle(Section.NUMBERSTYLE_DOTTED_WITHOUT_FINAL_DOT);
+//            section.add(new Chunk("测试HTML转为PDF元素，方便追加其他内容", textFont));
+            
 
-            section = chapter.addSection(new Paragraph("继续添加章节", secFont));
+            document.add(chapter);
+            document.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+    }
+    
+    /**
+     * HTML文件转为PDF中的Elements,便于把HTML内容追加到已有的PDF中
+     *
+     * @param pdfFile
+     * @param htmlFileStream
+     */
+    public static void parsePDFElement(String pdfFile) {
+        try {
+            Document document = new Document(PageSize.A4);
+
+            FileOutputStream outputStream = new FileOutputStream(pdfFile);
+            PdfWriter.getInstance(document, outputStream);
+            // pdfwriter.setViewerPreferences(PdfWriter.HideToolbar);
+            document.open();
+
+            BaseFont bfCN = BaseFont.createFont("STSongStd-Light", "UniGB-UCS2-H", false);
+            // 中文字体定义
+            Font chFont = new Font(bfCN, 12, Font.NORMAL, BaseColor.BLUE);
+            Font secFont = new Font(bfCN, 12, Font.NORMAL, new BaseColor(0, 204, 255));
+            Font textFont = new Font(bfCN, 12, Font.NORMAL, BaseColor.BLACK);
+
+            int chNum = 1;
+            Chapter chapter = new Chapter(new Paragraph("● 平安银行", chFont), chNum++);
+            
+
+            Section section = chapter.addSection(new Paragraph("负面新闻12篇", secFont));
+            
             section.setIndentation(10);
             section.setIndentationLeft(10);
             section.setBookmarkOpen(false);
             section.setNumberStyle(Section.NUMBERSTYLE_DOTTED_WITHOUT_FINAL_DOT);
-            section.add(new Chunk("测试HTML转为PDF元素，方便追加其他内容", textFont));
+            section.add(Chunk.NEWLINE);
+
+            
+//
+//            section = chapter.addSection(new Paragraph("继续添加章节", secFont));
+//
+//            section.setIndentation(10);
+//            section.setIndentationLeft(10);
+//            section.setBookmarkOpen(false);
+//            section.setNumberStyle(Section.NUMBERSTYLE_DOTTED_WITHOUT_FINAL_DOT);
+//            section.add(new Chunk("测试HTML转为PDF元素，方便追加其他内容", textFont));
+            
 
             document.add(chapter);
             document.close();

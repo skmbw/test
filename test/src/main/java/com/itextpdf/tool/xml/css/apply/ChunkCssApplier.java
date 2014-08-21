@@ -65,6 +65,7 @@ import com.itextpdf.tool.xml.html.HTMLUtils;
 /**
  * Applies CSS Rules to Chunks
  */
+@SuppressWarnings("deprecation")
 public class ChunkCssApplier {
     /**
      * FF4 and IE8 provide normal text and bold text. All other values are translated to one of these 2 styles <br />

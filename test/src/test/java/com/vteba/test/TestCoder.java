@@ -14,12 +14,12 @@ public class TestCoder {
 		builder.setConfigFilePath("src/main/resources/config.properties")
 		.setSrcPath("src/main/java/")
 		.schema("public")
-		.className("User")
+		.className("Favorite")
 		.setDb(DB.PostgreSQL)// 可以不使用，只要jdbc url是正确的
 		.keyType(KeyType.String)
 		.tableDesc("系统用户")
-		.tableName("user")
-		.module("com.vteba.finance.account")
+		.tableName("favorite")
+		.module("com.vteba.favorite")
 		.setPojo(false)
 		.setMongo(true)
 		.build();

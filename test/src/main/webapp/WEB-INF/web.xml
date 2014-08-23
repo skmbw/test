@@ -37,6 +37,15 @@
 		<servlet-name>userServlet</servlet-name>
 		<url-pattern>/userServlet</url-pattern>
 	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>download</servlet-name>
+		<servlet-class>com.vteba.user.servlet.DownloadServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>download</servlet-name>
+		<url-pattern>/download</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>image</servlet-name>

@@ -297,7 +297,7 @@ public class UserDaoImpl extends SpringGenericDaoImpl<User, Long> implements Use
     }
 
     public Map<String, Object> mapBean(Object entity) {
-    	Map<String, Object> resultMap = new HashMap<>();
+    	Map<String, Object> resultMap = new HashMap<String, Object>();
     	if (entity instanceof User) {
     	    resultMap = mapBean((User) entity, SqlType.NULL);
     	} else if (entity instanceof EmpUser) {

@@ -14,6 +14,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
+
 import com.vteba.user.servlet.Company;
 import com.vteba.utils.date.DateUtils;
 
@@ -33,6 +37,8 @@ public class WordTest {
     public static void main(String[] args) {
         WordTest test = new WordTest();
         test.createWord();
+        FreeMarkerConfigurer configurer = null;
+        configurer.getConfiguration();
     }
     
     public void createWord(){

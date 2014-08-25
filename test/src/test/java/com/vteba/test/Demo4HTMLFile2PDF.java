@@ -4,8 +4,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.io.IOUtils;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
@@ -13,6 +16,7 @@ import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.FontProvider;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Section;
@@ -31,16 +35,19 @@ import com.itextpdf.tool.xml.pipeline.WritableElement;
  * @author <a href="http://www.micmiu.com">Michael Sun</a>
  */
 public class Demo4HTMLFile2PDF {
-
+    
+    public static final Charset UTF8 = Charset.forName("UTF-8");
+    
     /**
      * @param args
      */
     public static void main(String[] args) throws Exception {
-        String htmlFile = "d:/template/w63.htm";
+        String htmlFile = "d:/template/w63-2.htm";
 
         // 直接把HTML文件转为PDF文件
         String pdfFile = "d:/demo-htmlfile.pdf";
         Demo4HTMLFile2PDF.parseHTML2PDFFile(pdfFile, new FileInputStream(htmlFile));
+        
 
         // HTML文件转为PDF中的Elements
         String pdfFile2 = "d:/demo-htmlfile2.pdf";
@@ -87,8 +94,14 @@ public class Demo4HTMLFile2PDF {
         // html文件
         InputStreamReader isr = new InputStreamReader(htmlFileStream, "gb2312");
 
+        
+        
         // 方法一：默认参数转换
         XMLWorkerHelper.getInstance().parseXHtml(pdfwriter, document, isr);
+        
+        InputStream inCssFile = new FileInputStream("D:/template/css.css");
+        
+        //XMLWorkerHelper.getInstance().parseXHtml(pdfwriter, document, htmlFileStream, inCssFile, UTF8);
 
         // 方法二：可以自定义参数
         // HtmlPipelineContext htmlContext = new HtmlPipelineContext(null);

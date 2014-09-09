@@ -14,11 +14,15 @@ import javax.sql.DataSource;
 import com.alibaba.druid.mapping.spi.MappingProvider;
 import com.alibaba.druid.mapping.spi.MappingVisitor;
 import com.alibaba.druid.mapping.spi.MySqlMappingProvider;
+import com.alibaba.druid.mapping.spi.PropertyValue;
 import com.alibaba.druid.sql.ast.SQLObject;
 import com.alibaba.druid.sql.ast.SQLStatement;
+import com.alibaba.druid.sql.ast.expr.SQLIdentifierExpr;
 import com.alibaba.druid.sql.ast.statement.SQLDeleteStatement;
+import com.alibaba.druid.sql.ast.statement.SQLExprTableSource;
 import com.alibaba.druid.sql.ast.statement.SQLInsertStatement;
 import com.alibaba.druid.sql.ast.statement.SQLSelectQueryBlock;
+import com.alibaba.druid.sql.ast.statement.SQLTableSource;
 import com.alibaba.druid.sql.ast.statement.SQLUpdateStatement;
 import com.alibaba.druid.sql.visitor.ExportParameterVisitor;
 import com.alibaba.druid.sql.visitor.SQLASTOutputVisitor;
@@ -375,6 +379,34 @@ public class MappingEngine {
             insert(conn, sql, parameters);
         } finally {
             JdbcUtils.close(conn);
+        }
+    }
+    
+    public static class ShardingMappingEngine extends MappingEngine {
+
+        public void afterResole(MappingVisitor visitor) {
+            String shardingTableName = null;
+            for (PropertyValue entry : visitor.getPropertyValues()) {
+                Entity entity = entry.getEntity();
+                Property property = entry.getProperty();
+                Object value = entry.getValue();
+
+                if ("用户".equals(entity.getName()) && "名称".equals(property.getName())) {
+                    if ("a".equals(value)) {
+                        shardingTableName = "user_a";
+                    } else {
+                        shardingTableName = "user_x";
+                    }
+                }
+            }
+
+            for (SQLTableSource tableSource : visitor.getTableSources().values()) {
+                Entity entity = (Entity) tableSource.getAttribute("mapping.entity");
+                if (entity != null && "用户".equals(entity.getName())) {
+                    SQLExprTableSource exprTableSource = (SQLExprTableSource) tableSource;
+                    exprTableSource.setExpr(new SQLIdentifierExpr(shardingTableName));
+                }
+            }
         }
     }
 }

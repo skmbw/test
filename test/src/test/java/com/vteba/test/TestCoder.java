@@ -10,7 +10,7 @@ public class TestCoder {
 	public static void main(String[] args) {
 	    //项目绝对路径
 		String rootPath = "C:/Users/Administrator/git/test/test/";
-		CodeBuilder builder = new CodeBuilder(rootPath, TempType.Base);
+		CodeBuilder builder = new CodeBuilder(rootPath, TempType.Mybatis);
 		builder.setConfigFilePath("src/main/resources/config.properties")
 		.setSrcPath("src/main/java/")
 		.schema("public")
@@ -21,7 +21,12 @@ public class TestCoder {
 		.tableName("favorite")
 		.module("com.vteba.favorite")
 		.setPojo(false)
-		.setMongo(true)
+		.setMongo(false)
+		.setGenAction(false)
+        .setGenDao(false)
+        .setGenMapper(false)
+        .setGenModel(false)
+        .setGenService(false)
 		.build();
 
 	}

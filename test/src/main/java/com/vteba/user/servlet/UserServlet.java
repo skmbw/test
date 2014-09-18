@@ -43,7 +43,7 @@ public class UserServlet extends AutowiredHttpServlet {
 //    private JavaMailSender mailSenderImpl;
     
     public void servlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String incre = singleTableGenerator.nextString();
+        String incre = singleTableGenerator.next();
         System.out.println(incre);
         
 //        MimeMessage mimeMessage = mailSenderImpl.createMimeMessage();

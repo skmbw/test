@@ -9,6 +9,8 @@
 	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd"
 	default-autowire="byName">
 
+	<import resource="application-mybatis.xml"/>
+
 	<!-- auto wire bean -->
 	<context:annotation-config/>
 	<!-- auto scan bean base package , 可以有多个值，以逗号分开-->

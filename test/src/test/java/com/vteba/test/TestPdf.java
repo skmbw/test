@@ -3,7 +3,6 @@ package com.vteba.test;
 import java.io.FileOutputStream;
 
 import com.itextpdf.text.Document;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.BaseFont;
@@ -23,7 +22,6 @@ public class TestPdf {
             
             Font font = new Font(bfComic, 12, Font.NORMAL);
             document.add(new Paragraph("wo我1", font));
-            Element element;
         } catch (Exception e) {
             // TODO: handle exception
         } finally {

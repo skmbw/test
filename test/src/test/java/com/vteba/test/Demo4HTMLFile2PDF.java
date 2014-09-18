@@ -8,15 +8,12 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
-
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.FontProvider;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Section;
@@ -34,6 +31,7 @@ import com.itextpdf.tool.xml.pipeline.WritableElement;
  *
  * @author <a href="http://www.micmiu.com">Michael Sun</a>
  */
+@SuppressWarnings("unused")
 public class Demo4HTMLFile2PDF {
     
     public static final Charset UTF8 = Charset.forName("UTF-8");
@@ -99,7 +97,7 @@ public class Demo4HTMLFile2PDF {
         // 方法一：默认参数转换
         XMLWorkerHelper.getInstance().parseXHtml(pdfwriter, document, isr);
         
-        InputStream inCssFile = new FileInputStream("D:/template/css.css");
+        //InputStream inCssFile = new FileInputStream("D:/template/css.css");
         
         //XMLWorkerHelper.getInstance().parseXHtml(pdfwriter, document, htmlFileStream, inCssFile, UTF8);
 

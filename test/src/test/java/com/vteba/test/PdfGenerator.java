@@ -8,29 +8,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.html.simpleparser.HTMLWorker;
-import com.itextpdf.text.html.simpleparser.StyleSheet;
 import com.itextpdf.text.pdf.AcroFields;
 import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.tool.xml.Pipeline;
-import com.itextpdf.tool.xml.XMLWorker;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 
 public class PdfGenerator {
@@ -118,6 +108,7 @@ public class PdfGenerator {
         return isSuccsee;
     }
 
+    @SuppressWarnings("static-access")
     public boolean generatePdfByHtml(Document doc,Font fontChinese,String targetFilePath, String htmlStr,boolean isSetVersion) {
         boolean isSuccsee = false;
         OutputStream os;
@@ -194,7 +185,7 @@ public class PdfGenerator {
      * @param args
      */
     public static void main(String[] args) {
-        String tempFilePath = "d:/FirstPdf0.pdf";
+        //String tempFilePath = "d:/FirstPdf0.pdf";
         String targetFilePath = "d:/FirstPdf1.pdf";
         Map<String, String> filedValueMap = new HashMap<String, String>();
         filedValueMap.put("t0", "this is t0    好好");

@@ -6,8 +6,6 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 
 import com.itextpdf.text.Document;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 
@@ -32,8 +30,8 @@ public class TestPdf2 {
         document.open();
 
      // 定义字体,可以正常显示中文
-        BaseFont bfComic = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
-        Font font = new Font(bfComic, 12, Font.NORMAL);
+//        BaseFont bfComic = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
+        //Font font = new Font(bfComic, 12, Font.NORMAL);
         
         
         // html文件

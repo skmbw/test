@@ -4,19 +4,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
-
-import org.apache.commons.io.IOUtils;
-import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import com.vteba.user.servlet.Company;
 import com.vteba.utils.date.DateUtils;
@@ -37,8 +31,8 @@ public class WordTest {
     public static void main(String[] args) {
         WordTest test = new WordTest();
         test.createWord();
-        FreeMarkerConfigurer configurer = null;
-        configurer.getConfiguration();
+        //FreeMarkerConfigurer configurer = null;
+        //configurer.getConfiguration();
     }
     
     public void createWord(){

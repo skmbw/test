@@ -1,7 +1,6 @@
 package com.vteba.user.servlet;
 
 import java.io.BufferedWriter;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -17,10 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.IOUtils;
-import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
-
-import com.vteba.user.utils.Demo4HTMLFile2PDF;
 import com.vteba.utils.date.DateUtils;
 import com.vteba.web.servlet.AutowiredHttpServlet;
 
@@ -39,7 +34,7 @@ public class DownloadServlet extends AutowiredHttpServlet {
 
     @Override
     public void servlet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String htmlFile = "d:/dd.html";
+        //String htmlFile = "d:/dd.html";
 
         //String fileName = "好wo的.pdf";
         String fileName = "好wo的.doc";

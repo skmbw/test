@@ -23,7 +23,8 @@
 		</property>
 		<property name="plugins">
 			<list>
-				<ref bean="shardingPluginsInterceptor"/>
+				<ref bean="executorPluginsInterceptor"/>
+<!-- 				<ref bean="shardingPluginsInterceptor"/> -->
 			</list>
 		</property>
 	</bean>	
@@ -45,4 +46,15 @@
 		</property>
 	</bean>
 	
+	<bean id="executorPluginsInterceptor" class="com.vteba.tx.jdbc.mybatis.plugins.ExecutorPluginsInterceptor">
+		<property name="properties">
+			<props>
+				<prop key="shardingConfig">sharding-config.xml</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="uuidKeyGenerator" class="com.vteba.tx.jdbc.sequence.UuidKeyGenerator">
+		
+	</bean>
 </beans>

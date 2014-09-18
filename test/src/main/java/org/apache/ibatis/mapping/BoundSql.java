@@ -8,12 +8,12 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.Configuration;
 
 /**
- * An actual SQL String got form an {@link SqlSource} after having processed any dynamic content.
- * The SQL may have SQL placeholders "?" and an list (ordered) of an parameter mappings
- * with the additional information for each parameter (at least the property name of the input object to read
- * the value from).
- * </br>
- * Can also have additional parameters that are created by the dynamic language (for loops, bind...).
+ * An actual SQL String got form an {@link SqlSource} after having processed any
+ * dynamic content. The SQL may have SQL placeholders "?" and an list (ordered)
+ * of an parameter mappings with the additional information for each parameter
+ * (at least the property name of the input object to read the value from).
+ * </br> Can also have additional parameters that are created by the dynamic
+ * language (for loops, bind...).
  * <p>
  * 可以直接设置sql，避免反射。
  * 
@@ -22,46 +22,55 @@ import org.apache.ibatis.session.Configuration;
  */
 public class BoundSql {
 
-    private String                 sql;
+    private String sql;
     private List<ParameterMapping> parameterMappings;
-    private Object                 parameterObject;
-    private Map<String, Object>    additionalParameters;
-    private MetaObject             metaParameters;
+    private Object parameterObject;
+    private Map<String, Object> additionalParameters;
+    private MetaObject metaParameters;
+    private List<String> sqlList;
 
-    public BoundSql(Configuration configuration, String sql, List<ParameterMapping> parameterMappings,
-                    Object parameterObject) {
-        this.sql = sql;
-        this.parameterMappings = parameterMappings;
-        this.parameterObject = parameterObject;
-        this.additionalParameters = new HashMap<String, Object>();
-        this.metaParameters = configuration.newMetaObject(additionalParameters);
+    public BoundSql(Configuration configuration, String sql,
+	    List<ParameterMapping> parameterMappings, Object parameterObject) {
+	this.sql = sql;
+	this.parameterMappings = parameterMappings;
+	this.parameterObject = parameterObject;
+	this.additionalParameters = new HashMap<String, Object>();
+	this.metaParameters = configuration.newMetaObject(additionalParameters);
     }
 
     public String getSql() {
-        return sql;
+	return sql;
     }
 
     public void setSql(String sql) {
-        this.sql = sql;
+	this.sql = sql;
     }
-    
+
     public List<ParameterMapping> getParameterMappings() {
-        return parameterMappings;
+	return parameterMappings;
     }
 
     public Object getParameterObject() {
-        return parameterObject;
+	return parameterObject;
     }
 
     public boolean hasAdditionalParameter(String name) {
-        return metaParameters.hasGetter(name);
+	return metaParameters.hasGetter(name);
     }
 
     public void setAdditionalParameter(String name, Object value) {
-        metaParameters.setValue(name, value);
+	metaParameters.setValue(name, value);
     }
 
     public Object getAdditionalParameter(String name) {
-        return metaParameters.getValue(name);
+	return metaParameters.getValue(name);
+    }
+
+    public List<String> getSqlList() {
+        return sqlList;
+    }
+
+    public void setSqlList(List<String> sqlList) {
+        this.sqlList = sqlList;
     }
 }

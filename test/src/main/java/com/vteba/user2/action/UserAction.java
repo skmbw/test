@@ -1,5 +1,6 @@
 package com.vteba.user2.action;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.vteba.user2.model.User;
 import com.vteba.user2.service.spi.UserService;
-
 import com.vteba.web.action.GenericAction;
 import com.vteba.web.action.JsonBean;
 
@@ -79,6 +79,7 @@ public class UserAction extends GenericAction<User> {
     @ResponseBody
     @RequestMapping("/doAdd")
     public JsonBean doAdd(User model) {
+        model.setCreateDate(new Date());
         int result = userServiceImpl.save(model);
         JsonBean bean = new JsonBean();
         if (result == 1) {

@@ -52,7 +52,7 @@ public abstract class BaseStatementHandler implements StatementHandler {
 
         if (boundSql == null) { // issue #435, get the key before calculating the statement
             generateKeys(parameterObject);
-            boundSql = mappedStatement.getBoundSql(parameterObject);
+            boundSql = mappedStatement.getBoundSql();//mappedStatement.getBoundSql(parameterObject);//yinlei
         }
 
         this.boundSql = boundSql;

@@ -21,58 +21,59 @@ import org.apache.ibatis.transaction.Transaction;
  */
 public class SimpleExecutor extends BaseExecutor {
 
-    public SimpleExecutor(Configuration configuration, Transaction transaction) {
-	super(configuration, transaction);
-    }
-
-    public int doUpdate(MappedStatement ms, Object parameter)
-	    throws SQLException {
-	Statement stmt = null;
-	try {
-	    Configuration configuration = ms.getConfiguration();
-	    StatementHandler handler = configuration.newStatementHandler(this,
-		    ms, parameter, RowBounds.DEFAULT, null, null);
-	    stmt = prepareStatement(handler, ms.getStatementLog());
-	    return handler.update(stmt);
-	} finally {
-	    closeStatement(stmt);
+	public SimpleExecutor(Configuration configuration, Transaction transaction) {
+		super(configuration, transaction);
 	}
-    }
 
-    public <E> List<E> doQuery(MappedStatement ms, Object parameter,
-	    RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql)
-	    throws SQLException {
-	Statement stmt = null;
-	try {
-	    Configuration configuration = ms.getConfiguration();
-	    List<E> result = new ArrayList<E>();
-	    List<String> sqlList = boundSql.getSqlList();
-	    for (String sql : sqlList) {// 这里使用多线程处理
-	    	boundSql.setSql(sql);
-	    	StatementHandler handler = configuration.newStatementHandler(
-	    			wrapper, ms, parameter, rowBounds, resultHandler, boundSql);
-	    	stmt = prepareStatement(handler, ms.getStatementLog());
-	    	List<E> temp = handler.<E> query(stmt, resultHandler);
-	    	result.addAll(temp);
-	    }
-	    return result;
-	} finally {
-	    closeStatement(stmt);
+	public int doUpdate(MappedStatement ms, Object parameter)
+			throws SQLException {
+		Statement stmt = null;
+		try {
+			Configuration configuration = ms.getConfiguration();
+			StatementHandler handler = configuration.newStatementHandler(this,
+					ms, parameter, RowBounds.DEFAULT, null, null);
+			stmt = prepareStatement(handler, ms.getStatementLog());
+			return handler.update(stmt);
+		} finally {
+			closeStatement(stmt);
+		}
 	}
-    }
 
-    public List<BatchResult> doFlushStatements(boolean isRollback)
-	    throws SQLException {
-	return Collections.emptyList();
-    }
+	public <E> List<E> doQuery(MappedStatement ms, Object parameter,
+			RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql)
+			throws SQLException {
+		Statement stmt = null;
+		try {
+			Configuration configuration = ms.getConfiguration();
+			List<E> result = new ArrayList<E>();
+			List<String> sqlList = boundSql.getSqlList();
+			for (String sql : sqlList) {// 这里使用多线程处理
+				boundSql.setSql(sql);
+				StatementHandler handler = configuration.newStatementHandler(
+						wrapper, ms, parameter, rowBounds, resultHandler,
+						boundSql);
+				stmt = prepareStatement(handler, ms.getStatementLog());
+				List<E> temp = handler.<E> query(stmt, resultHandler);
+				result.addAll(temp);
+			}
+			return result;
+		} finally {
+			closeStatement(stmt);
+		}
+	}
 
-    private Statement prepareStatement(StatementHandler handler,
-	    Log statementLog) throws SQLException {
-	Statement stmt;
-	Connection connection = getConnection(statementLog);
-	stmt = handler.prepare(connection);
-	handler.parameterize(stmt);
-	return stmt;
-    }
+	public List<BatchResult> doFlushStatements(boolean isRollback)
+			throws SQLException {
+		return Collections.emptyList();
+	}
+
+	private Statement prepareStatement(StatementHandler handler,
+			Log statementLog) throws SQLException {
+		Statement stmt;
+		Connection connection = getConnection(statementLog);
+		stmt = handler.prepare(connection);
+		handler.parameterize(stmt);
+		return stmt;
+	}
 
 }

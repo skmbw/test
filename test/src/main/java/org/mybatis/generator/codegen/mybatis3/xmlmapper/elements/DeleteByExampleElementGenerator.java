@@ -48,7 +48,7 @@ public class DeleteByExampleElementGenerator extends
         sb.append(introspectedTable
                 .getAliasedFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
-        answer.addElement(getDeleteExampleIncludeElement());
+        answer.addElement(getExampleIncludeElement());
 
         if (context.getPlugins().sqlMapDeleteByExampleElementGenerated(
                 answer, introspectedTable)) {

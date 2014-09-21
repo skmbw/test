@@ -54,8 +54,9 @@ import org.mybatis.generator.codegen.mybatis3.xmlmapper.XMLMapperGenerator;
 import org.mybatis.generator.config.PropertyRegistry;
 
 /**
+ * java mapper生成器
  * @author Jeff Butler
- * 
+ * @author 尹雷
  */
 public class JavaMapperGenerator extends AbstractJavaClientGenerator {
 
@@ -79,6 +80,8 @@ public class JavaMapperGenerator extends AbstractJavaClientGenerator {
         FullyQualifiedJavaType type = new FullyQualifiedJavaType(
                 introspectedTable.getMyBatis3JavaMapperType());
         Interface interfaze = new Interface(type);
+        interfaze.addAnnotation("@DaoMapper");
+        interfaze.addImportedType(new FullyQualifiedJavaType("com.vteba.tx.jdbc.mybatis.annotation.DaoMapper"));
         interfaze.setVisibility(JavaVisibility.PUBLIC);
         commentGenerator.addJavaFileComment(interfaze);
 

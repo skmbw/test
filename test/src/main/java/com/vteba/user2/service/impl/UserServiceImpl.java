@@ -1,5 +1,6 @@
 package com.vteba.user2.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -51,26 +52,33 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int save(User record) {
 		record.setId(uuidKeyGenerator.next());
-//		User user = new User();
-//		user.setId("76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
-//		Date date = new Date();
-//		user.setCreateDate(date);
-//		user.setUserName("尹雷2");
-//		// userDao.updateById(user);
-//
-//		User params = new User();
-//		params.setUserName("尹雷2");
-//		// params.setCreateDate(date);
-//		params.setState(true);
-//		user.setId(null);
-//		userDao.updateBulks(user, params);
-//
-//		UserBean userBean = new UserBean();
-//		userBean.createCriteria().andUserAccountEqualTo("yinlei@126.com");
-//		userDao.updateBatch(user, userBean);
-//
-//		userDao.deleteBatch(userBean);
-//		userDao.deleteBulks(params);
+		User user = new User();
+		user.setId("76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
+		Date date = new Date();
+		user.setCreateDate(date);
+		user.setUserName("尹雷2");
+		UpdateBean updateBean = new UpdateBean();
+		updateBean.setRecord(user);
+		updateBean.setKeyValue("76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
+		userDao.updateById(updateBean);
+
+		User params = new User();
+		params.setUserName("yinlei2");
+		user.setId(null);
+		
+		UpdateBean bulkUpdateBean = new UpdateBean(user, params, "76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
+		userDao.updateBulks(bulkUpdateBean);
+
+		UserBean userBean = new UserBean();
+		userBean.createCriteria().andUserAccountEqualTo("yinlei@126.com");
+		UpdateBean batchUpdateBean = new UpdateBean(user, userBean, "76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
+		userDao.updateBatch(batchUpdateBean);
+
+		DeleteBean bulkDeleteBean = new DeleteBean(201409, 201409, params);
+		DeleteBean batchDeleteBean = new DeleteBean(201409, 201409, userBean);
+		
+		userDao.deleteBatch(batchDeleteBean);
+		userDao.deleteBulks(bulkDeleteBean);
 
 		return userDao.save(record);
 	}

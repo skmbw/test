@@ -1,10 +1,14 @@
 package com.vteba.user2.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.vteba.tx.jdbc.params.DeleteBean;
+import com.vteba.tx.jdbc.params.QueryBean;
+import com.vteba.tx.jdbc.params.UpdateBean;
 import com.vteba.tx.jdbc.sequence.KeyGenerator;
 import com.vteba.user2.dao.UserDao;
 import com.vteba.user2.model.User;
@@ -28,12 +32,16 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int count(UserBean params) {
-		return userDao.count(params);
+		QueryBean queryBean = new QueryBean();
+		queryBean.setParams(params);
+		return userDao.count(queryBean);
 	}
 
 	@Override
 	public int deleteBatch(UserBean params) {
-		return userDao.deleteBatch(params);
+		DeleteBean deleteBean = new DeleteBean();
+		deleteBean.setParams(params);
+		return userDao.deleteBatch(deleteBean);
 	}
 
 	@Override
@@ -44,33 +52,42 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int save(User record) {
 		record.setId(uuidKeyGenerator.next());
-//		User user = new User();
-//		user.setId("76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
-//		Date date = new Date();
-//		user.setCreateDate(date);
-//		user.setUserName("尹雷2");
-//		// userDao.updateById(user);
-//
-//		User params = new User();
-//		params.setUserName("尹雷2");
-//		// params.setCreateDate(date);
-//		params.setState(true);
-//		user.setId(null);
-//		userDao.updateBulks(user, params);
-//
-//		UserBean userBean = new UserBean();
-//		userBean.createCriteria().andUserAccountEqualTo("yinlei@126.com");
-//		userDao.updateBatch(user, userBean);
-//
-//		userDao.deleteBatch(userBean);
-//		userDao.deleteBulks(params);
+		User user = new User();
+		user.setId("76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
+		Date date = new Date();
+		user.setCreateDate(date);
+		user.setUserName("尹雷2");
+		UpdateBean updateBean = new UpdateBean();
+		updateBean.setRecord(user);
+		updateBean.setKeyValue("76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
+		userDao.updateById(updateBean);
+
+		User params = new User();
+		params.setUserName("yinlei2");
+		user.setId(null);
+		
+		UpdateBean bulkUpdateBean = new UpdateBean(user, params, "76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
+		userDao.updateBulks(bulkUpdateBean);
+
+		UserBean userBean = new UserBean();
+		userBean.createCriteria().andUserAccountEqualTo("yinlei@126.com");
+		UpdateBean batchUpdateBean = new UpdateBean(user, userBean, "76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
+		userDao.updateBatch(batchUpdateBean);
+
+		DeleteBean bulkDeleteBean = new DeleteBean(201409, 201409, params);
+		DeleteBean batchDeleteBean = new DeleteBean(201409, 201409, userBean);
+		
+		userDao.deleteBatch(batchDeleteBean);
+		userDao.deleteBulks(bulkDeleteBean);
 
 		return userDao.save(record);
 	}
 
 	@Override
 	public List<User> queryForList(UserBean userBean) {
-		return userDao.queryForList(userBean);
+		QueryBean queryBean = new QueryBean();
+		queryBean.setParams(userBean);
+		return userDao.queryForList(queryBean);
 	}
 
 	@Override
@@ -80,62 +97,91 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int updateBatch(User record, UserBean params) {
-		return userDao.updateBatch(record, params);
+		UpdateBean updateBean = new UpdateBean();
+		updateBean.setRecord(record);
+		updateBean.setParams(params);
+		return userDao.updateBatch(updateBean);
 	}
 
 	@Override
 	public int updateById(User record) {
-		return userDao.updateById(record);
+		UpdateBean updateBean = new UpdateBean();
+		updateBean.setRecord(record);
+		return userDao.updateById(updateBean);
 	}
 
 	@Override
 	public int countBy(User params) {
-		return userDao.countBy(params);
+		QueryBean queryBean = new QueryBean();
+		queryBean.setParams(params);
+		return userDao.countBy(queryBean);
 	}
 
 	@Override
 	public int deleteBulks(User params) {
-		return userDao.deleteBulks(params);
+		DeleteBean deleteBean = new DeleteBean();
+		deleteBean.setParams(params);
+		return userDao.deleteBulks(deleteBean);
 	}
 
 	@Override
 	public List<User> queryList(User params) {
-		return userDao.queryList(params);
+		QueryBean queryBean = new QueryBean();
+		queryBean.setParams(params);
+		return userDao.queryList(queryBean);
 	}
 
 	@Override
 	public List<User> pagedForList(UserBean params) {
-		return userDao.pagedForList(params);
+		QueryBean queryBean = new QueryBean();
+		queryBean.setParams(params);
+		return userDao.pagedForList(queryBean);
 	}
 
 	@Override
 	public List<User> pagedList(User params) {
-		// User user = new User();
-		// user.setUserName("尹雷");
-		// user.setUserAccount("tong@126.com");
-		// userDao.queryList(user);
-		//
-		// userDao.countBy(user);
-		//
-		// userDao.get("76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
-		//
-		// User params2 = new User();
-		// params2.setUserName("好好2");
-		// params2.setStart(0);
-		// userDao.pagedList(params2);
-		//
-		// UserBean userBean = new UserBean();
-		// userBean.createCriteria().andUserAccountEqualTo("tongku@126.com");
-		//
-		// userDao.count(userBean);
-		// userDao.pagedForList(userBean);
+		 User user = new User();
+		 user.setUserName("yinlei1");
+		 user.setUserAccount("tongku@126.com");
+		 QueryBean userQueryBean = new QueryBean(201409, 201409, user);
+		 userDao.queryList(userQueryBean);
+		
+		 userDao.countBy(userQueryBean);
+		
+		 userDao.get("76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
+		
+		 User params2 = new User();
+		 params2.setUserName("yinlei2");
+		 QueryBean userQueryBean2 = new QueryBean(201409, 201409, params2);
+		 userQueryBean2.setDistinct(true);
+		 userQueryBean2.setOrderBy("user_name desc");
+		 userQueryBean2.setPageSize(20);
+		 userDao.pagedList(userQueryBean2);
+		
+		 UserBean userBean = new UserBean();
+		 userBean.createCriteria().andUserAccountEqualTo("tongku@126.com");
+		 
+		 QueryBean criteriaBean = new QueryBean(201409, 201409, userBean);
+		 userDao.count(criteriaBean);
+		 
+		 criteriaBean.setDistinct(true);
+		 criteriaBean.setPageNo(2);
+		 criteriaBean.setEndDate(201409);
+		
+		 userDao.pagedForList(criteriaBean);
 
-		return userDao.pagedList(params);
+		params.setUserAccount("tongku@126.com");
+		QueryBean queryBean = new QueryBean();
+		queryBean.setParams(params);
+		return userDao.pagedList(queryBean);
 	}
 
 	@Override
 	public int updateBulks(User record, User params) {
-		return userDao.updateBulks(record, params);
+		UpdateBean updateBean = new UpdateBean();
+		updateBean.setRecord(record);
+		updateBean.setParams(params);
+		return userDao.updateBulks(updateBean);
 	}
 
 }

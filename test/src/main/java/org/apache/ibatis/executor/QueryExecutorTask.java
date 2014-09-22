@@ -9,18 +9,18 @@ import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.session.ResultHandler;
 
 /**
- * sql执行任务
+ * 查询sql执行任务
  * @author yinlei 
  * @since 2013-12-22
  * @param <V>
  */
-public class ExecutorTask<V> implements Callable<List<V>> {
+public class QueryExecutorTask<V> implements Callable<List<V>> {
 	private CountDownLatch latch;
 	private StatementHandler statementHandler;
 	private Statement stmt;
 	private ResultHandler resultHandler;
 	
-	public ExecutorTask(CountDownLatch latch, StatementHandler statementHandler, 
+	public QueryExecutorTask(CountDownLatch latch, StatementHandler statementHandler, 
 			Statement stmt, ResultHandler resultHandler) {
 		super();
 		this.latch = latch;

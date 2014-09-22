@@ -1,126 +1,100 @@
-package com.vteba.user2.dao;
+package com.vteba.table.dao;
 
+import com.vteba.table.model.TableDetail;
 import com.vteba.tx.jdbc.mybatis.annotation.DaoMapper;
-import com.vteba.user2.model.User;
-import com.vteba.user2.model.UserBean;
-
+import com.vteba.tx.jdbc.params.DeleteBean;
+import com.vteba.tx.jdbc.params.QueryBean;
+import com.vteba.tx.jdbc.params.UpdateBean;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
+/**
+ * 分区表table_detail的MyBatis Dao Mapper。
+ * 由代码工具自动生成，可以新增方法，但是不要修改自动生成的方法。
+ * @date 2014-09-22 13:53:26
+ */
 @DaoMapper
-public interface UserDao {
+public interface TableDetailDao {
     /**
      * 根据params所携带条件进行count计数。
      * @param params 查询条件
-     *
-     * @date 2014-09-18 10:08:50
      */
-    int count(UserBean params);
+    int count(QueryBean params);
 
     /**
      * 根据params所携带条件进行计数，条件是等于，且是and关系。
      * @param params 查询条件
-     *
-     * @date 2014-09-18 10:08:50
      */
-    int countBy(User params);
+    int countBy(QueryBean params);
 
     /**
      * 根据params所携带条件删除记录，适用于复杂条件。
      * @param params 查询条件
-     *
-     * @date 2014-09-18 10:08:50
      */
-    int deleteBatch(UserBean params);
+    int deleteBatch(DeleteBean params);
 
     /**
      * 根据params所携带条件删除数据，条件是等于，且是and关系。
      * @param params 删除条件
-     *
-     * @date 2014-09-18 10:08:50
      */
-    int deleteBulks(User params);
+    int deleteBulks(DeleteBean params);
 
     /**
      * 根据主键删除记录。
      * @param id 主键id
-     *
-     * @date 2014-09-18 10:08:50
      */
-    int deleteById(String id);
+    int deleteById(Long id);
 
     /**
      * 插入记录，只有非空字段才会插入到数据库。
      * @param record 要被保存的数据
-     *
-     * @date 2014-09-18 10:08:50
      */
-    int save(User record);
+    int save(TableDetail record);
 
     /**
      * 根据params所携带条件查询数据，适用于复杂查询。
      * @param params 查询条件
-     *
-     * @date 2014-09-18 10:08:50
      */
-    List<User> queryForList(UserBean params);
+    List<TableDetail> queryForList(QueryBean params);
 
     /**
      * 根据params所携带条件查询数据，条件是等于，且是and关系。
      * @param params 查询条件
-     *
-     * @date 2014-09-18 10:08:50
      */
-    List<User> queryList(User params);
+    List<TableDetail> queryList(QueryBean params);
 
     /**
      * 根据params所携带条件分页查询数据，适用于复杂查询。
      * @param params 查询条件
-     *
-     * @date 2014-09-18 10:08:50
      */
-    List<User> pagedForList(UserBean params);
+    List<TableDetail> pagedForList(QueryBean params);
 
     /**
      * 根据params所携带条件分页查询数据，条件是等于，且是and关系。
      * @param params 查询条件
-     *
-     * @date 2014-09-18 10:08:50
      */
-    List<User> pagedList(User params);
+    List<TableDetail> pagedList(QueryBean params);
 
     /**
      * 根据主键查询数据。
      * @param id 主键
-     *
-     * @date 2014-09-18 10:08:50
      */
-    User get(String id);
+    TableDetail get(Long id);
 
     /**
      * 根据params所携带条件更新指定字段，适用于复杂条件。
-     * @param record 要更新的数据
-     * @param params update的where条件
-     *
-     * @date 2014-09-18 10:08:50
+     * @param params update的where条件，以及定位分区表的条件
      */
-    int updateBatch(@Param("record") User record, @Param("params") UserBean params);
+    int updateBatch(UpdateBean params);
 
     /**
      * 根据params所携带条件更新指定字段，条件是等于，且是and关系。
-     * @param record 要更新的数据
-     * @param params update的where条件
-     *
-     * @date 2014-09-18 10:08:50
+     * @param params update的where条件，以及定位分区表的条件
      */
-    int updateBulks(@Param("record") User record, @Param("params") User params);
+    int updateBulks(UpdateBean params);
 
     /**
      * 根据主键更新指定字段的数据。
-     * @param record 要更新的数据，含有Id
-     *
-     * @date 2014-09-18 10:08:50
+     * @param params update的where条件，以及定位分区表的条件
      */
-    int updateById(User record);
+    int updateById(UpdateBean params);
 }

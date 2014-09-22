@@ -66,7 +66,7 @@
     <logger name="com.opensymphony.xwork2" additivity="true">
         <level value="INFO"/>
     </logger>
-    <logger name="com.vteba.tm" additivity="true">
+    <logger name="com.vteba.tx" additivity="true">
         <level value="INFO"/>
 <!--            <appender-ref ref="console"/> -->
     </logger>
@@ -82,11 +82,10 @@
     <logger name="com.atomikos" additivity="true">
         <level value="WARN"/>
         <appender-ref ref="console"/>
-    </logger>
+    </logger> -->
     <logger name="bitronix.tm" additivity="true">
         <level value="INFO"/>
-        <appender-ref ref="console"/>
-    </logger> -->
+    </logger>
     <logger name="org.hibernate.type.descriptor.sql.BasicBinder" additivity="true">
         <level value="INFO"/>
 <!--            <appender-ref ref="console"/> -->

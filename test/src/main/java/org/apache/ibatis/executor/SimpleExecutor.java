@@ -21,12 +21,15 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.transaction.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Clinton Begin
  */
 public class SimpleExecutor extends BaseExecutor {
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(SimpleExecutor.class);
+	
 	public SimpleExecutor(Configuration configuration, Transaction transaction) {
 		super(configuration, transaction);
 	}
@@ -54,20 +57,19 @@ public class SimpleExecutor extends BaseExecutor {
 			List<E> result = new ArrayList<E>();
 			List<String> sqlList = boundSql.getSqlList();
 			int size = sqlList.size();
-			if (size == 1) {// 只有一条sql直接在主线程执行
+			if (size == 0) {// 只有一条sql直接在主线程执行
 				StatementHandler handler = configuration.newStatementHandler(
 						wrapper, ms, parameter, rowBounds, resultHandler,
 						boundSql);
 				stmt = prepareStatement(handler, ms.getStatementLog());
 				result = handler.<E> query(stmt, resultHandler);
-			} else {
+			} else {// 多条语句开启线程池，在线程池中执行
 				CountDownLatch latch = new CountDownLatch(size);
 				ExecutorService service = Executors.newCachedThreadPool();
 				for (String sql : sqlList) {// 这里使用多线程处理
 					boundSql.setSql(sql);
 					StatementHandler handler = configuration.newStatementHandler(
-							wrapper, ms, parameter, rowBounds, resultHandler,
-							boundSql);
+							wrapper, ms, parameter, rowBounds, resultHandler, boundSql);
 					stmt = prepareStatement(handler, ms.getStatementLog());
 					ExecutorTask<E> task = new ExecutorTask<E>(latch, handler, stmt, resultHandler);
 					Future<List<E>> future = service.submit(task);
@@ -75,15 +77,16 @@ public class SimpleExecutor extends BaseExecutor {
 					try {
 						result.addAll(future.get());
 					} catch (InterruptedException e) {
-						
+						LOGGER.warn("获取子线程结果时，中断异常");
 					} catch (ExecutionException e) {
-						
+						LOGGER.warn("获取子线程结果时，执行异常");
 					}
 				}
 				try {
 					latch.await(5, TimeUnit.SECONDS);// 5秒中超时
 				} catch (InterruptedException e) {
 					// 线程等待，中断异常
+					LOGGER.warn("线程同步等待，中断异常");
 				}
 			}
 			return result;

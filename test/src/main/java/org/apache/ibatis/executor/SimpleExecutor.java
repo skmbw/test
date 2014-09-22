@@ -39,10 +39,39 @@ public class SimpleExecutor extends BaseExecutor {
 		Statement stmt = null;
 		try {
 			Configuration configuration = ms.getConfiguration();
-			StatementHandler handler = configuration.newStatementHandler(this,
-					ms, parameter, RowBounds.DEFAULT, null, null);
-			stmt = prepareStatement(handler, ms.getStatementLog());
-			return handler.update(stmt);
+			List<String> sqlList = ms.getSqlList();
+			int size = sqlList.size();
+			if (size == 1) {
+				StatementHandler handler = configuration.newStatementHandler(this,
+						ms, parameter, RowBounds.DEFAULT, null, null);
+				stmt = prepareStatement(handler, ms.getStatementLog());
+				return handler.update(stmt);
+			} else {
+				int result = 0;
+				CountDownLatch latch = new CountDownLatch(size);
+				ExecutorService service = Executors.newCachedThreadPool();
+				for (String sql : sqlList) {
+					ms.getBoundSql().setSql(sql);
+					StatementHandler handler = configuration.newStatementHandler(this,
+							ms, parameter, RowBounds.DEFAULT, null, null);
+					stmt = prepareStatement(handler, ms.getStatementLog());
+					UpdateExecutorTask task = new UpdateExecutorTask(latch, handler, stmt);
+					Future<Integer> future = service.submit(task);
+					try {
+						result += future.get();
+					} catch (InterruptedException e) {
+						LOGGER.warn("update获取子线程结果时，中断异常");
+					} catch (ExecutionException e) {
+						LOGGER.warn("update获取子线程结果时，执行异常");
+					}
+				}
+				try {
+					latch.await(5, TimeUnit.SECONDS);// 5秒中超时
+				} catch (InterruptedException e) {
+					LOGGER.warn("线程同步等待，中断异常");
+				}
+				return result;
+			}
 		} finally {
 			closeStatement(stmt);
 		}
@@ -57,7 +86,7 @@ public class SimpleExecutor extends BaseExecutor {
 			List<E> result = new ArrayList<E>();
 			List<String> sqlList = boundSql.getSqlList();
 			int size = sqlList.size();
-			if (size == 0) {// 只有一条sql直接在主线程执行
+			if (size == 1) {// 只有一条sql直接在主线程执行
 				StatementHandler handler = configuration.newStatementHandler(
 						wrapper, ms, parameter, rowBounds, resultHandler,
 						boundSql);
@@ -71,22 +100,21 @@ public class SimpleExecutor extends BaseExecutor {
 					StatementHandler handler = configuration.newStatementHandler(
 							wrapper, ms, parameter, rowBounds, resultHandler, boundSql);
 					stmt = prepareStatement(handler, ms.getStatementLog());
-					ExecutorTask<E> task = new ExecutorTask<E>(latch, handler, stmt, resultHandler);
+					QueryExecutorTask<E> task = new QueryExecutorTask<E>(latch, handler, stmt, resultHandler);
 					Future<List<E>> future = service.submit(task);
 					
 					try {
 						result.addAll(future.get());
 					} catch (InterruptedException e) {
-						LOGGER.warn("获取子线程结果时，中断异常");
+						LOGGER.warn("query获取子线程结果时，中断异常");
 					} catch (ExecutionException e) {
-						LOGGER.warn("获取子线程结果时，执行异常");
+						LOGGER.warn("query获取子线程结果时，执行异常");
 					}
 				}
 				try {
 					latch.await(5, TimeUnit.SECONDS);// 5秒中超时
 				} catch (InterruptedException e) {
-					// 线程等待，中断异常
-					LOGGER.warn("线程同步等待，中断异常");
+					LOGGER.warn("query线程同步等待，中断异常");
 				}
 			}
 			return result;

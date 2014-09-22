@@ -24,6 +24,9 @@ import org.apache.ibatis.transaction.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.Lists;
+import com.vteba.tx.jdbc.params.QueryBean;
+
 /**
  * @author Clinton Begin
  */
@@ -66,7 +69,7 @@ public class SimpleExecutor extends BaseExecutor {
 					}
 				}
 				try {
-					latch.await(5, TimeUnit.SECONDS);// 5秒中超时
+					latch.await(5, TimeUnit.SECONDS);// 5秒超时
 				} catch (InterruptedException e) {
 					LOGGER.warn("线程同步等待，中断异常");
 				}
@@ -111,16 +114,55 @@ public class SimpleExecutor extends BaseExecutor {
 						LOGGER.warn("query获取子线程结果时，执行异常");
 					}
 				}
+				
 				try {
-					latch.await(5, TimeUnit.SECONDS);// 5秒中超时
+					latch.await(5, TimeUnit.SECONDS);// 5秒超时
 				} catch (InterruptedException e) {
 					LOGGER.warn("query线程同步等待，中断异常");
+				}
+				QueryBean queryBean = (QueryBean) parameter;
+				if (queryBean.isStats()) {
+					result = resolveStatsResult(ms, result);
 				}
 			}
 			return result;
 		} finally {
 			closeStatement(stmt);
 		}
+	}
+
+	/**
+	 * 处理简单值的统计查询。返回POJO的统计查询，要另外处理。
+	 * @param ms 映射语句
+	 * @param result 中间结果
+	 * @return 返回的处理结果
+	 */
+	@SuppressWarnings("unchecked")
+	private <E> List<E> resolveStatsResult(MappedStatement ms, List<E> result) {
+		Class<?> type = ms.getResultMaps().get(0).getType();
+		
+		if (type == Integer.class) {
+			int i = 0;
+			for (E in : result) {
+				i += (Integer)in;
+			}
+			result = (List<E>) Lists.newArrayList(i);
+		} else if (type == Double.class) {
+			double i = 0;
+			for (E in : result) {
+				i += (Double)in;
+			}
+			result = (List<E>) Lists.newArrayList(i);
+		} else if (type == Long.class) {
+			long i = 0;
+			for (E in : result) {
+				i += (Long)in;
+			}
+			result = (List<E>) Lists.newArrayList(i);
+		} else {
+			throw new IllegalStateException("统计查询结果类型错误");
+		}
+		return result;
 	}
 
 	public List<BatchResult> doFlushStatements(boolean isRollback)

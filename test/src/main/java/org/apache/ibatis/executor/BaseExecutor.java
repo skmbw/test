@@ -110,6 +110,7 @@ public abstract class BaseExecutor implements Executor {
 	public <E> List<E> query(MappedStatement ms, Object parameter,
 			RowBounds rowBounds, ResultHandler resultHandler)
 			throws SQLException {
+		// 已经获取过，并且，解析过sql，不需要再根据参数获取一次//yinlei
 		BoundSql boundSql = ms.getBoundSql();//ms.getBoundSql(parameter);
 		CacheKey key = createCacheKey(ms, parameter, rowBounds, boundSql);
 		return query(ms, parameter, rowBounds, resultHandler, key, boundSql);
@@ -129,14 +130,11 @@ public abstract class BaseExecutor implements Executor {
 		List<E> list;
 		try {
 			queryStack++;
-			list = resultHandler == null ? (List<E>) localCache.getObject(key)
-					: null;
+			list = resultHandler == null ? (List<E>) localCache.getObject(key) : null;
 			if (list != null) {
-				handleLocallyCachedOutputParameters(ms, key, parameter,
-						boundSql);
+				handleLocallyCachedOutputParameters(ms, key, parameter, boundSql);
 			} else {
-				list = queryFromDatabase(ms, parameter, rowBounds,
-						resultHandler, key, boundSql);
+				list = queryFromDatabase(ms, parameter, rowBounds, resultHandler, key, boundSql);
 			}
 		} finally {
 			queryStack--;
@@ -155,8 +153,9 @@ public abstract class BaseExecutor implements Executor {
 
 	public void deferLoad(MappedStatement ms, MetaObject resultObject,
 			String property, CacheKey key, Class<?> targetType) {
-		if (closed)
+		if (closed) {
 			throw new ExecutorException("Executor was closed.");
+		}
 		DeferredLoad deferredLoad = new DeferredLoad(resultObject, property,
 				key, localCache, configuration, targetType);
 		if (deferredLoad.canLoad()) {
@@ -176,10 +175,8 @@ public abstract class BaseExecutor implements Executor {
 		cacheKey.update(rowBounds.getOffset());
 		cacheKey.update(rowBounds.getLimit());
 		cacheKey.update(boundSql.getSql());
-		List<ParameterMapping> parameterMappings = boundSql
-				.getParameterMappings();
-		TypeHandlerRegistry typeHandlerRegistry = ms.getConfiguration()
-				.getTypeHandlerRegistry();
+		List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
+		TypeHandlerRegistry typeHandlerRegistry = ms.getConfiguration().getTypeHandlerRegistry();
 		for (int i = 0; i < parameterMappings.size(); i++) { // mimic
 			// DefaultParameterHandler
 			// logic
@@ -191,12 +188,10 @@ public abstract class BaseExecutor implements Executor {
 					value = boundSql.getAdditionalParameter(propertyName);
 				} else if (parameterObject == null) {
 					value = null;
-				} else if (typeHandlerRegistry.hasTypeHandler(parameterObject
-						.getClass())) {
+				} else if (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) {
 					value = parameterObject;
 				} else {
-					MetaObject metaObject = configuration
-							.newMetaObject(parameterObject);
+					MetaObject metaObject = configuration.newMetaObject(parameterObject);
 					value = metaObject.getValue(propertyName);
 				}
 				cacheKey.update(value);

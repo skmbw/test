@@ -10,7 +10,7 @@ import org.apache.ibatis.executor.statement.StatementHandler;
  * 更新sql执行任务
  * @author yinlei 
  * @since 2013-12-22
- * @param <V>
+ * @param <Integer> 返回更新的条数
  */
 public class UpdateExecutorTask implements Callable<Integer> {
 	private CountDownLatch latch;

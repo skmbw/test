@@ -12,7 +12,7 @@ import org.apache.ibatis.session.ResultHandler;
  * 查询sql执行任务
  * @author yinlei 
  * @since 2013-12-22
- * @param <V>
+ * @param <V> 返回结果泛型类型
  */
 public class QueryExecutorTask<V> implements Callable<List<V>> {
 	private CountDownLatch latch;

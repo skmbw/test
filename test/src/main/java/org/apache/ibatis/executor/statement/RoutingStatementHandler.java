@@ -82,10 +82,20 @@ public class RoutingStatementHandler implements StatementHandler {
         return delegate.getParameterHandler();
     }
 
+    /**
+     * 获得底层的StatementHandler
+     * @return StatementHandler
+     * @author yinlei
+     */
     public StatementHandler getDelegate() {
         return delegate;
     }
 
+    /**
+     * 获得MappedStatement
+     * @return MappedStatement
+     * @author yinlei
+     */
     @Override
     public MappedStatement getMappedStatement() {
         return delegate.getMappedStatement();

@@ -19,6 +19,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
 
 /**
+ * 主要修改是，增加获取BoundSql的get方法。以及实现接口中新增的，获取MappedStatement的方法。
  * @author Clinton Begin
  * @author 尹雷
  */

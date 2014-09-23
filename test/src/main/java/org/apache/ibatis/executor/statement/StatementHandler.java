@@ -32,6 +32,11 @@ public interface StatementHandler {
 
     ParameterHandler getParameterHandler();
 
-    MappedStatement getMappedStatement();
+    /**
+     * 获得MappedStatement
+     * @return MappedStatement
+     * @author yinlei
+     */
+    MappedStatement getMappedStatement();//yinlei
 
 }

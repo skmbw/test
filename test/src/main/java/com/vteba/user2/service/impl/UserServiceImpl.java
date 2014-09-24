@@ -146,13 +146,14 @@ public class UserServiceImpl implements UserService {
 		 QueryBean userQueryBean = new QueryBean(201409, 201409, user);
 		 userDao.queryList(userQueryBean);
 		
+		 userQueryBean.setStats(true);
 		 userDao.countBy(userQueryBean);
 		
 		 userDao.get("76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
 		
 		 User params2 = new User();
 		 params2.setUserName("yinlei2");
-		 QueryBean userQueryBean2 = new QueryBean(201409, 201409, params2);
+		 QueryBean userQueryBean2 = new QueryBean(201409, 201410, params2);
 		 userQueryBean2.setDistinct(true);
 		 userQueryBean2.setOrderBy("user_name desc");
 		 userQueryBean2.setPageSize(20);
@@ -161,9 +162,11 @@ public class UserServiceImpl implements UserService {
 		 UserBean userBean = new UserBean();
 		 userBean.createCriteria().andUserAccountEqualTo("tongku@126.com");
 		 
-		 QueryBean criteriaBean = new QueryBean(201409, 201409, userBean);
+		 QueryBean criteriaBean = new QueryBean(201409, 201410, userBean);
+		 criteriaBean.setStats(true);
 		 userDao.count(criteriaBean);
 		 
+		 criteriaBean.setStats(false);
 		 criteriaBean.setDistinct(true);
 		 criteriaBean.setPageNo(2);
 		 criteriaBean.setEndDate(201409);

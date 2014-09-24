@@ -3,8 +3,6 @@ package com.vteba.test;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
-
 public class Cmd{
 
 	public void execCommand(String[] arstringCommand) {

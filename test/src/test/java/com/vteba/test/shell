@@ -1,0 +1,21 @@
+以前没用过java执行shell命令，以为也是像C那样便捷，用个system函数就可以搞定。今天一用才发现不是那么回事。java里面执行shell命令有两种方法：
+
+1.使用ProcessBuilder
+
+ProcessBuilder pb=new ProcessBuilder(cmd); 
+pb.start();
+
+2.使用Runtime
+
+Runtime.getRuntime().exec(cmd)
+
+ 但是这个两种方法都有个问题，执行诸如:ps -ef | grep -v grep 带有管道或重定向的命令就会出错。我们都知道使用以上两种方法执行命令时，如果带有参数就要把命令分割成数组或者List传入，不然会被当成一个整体执行（会出错，比如执行"ps -e"）。对于|,<,>号来说，这样做也不行。对于Linux系统，解决方法就是把整个命令都当成sh的参数传入，用sh来执行命令。
+
+List<String> cmds = new ArrayList<String>(); 
+cmds.add("sh"); 
+cmds.add("-c"); 
+cmds.add("ps -ef | grep -v grep"); 
+ProcessBuilder=new ProcessBuilder(cmds); 
+Process p = pb.start();
+
+Windows下把sh换成cmd.exe就行了。

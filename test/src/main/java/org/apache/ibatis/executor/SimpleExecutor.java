@@ -28,7 +28,9 @@ import com.google.common.collect.Lists;
 import com.vteba.tx.jdbc.params.QueryBean;
 
 /**
+ * 改进之处在于，首先获取解析得到的sqlList，然后将sql分别执行，最后合并执行的结果
  * @author Clinton Begin
+ * @author yinlei
  */
 public class SimpleExecutor extends BaseExecutor {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SimpleExecutor.class);

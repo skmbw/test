@@ -2,7 +2,7 @@ package com.vteba.test;
 
 public class ProcessTest {
 	public static void main(String[] args) throws Exception {
-	    final Process p = Runtime.getRuntime().exec("c:/1.bat");
+	    final Process p = Runtime.getRuntime().exec("d:/D:/apache-tomcat-7.0.54/bin/startup.bat");
 	    long firstTime = System.currentTimeMillis();
 	    new Thread(new Runnable() {
 	        @Override

@@ -78,6 +78,12 @@
         <level value="INFO"/>
 <!--            <appender-ref ref="R"/> -->
     </logger>
+    <logger name="org.springframework.tx" additivity="true">
+        <level value="DEBUG"/>
+    </logger>
+    <logger name="org.springframework.jdbc" additivity="true">
+        <level value="DEBUG"/>
+    </logger>
     <!-- 
     <logger name="com.atomikos" additivity="true">
         <level value="WARN"/>

@@ -30,13 +30,41 @@
 		</property>
 	</bean>	
 
+	<bean id="skmbw2SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="skmbw2DataSource" />
+		<property name="configLocation" value="classpath:/mybatis/skmbw/mybatis-config-skmbw.xml"/>
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:/com/vteba/user2/mapper/*Mapper.xml</value>
+				<value>classpath:/com/vteba/table/mapper/*Mapper.xml</value>
+			</list>
+		</property>
+		<property name="plugins">
+			<list>
+				<ref bean="executorPluginsInterceptor"/>
+			</list>
+		</property>
+	</bean>
+
 	<!-- 注册Mapper方式二：也可不指定特定mapper，而使用自动扫描包的方式来注册各种Mapper ，配置如下-->
 	<bean id="skmbwMapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!-- 如果只指定了basePackage属性，扫描全部借口 -->
 		<property name="basePackage" value="com.vteba.user,com.vteba.common,com.vteba.user2,com.vteba" />
 		<property name="markerInterface" value="com.vteba.tx.jdbc.mybatis.mapper.BaseMapper"/><!-- 扫描该接口的子接口 -->
 		<property name="annotationClass" value="com.vteba.tx.jdbc.mybatis.annotation.DaoMapper"/><!-- 扫描被该注解标注的接口 -->
-		<property name="sqlSessionFactoryBeanName" value="skmbwSqlSessionFactory"/><!-- 如果使用sqlSessionFactory，多数据源将出现无法装配bean的问题 -->
+<!-- 		<property name="sqlSessionFactoryBeanName" value="skmbwSqlSessionFactory"/>如果使用sqlSessionFactory，多数据源将出现无法装配bean的问题 -->
+		<property name="sqlSessionTemplateBeanName" value="sqlSessionTemplateProxy"/>
+	</bean>
+	
+	<!-- 这个bean的名字不能叫sqlSessionTemplate -->
+	<bean id="sqlSessionTemplateProxy" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="skmbwSqlSessionFactory"/>
+		<property name="proxySqlSessionFactory">
+			<map>
+				<entry key="skmbw" value-ref="skmbwSqlSessionFactory"/>
+				<entry key="skmbw2" value-ref="skmbw2SqlSessionFactory"/>
+			</map>
+		</property>
 	</bean>
 	
 	<bean id="shardingPluginsInterceptor" class="com.vteba.tx.jdbc.mybatis.plugins.ShardingPluginsInterceptor">

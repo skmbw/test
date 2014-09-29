@@ -26,8 +26,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 //import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.dao.support.PersistenceExceptionTranslator;
 
-import com.vteba.service.tenant.SchemaContextHolder;
-
 /**
  * Thread safe, Spring managed, {@code SqlSession} that works with Spring
  * transaction management to ensure that that the actual SqlSession used is the
@@ -132,12 +130,13 @@ public class SqlSessionTemplate implements SqlSession {
 	}
 
 	public SqlSessionFactory getSqlSessionFactory() {
-		String schema = SchemaContextHolder.getSchema();
-		if (schema == null) {// 如果没有，返回默认的SqlSessionFactory
-			return this.sqlSessionFactory;
-		} else {
-			return proxySqlSessionFactory.get(schema);
-		}
+//		String schema = SchemaContextHolder.getSchema();
+//		if (schema == null) {// 如果没有，返回默认的SqlSessionFactory
+//			return this.sqlSessionFactory;
+//		} else {
+//			return proxySqlSessionFactory.get(schema);
+//		}
+		return this.sqlSessionFactory;
 	}
 
 	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
@@ -198,8 +197,9 @@ public class SqlSessionTemplate implements SqlSession {
 	 */
 	public <K, V> Map<K, V> selectMap(String statement, Object parameter,
 			String mapKey, RowBounds rowBounds) {
-		return this.sqlSessionProxy.<K, V> selectMap(statement, parameter,
-				mapKey, rowBounds);
+		getConfiguration().getEnvironment().getDataSource();
+		
+		return this.sqlSessionProxy.selectMap(statement, parameter, mapKey, rowBounds);
 	}
 
 	/**

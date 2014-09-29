@@ -169,8 +169,7 @@ public class SqlSessionTemplate implements SqlSession {
 		if (list.size() == 1) {
 			return list.get(0);
 		} else if (list.size() > 1) {
-			throw new TooManyResultsException(
-					"Expected one result (or null) to be returned by selectOne(), but found: " + list.size());
+			throw new TooManyResultsException("Expected one result (or null) to be returned by selectOne(), but found: " + list.size());
 		} else {
 			return null;
 		}
@@ -194,7 +193,8 @@ public class SqlSessionTemplate implements SqlSession {
 
 	/**
 	 * {@inheritDoc}
-	 * <p>这个方法时需要被重载的
+	 * <p>这个方法时需要被重载的。解析sql语句，获取逻辑包的分区策略。
+	 * 替换逻辑表，根据参数路由查询的具体表
 	 */
 	public <K, V> Map<K, V> selectMap(String statement, Object parameter,
 			String mapKey, RowBounds rowBounds) {

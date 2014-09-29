@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.exceptions.PersistenceException;
+import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.apache.ibatis.executor.BatchResult;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ExecutorType;
@@ -21,10 +22,11 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.MyBatisExceptionTranslator;
 //import org.mybatis.spring.SqlSessionInterceptor;
 //import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.dao.support.PersistenceExceptionTranslator;
+
+import com.vteba.service.tenant.SchemaContextHolder;
 
 /**
  * Thread safe, Spring managed, {@code SqlSession} that works with Spring
@@ -52,20 +54,21 @@ import org.springframework.dao.support.PersistenceExceptionTranslator;
  * </bean>
  * }
  * </pre>
- *
+ * <p>主要的调整在于，可以从当前线程获取绑定的schema。
  * @author Putthibong Boonbong
  * @author Hunter Presnall
  * @author Eduardo Macarron
+ * @author 尹雷
  * 
  * @see SqlSessionFactory
  * @see MyBatisExceptionTranslator
  * @version $Id$
  */
 public class SqlSessionTemplate implements SqlSession {
-	
+
 	private Map<String, SqlSessionFactory> proxySqlSessionFactory;
-	
-	private final SqlSessionFactory sqlSessionFactory;
+
+	private SqlSessionFactory sqlSessionFactory;
 
 	private final ExecutorType executorType;
 
@@ -129,7 +132,16 @@ public class SqlSessionTemplate implements SqlSession {
 	}
 
 	public SqlSessionFactory getSqlSessionFactory() {
-		return this.sqlSessionFactory;
+		String schema = SchemaContextHolder.getSchema();
+		if (schema == null) {// 如果没有，返回默认的SqlSessionFactory
+			return this.sqlSessionFactory;
+		} else {
+			return proxySqlSessionFactory.get(schema);
+		}
+	}
+
+	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		this.sqlSessionFactory = sqlSessionFactory;
 	}
 
 	public ExecutorType getExecutorType() {
@@ -144,34 +156,45 @@ public class SqlSessionTemplate implements SqlSession {
 	 * {@inheritDoc}
 	 */
 	public <T> T selectOne(String statement) {
-		return this.sqlSessionProxy.<T> selectOne(statement);
+		// return this.sqlSessionProxy.<T> selectOne(statement);
+		return this.selectOne(statement, null);// DefaultSqlSession的实现方式
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public <T> T selectOne(String statement, Object parameter) {
-		return this.sqlSessionProxy.<T> selectOne(statement, parameter);
+		// return this.sqlSessionProxy.<T> selectOne(statement, parameter);
+		List<T> list = this.selectList(statement, parameter);
+		if (list.size() == 1) {
+			return list.get(0);
+		} else if (list.size() > 1) {
+			throw new TooManyResultsException(
+					"Expected one result (or null) to be returned by selectOne(), but found: " + list.size());
+		} else {
+			return null;
+		}
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public <K, V> Map<K, V> selectMap(String statement, String mapKey) {
-		return this.sqlSessionProxy.<K, V> selectMap(statement, mapKey);
+		//return this.sqlSessionProxy.<K, V> selectMap(statement, mapKey);
+		return this.selectMap(statement, null, mapKey, RowBounds.DEFAULT);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public <K, V> Map<K, V> selectMap(String statement, Object parameter,
-			String mapKey) {
-		return this.sqlSessionProxy.<K, V> selectMap(statement, parameter,
-				mapKey);
+	public <K, V> Map<K, V> selectMap(String statement, Object parameter, String mapKey) {
+		//return this.sqlSessionProxy.<K, V> selectMap(statement, parameter, mapKey);
+		return this.selectMap(statement, parameter, mapKey, RowBounds.DEFAULT);
 	}
 
 	/**
 	 * {@inheritDoc}
+	 * <p>这个方法时需要被重载的
 	 */
 	public <K, V> Map<K, V> selectMap(String statement, Object parameter,
 			String mapKey, RowBounds rowBounds) {
@@ -183,19 +206,21 @@ public class SqlSessionTemplate implements SqlSession {
 	 * {@inheritDoc}
 	 */
 	public <E> List<E> selectList(String statement) {
-		return this.sqlSessionProxy.<E> selectList(statement);
+		//return this.sqlSessionProxy.<E> selectList(statement);
+		return this.selectList(statement, null, RowBounds.DEFAULT);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public <E> List<E> selectList(String statement, Object parameter) {
-
-		return this.sqlSessionProxy.<E> selectList(statement, parameter);
+		//return this.sqlSessionProxy.<E> selectList(statement, parameter);
+		return this.selectList(statement, parameter, RowBounds.DEFAULT);
 	}
 
 	/**
 	 * {@inheritDoc}
+	 * <p>这个方法时需要被重载的
 	 */
 	public <E> List<E> selectList(String statement, Object parameter,
 			RowBounds rowBounds) {
@@ -207,18 +232,21 @@ public class SqlSessionTemplate implements SqlSession {
 	 * {@inheritDoc}
 	 */
 	public void select(String statement, ResultHandler handler) {
-		this.sqlSessionProxy.select(statement, handler);
+		//this.sqlSessionProxy.select(statement, handler);
+		this.select(statement, null, RowBounds.DEFAULT, handler);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public void select(String statement, Object parameter, ResultHandler handler) {
-		this.sqlSessionProxy.select(statement, parameter, handler);
+		//this.sqlSessionProxy.select(statement, parameter, handler);
+		this.select(statement, parameter, RowBounds.DEFAULT, handler);
 	}
 
 	/**
 	 * {@inheritDoc}
+	 * <p>这个方法时需要被重载的
 	 */
 	public void select(String statement, Object parameter, RowBounds rowBounds,
 			ResultHandler handler) {
@@ -229,25 +257,29 @@ public class SqlSessionTemplate implements SqlSession {
 	 * {@inheritDoc}
 	 */
 	public int insert(String statement) {
-		return this.sqlSessionProxy.insert(statement);
+		//return this.sqlSessionProxy.insert(statement);
+		return this.insert(statement, null);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public int insert(String statement, Object parameter) {
-		return this.sqlSessionProxy.insert(statement, parameter);
+		//return this.sqlSessionProxy.insert(statement, parameter);
+		return this.update(statement, parameter);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public int update(String statement) {
-		return this.sqlSessionProxy.update(statement);
+		//return this.sqlSessionProxy.update(statement);
+		return this.update(statement, null);
 	}
 
 	/**
 	 * {@inheritDoc}
+	 * <p>这个方法时需要被重载的
 	 */
 	public int update(String statement, Object parameter) {
 		return this.sqlSessionProxy.update(statement, parameter);
@@ -257,14 +289,16 @@ public class SqlSessionTemplate implements SqlSession {
 	 * {@inheritDoc}
 	 */
 	public int delete(String statement) {
-		return this.sqlSessionProxy.delete(statement);
+		//return this.sqlSessionProxy.delete(statement);
+		return this.update(statement, null);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public int delete(String statement, Object parameter) {
-		return this.sqlSessionProxy.delete(statement, parameter);
+		//return this.sqlSessionProxy.delete(statement, parameter);
+		return this.update(statement, parameter);
 	}
 
 	/**
@@ -323,7 +357,8 @@ public class SqlSessionTemplate implements SqlSession {
 
 	/**
 	 * {@inheritDoc}
-	 *
+	 * <p>这里仍然使用，默认的SqlSessionFactory，一般情况是，不同的库，表结构是相同的，
+	 * 这里应该没有问题。
 	 */
 	public Configuration getConfiguration() {
 		return this.sqlSessionFactory.getConfiguration();
@@ -363,7 +398,7 @@ public class SqlSessionTemplate implements SqlSession {
 			try {
 				Object result = method.invoke(sqlSession, args);
 				if (!isSqlSessionTransactional(sqlSession,
-						SqlSessionTemplate.this.sqlSessionFactory)) {
+						SqlSessionTemplate.this.getSqlSessionFactory())) {
 					// force commit even on non-dirty sessions because some
 					// databases require
 					// a commit/rollback before calling close()
@@ -377,7 +412,7 @@ public class SqlSessionTemplate implements SqlSession {
 					// release the connection to avoid a deadlock if the
 					// translator is no loaded. See issue #22
 					closeSqlSession(sqlSession,
-							SqlSessionTemplate.this.sqlSessionFactory);
+							SqlSessionTemplate.this.getSqlSessionFactory());
 					sqlSession = null;
 					Throwable translated = SqlSessionTemplate.this.exceptionTranslator
 							.translateExceptionIfPossible((PersistenceException) unwrapped);
@@ -389,7 +424,7 @@ public class SqlSessionTemplate implements SqlSession {
 			} finally {
 				if (sqlSession != null) {
 					closeSqlSession(sqlSession,
-							SqlSessionTemplate.this.sqlSessionFactory);
+							SqlSessionTemplate.this.getSqlSessionFactory());
 				}
 			}
 		}

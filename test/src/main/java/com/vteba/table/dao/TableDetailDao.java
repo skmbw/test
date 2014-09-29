@@ -1,6 +1,6 @@
 package com.vteba.table.dao;
 
-import com.vteba.service.multitenant.annotation.Schema;
+import com.vteba.service.tenant.annotation.Schema;
 import com.vteba.table.model.TableDetail;
 import com.vteba.tx.jdbc.mybatis.annotation.DaoMapper;
 import com.vteba.tx.jdbc.params.DeleteBean;

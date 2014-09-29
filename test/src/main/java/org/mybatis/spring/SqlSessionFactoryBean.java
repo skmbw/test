@@ -6,7 +6,10 @@ import static org.springframework.util.StringUtils.hasLength;
 import static org.springframework.util.StringUtils.tokenizeToStringArray;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -15,6 +18,7 @@ import javax.sql.DataSource;
 import org.apache.ibatis.builder.xml.XMLConfigBuilder;
 import org.apache.ibatis.builder.xml.XMLMapperBuilder;
 import org.apache.ibatis.executor.ErrorContext;
+import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
@@ -37,6 +41,10 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.NestedIOException;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
+
+import com.vteba.tx.jdbc.mybatis.cache.ShardingTableCache;
+import com.vteba.tx.jdbc.mybatis.config.ShardingConfigParser;
+import com.vteba.tx.matrix.info.ShardsTable;
 
 /**
  * {@code FactoryBean} that creates an MyBatis {@code SqlSessionFactory}. This
@@ -66,7 +74,7 @@ public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>,
 		InitializingBean, ApplicationListener<ApplicationEvent> {
 
 	private static final Log logger = LogFactory.getLog(SqlSessionFactoryBean.class);
-
+	public static final String SHARDING_CONFIG = "shardingConfig";
 	private Resource configLocation;
 
 	private Resource[] mapperLocations;
@@ -569,4 +577,40 @@ public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>,
 		this.proxyDataSource = proxyDataSource;
 	}
 
+	public void setProperties(Properties properties) {
+		String config = properties.getProperty(SHARDING_CONFIG);
+        if (config == null || config.trim().length() == 0) {
+            //throw new IllegalArgumentException("property 'shardingConfig' is requested.");
+        	logger.debug("没有配置分区表分区策略。");
+        } else {
+        	InputStream input = null;
+        	try {
+        		input = Resources.getResourceAsStream(config);
+        		ShardingConfigParser.parse(input);
+        	} catch (IOException e) {
+        		throw new IllegalArgumentException("读取mybatis分表配置文件[" + config + "]异常。", e);
+        	} catch (Exception e) {
+        		throw new IllegalArgumentException("解析mybatis分表配置文件[" + config + "]异常。", e);
+        	} finally {
+        		if (input != null) {
+        			try {
+        				input.close();
+        			} catch (IOException e) {
+        				logger.error(e.getMessage(), e);
+        			}
+        		}
+        	}
+        	
+        	// 临时处理的，以后会将配置放到数据库中的
+        	ShardsTable tableInfo = new ShardsTable();
+        	tableInfo.setCurrentTable("user_201409m");
+        	tableInfo.setTableName("user");
+        	List<Long> tableIndex = new ArrayList<Long>();
+        	tableIndex.add(201409L);
+        	tableIndex.add(201410L);
+        	tableInfo.setTableIndexList(tableIndex);
+        	ShardingTableCache.put("user", tableInfo);
+        }
+
+	}
 }

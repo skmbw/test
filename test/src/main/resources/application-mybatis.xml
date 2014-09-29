@@ -22,17 +22,22 @@
 				<value>classpath:/com/vteba/table/mapper/*Mapper.xml</value>
 			</list>
 		</property>
-		<property name="plugins">
-			<list>
-				<ref bean="executorPluginsInterceptor"/>
+<!-- 		<property name="plugins"> -->
+<!-- 			<list> -->
+<!-- 				<ref bean="executorPluginsInterceptor"/> -->
 <!-- 				<ref bean="shardingPluginsInterceptor"/> -->
-			</list>
-		</property>
+<!-- 			</list> -->
+<!-- 		</property> -->
 		<property name="proxyDataSource">
 			<map>
 				<entry key="skmbw" value-ref="skmbwDataSource"/>
 				<entry key="skmbw2" value-ref="skmbw2DataSource"/>
 			</map>
+		</property>
+		<property name="properties">
+			<props>
+				<prop key="shardingConfig">sharding-config.xml</prop>
+			</props>
 		</property>
 	</bean>	
 

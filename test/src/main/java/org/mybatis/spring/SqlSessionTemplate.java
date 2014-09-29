@@ -12,19 +12,29 @@ import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.apache.ibatis.executor.BatchResult;
+import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 //import org.mybatis.spring.SqlSessionInterceptor;
 //import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.dao.support.PersistenceExceptionTranslator;
+
+import com.vteba.tx.jdbc.mybatis.config.ShardingConfigFactory;
+import com.vteba.tx.jdbc.mybatis.converter.SqlConvertFactory;
+import com.vteba.tx.jdbc.mybatis.converter.internal.TemplateSqlConvertFactory;
 
 /**
  * Thread safe, Spring managed, {@code SqlSession} that works with Spring
@@ -63,7 +73,10 @@ import org.springframework.dao.support.PersistenceExceptionTranslator;
  * @version $Id$
  */
 public class SqlSessionTemplate implements SqlSession {
-
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(SqlSessionTemplate.class);
+	private static final ConcurrentMap<String, Boolean> NEED_PARSE_CACHE = new ConcurrentHashMap<String, Boolean>();
+	
 	private Map<String, SqlSessionFactory> proxySqlSessionFactory;
 
 	private SqlSessionFactory sqlSessionFactory;
@@ -197,8 +210,7 @@ public class SqlSessionTemplate implements SqlSession {
 	 */
 	public <K, V> Map<K, V> selectMap(String statement, Object parameter,
 			String mapKey, RowBounds rowBounds) {
-		getConfiguration().getEnvironment().getDataSource();
-		
+		resolveSQL(statement, parameter);
 		return this.sqlSessionProxy.selectMap(statement, parameter, mapKey, rowBounds);
 	}
 
@@ -224,8 +236,8 @@ public class SqlSessionTemplate implements SqlSession {
 	 */
 	public <E> List<E> selectList(String statement, Object parameter,
 			RowBounds rowBounds) {
-		return this.sqlSessionProxy.<E> selectList(statement, parameter,
-				rowBounds);
+		resolveSQL(statement, parameter);
+		return this.sqlSessionProxy.<E> selectList(statement, parameter, rowBounds);
 	}
 
 	/**
@@ -250,6 +262,7 @@ public class SqlSessionTemplate implements SqlSession {
 	 */
 	public void select(String statement, Object parameter, RowBounds rowBounds,
 			ResultHandler handler) {
+		resolveSQL(statement, parameter);
 		this.sqlSessionProxy.select(statement, parameter, rowBounds, handler);
 	}
 
@@ -282,6 +295,7 @@ public class SqlSessionTemplate implements SqlSession {
 	 * <p>这个方法时需要被重载的
 	 */
 	public int update(String statement, Object parameter) {
+		resolveSQL(statement, parameter);
 		return this.sqlSessionProxy.update(statement, parameter);
 	}
 
@@ -439,4 +453,44 @@ public class SqlSessionTemplate implements SqlSession {
 		this.proxySqlSessionFactory = proxySqlSessionFactory;
 	}
 
+	public void resolveSQL(String mapperId, Object params) {
+		MappedStatement mappedStatement = getConfiguration().getMappedStatement(mapperId);
+		BoundSql boundSql = mappedStatement.getBoundSql(params);
+		String sql = boundSql.getSql();
+       
+        if (LOGGER.isDebugEnabled()) {
+        	LOGGER.debug("Original Sql [" + mapperId + "]:" + sql.replaceAll(" +", " ").replaceAll("\n", ""));
+        }
+
+        SqlConvertFactory factory = TemplateSqlConvertFactory.INSTANCE;
+        
+        List<String> sqlList = factory.convert(sql, params, mapperId);
+        if (LOGGER.isDebugEnabled()) {
+        	LOGGER.debug("Converted Sql [" + mapperId + "]:" + sql);
+        }
+        boundSql.setSql(sqlList.get(0));
+        boundSql.setSqlList(sqlList);
+        
+        mappedStatement.setSqlList(sqlList);
+        mappedStatement.setBoundSql(boundSql);
+	}
+	
+	protected boolean needParser(String mapperId) {
+        Boolean parse = NEED_PARSE_CACHE.get(mapperId);
+        if (parse != null) {
+            return parse;
+        }
+        if (!mapperId.endsWith("!selectKey")) {
+            ShardingConfigFactory configHolder = ShardingConfigFactory.getInstance();
+            if ((!configHolder.isIgnoreId(mapperId))
+                && ((!configHolder.isConfigParseId()) || (configHolder.isParseId(mapperId)))) {
+                parse = true;
+            }
+        }
+        if (parse == null) {
+            parse = false;
+        }
+        NEED_PARSE_CACHE.put(mapperId, parse);
+        return parse;
+    }
 }

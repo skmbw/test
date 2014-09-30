@@ -472,7 +472,7 @@ public class SqlSessionTemplate implements SqlSession {
         boundSql.setSql(sqlList.get(0));
         boundSql.setSqlList(sqlList);
         
-        mappedStatement.setSqlList(sqlList);
+        //mappedStatement.setSqlList(sqlList);
         mappedStatement.setBoundSql(boundSql);
 	}
 	

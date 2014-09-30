@@ -42,7 +42,7 @@ public final class MappedStatement {
 	private LanguageDriver lang;
 	private String[] resultSets;
 	
-	private List<String> sqlList;
+//	private List<String> sqlList;
 	private BoundSql boundSql;
 
 	private MappedStatement() {
@@ -303,13 +303,13 @@ public final class MappedStatement {
 		this.boundSql = boundSql;
 	}
 
-	public List<String> getSqlList() {
-		return sqlList;
-	}
-
-	public void setSqlList(List<String> sqlList) {
-		this.sqlList = sqlList;
-	}
+//	public List<String> getSqlList() {
+//		return sqlList;
+//	}
+//
+//	public void setSqlList(List<String> sqlList) {
+//		this.sqlList = sqlList;
+//	}
 
 	private static String[] delimitedStringtoArray(String in) {
 		if (in == null || in.trim().length() == 0) {

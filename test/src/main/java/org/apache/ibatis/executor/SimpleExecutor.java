@@ -44,7 +44,7 @@ public class SimpleExecutor extends BaseExecutor {
 		Statement stmt = null;
 		try {
 			Configuration configuration = ms.getConfiguration();
-			List<String> sqlList = ms.getSqlList();
+			List<String> sqlList = ms.getBoundSql().getSqlList();
 			int size = sqlList.size();
 			if (size == 1) {
 				StatementHandler handler = configuration.newStatementHandler(this,

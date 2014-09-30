@@ -63,7 +63,10 @@ import com.vteba.tx.jdbc.mybatis.converter.internal.TemplateSqlConvertFactory;
  * </bean>
  * }
  * </pre>
- * <p>主要的调整在于，可以从当前线程获取绑定的schema。
+ * <p>主要的调整在于，可以从当前线程获取绑定的schema。然后获取对应的SqlSessionFactory和Configuration等。
+ * 该SqlSessionTemplate同时持有多个SqlSessionFactory。
+ * 事务仍然切在Service层，跨库操作时，会开启两个子事务，如果其中一个事务出现异常，那么两个事务都会回滚的。有测试过。
+ * 
  * @author Putthibong Boonbong
  * @author Hunter Presnall
  * @author Eduardo Macarron
@@ -239,7 +242,7 @@ public class SqlSessionTemplate implements SqlSession {
 	public <E> List<E> selectList(String statement, Object parameter,
 			RowBounds rowBounds) {
 		resolveSQL(statement, parameter);
-		return this.sqlSessionProxy.<E> selectList(statement, parameter, rowBounds);
+		return this.sqlSessionProxy.selectList(statement, parameter, rowBounds);
 	}
 
 	/**
@@ -406,16 +409,11 @@ public class SqlSessionTemplate implements SqlSession {
 	 * {@code PersistenceExceptionTranslator}.
 	 */
 	private class SqlSessionInterceptor implements InvocationHandler {
-		public Object invoke(Object proxy, Method method, Object[] args)
-				throws Throwable {
-			SqlSession sqlSession = getSqlSession(
-					SqlSessionTemplate.this.getSqlSessionFactory(),
-					SqlSessionTemplate.this.executorType,
-					SqlSessionTemplate.this.exceptionTranslator);
+		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+			SqlSession sqlSession = getSqlSession(getSqlSessionFactory(), executorType, exceptionTranslator);
 			try {
 				Object result = method.invoke(sqlSession, args);
-				if (!isSqlSessionTransactional(sqlSession,
-						SqlSessionTemplate.this.getSqlSessionFactory())) {
+				if (!isSqlSessionTransactional(sqlSession, getSqlSessionFactory())) {
 					// force commit even on non-dirty sessions because some
 					// databases require
 					// a commit/rollback before calling close()
@@ -424,15 +422,12 @@ public class SqlSessionTemplate implements SqlSession {
 				return result;
 			} catch (Throwable t) {
 				Throwable unwrapped = unwrapThrowable(t);
-				if (SqlSessionTemplate.this.exceptionTranslator != null
-						&& unwrapped instanceof PersistenceException) {
+				if (exceptionTranslator != null && unwrapped instanceof PersistenceException) {
 					// release the connection to avoid a deadlock if the
 					// translator is no loaded. See issue #22
-					closeSqlSession(sqlSession,
-							SqlSessionTemplate.this.getSqlSessionFactory());
+					closeSqlSession(sqlSession, getSqlSessionFactory());
 					sqlSession = null;
-					Throwable translated = SqlSessionTemplate.this.exceptionTranslator
-							.translateExceptionIfPossible((PersistenceException) unwrapped);
+					Throwable translated = exceptionTranslator.translateExceptionIfPossible((PersistenceException) unwrapped);
 					if (translated != null) {
 						unwrapped = translated;
 					}
@@ -440,8 +435,7 @@ public class SqlSessionTemplate implements SqlSession {
 				throw unwrapped;
 			} finally {
 				if (sqlSession != null) {
-					closeSqlSession(sqlSession,
-							SqlSessionTemplate.this.getSqlSessionFactory());
+					closeSqlSession(sqlSession, getSqlSessionFactory());
 				}
 			}
 		}

@@ -2,10 +2,13 @@ package com.vteba.user2.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.vteba.table.dao.ShardsTableDao;
+import com.vteba.table.model.ShardsTable;
 import com.vteba.tx.jdbc.params.DeleteBean;
 import com.vteba.tx.jdbc.params.QueryBean;
 import com.vteba.tx.jdbc.params.UpdateBean;
@@ -26,6 +29,9 @@ public class UserServiceImpl implements UserService {
 
 	@Inject
 	private UserDao userDao;
+	
+	@Inject
+	private ShardsTableDao shardsTableDao;
 
 	@Inject
 	private KeyGenerator uuidKeyGenerator;
@@ -51,34 +57,43 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int save(User record) {
+		ShardsTable table = new ShardsTable();
+		table.setCreateDate(new Date());
+		//table.setId(uuidKeyGenerator.nextInt());
+		table.setCurrentTable("shards_table");
+		table.setDbschema("skmbw");
+		table.setStrategy("month");
+		table.setTableName("shards2_table_201410m" + new Random().nextInt(32));
+		shardsTableDao.save(table);
+		
 		record.setId(uuidKeyGenerator.next());
-		User user = new User();
-		user.setId("76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
-		Date date = new Date();
-		user.setCreateDate(date);
-		user.setUserName("尹雷2");
-		UpdateBean updateBean = new UpdateBean();
-		updateBean.setRecord(user);
-		updateBean.setKeyValue("76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
-		userDao.updateById(updateBean);
-
-		User params = new User();
-		params.setUserName("yinlei2");
-		user.setId(null);
-		
-		UpdateBean bulkUpdateBean = new UpdateBean(user, params, "76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
-		userDao.updateBulks(bulkUpdateBean);
-
-		UserBean userBean = new UserBean();
-		userBean.createCriteria().andUserAccountEqualTo("yinlei@126.com");
-		UpdateBean batchUpdateBean = new UpdateBean(user, userBean, "76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
-		userDao.updateBatch(batchUpdateBean);
-
-		DeleteBean bulkDeleteBean = new DeleteBean(201409, 201409, params);
-		DeleteBean batchDeleteBean = new DeleteBean(201409, 201409, userBean);
-		
-		userDao.deleteBatch(batchDeleteBean);
-		userDao.deleteBulks(bulkDeleteBean);
+//		User user = new User();
+//		user.setId("76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
+//		Date date = new Date();
+//		user.setCreateDate(date);
+//		user.setUserName("尹雷2");
+//		UpdateBean updateBean = new UpdateBean();
+//		updateBean.setRecord(user);
+//		updateBean.setKeyValue("76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
+//		userDao.updateById(updateBean);
+//
+//		User params = new User();
+//		params.setUserName("yinlei2");
+//		user.setId(null);
+//		
+//		UpdateBean bulkUpdateBean = new UpdateBean(user, params, "76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
+//		userDao.updateBulks(bulkUpdateBean);
+//
+//		UserBean userBean = new UserBean();
+//		userBean.createCriteria().andUserAccountEqualTo("yinlei@126.com");
+//		UpdateBean batchUpdateBean = new UpdateBean(user, userBean, "76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
+//		userDao.updateBatch(batchUpdateBean);
+//
+//		DeleteBean bulkDeleteBean = new DeleteBean(201409, 201409, params);
+//		DeleteBean batchDeleteBean = new DeleteBean(201409, 201409, userBean);
+//		
+//		userDao.deleteBatch(batchDeleteBean);
+//		userDao.deleteBulks(bulkDeleteBean);
 
 		return userDao.save(record);
 	}
@@ -140,38 +155,38 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> pagedList(User params) {
-		 User user = new User();
-		 user.setUserName("yinlei1");
-		 user.setUserAccount("tongku@126.com");
-		 QueryBean userQueryBean = new QueryBean(201409, 201409, user);
-		 userDao.queryList(userQueryBean);
-		
-		 userQueryBean.setStats(true);
-		 userDao.countBy(userQueryBean);
-		
-		 userDao.get("76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
-		
-		 User params2 = new User();
-		 params2.setUserName("yinlei2");
-		 QueryBean userQueryBean2 = new QueryBean(201409, 201410, params2);
-		 userQueryBean2.setDistinct(true);
-		 userQueryBean2.setOrderBy("user_name desc");
-		 userQueryBean2.setPageSize(20);
-		 userDao.pagedList(userQueryBean2);
-		
-		 UserBean userBean = new UserBean();
-		 userBean.createCriteria().andUserAccountEqualTo("tongku@126.com");
-		 
-		 QueryBean criteriaBean = new QueryBean(201409, 201410, userBean);
-		 criteriaBean.setStats(true);
-		 userDao.count(criteriaBean);
-		 
-		 criteriaBean.setStats(false);
-		 criteriaBean.setDistinct(true);
-		 criteriaBean.setPageNo(2);
-		 criteriaBean.setEndDate(201409);
-		
-		 userDao.pagedForList(criteriaBean);
+//		 User user = new User();
+//		 user.setUserName("yinlei1");
+//		 user.setUserAccount("tongku@126.com");
+//		 QueryBean userQueryBean = new QueryBean(201409, 201409, user);
+//		 userDao.queryList(userQueryBean);
+//		
+//		 userQueryBean.setStats(true);
+//		 userDao.countBy(userQueryBean);
+//		
+//		 userDao.get("76a729c7-657e-43f4-b384-06df62f82d9f_201409m");
+//		
+//		 User params2 = new User();
+//		 params2.setUserName("yinlei2");
+//		 QueryBean userQueryBean2 = new QueryBean(201409, 201410, params2);
+//		 userQueryBean2.setDistinct(true);
+//		 userQueryBean2.setOrderBy("user_name desc");
+//		 userQueryBean2.setPageSize(20);
+//		 userDao.pagedList(userQueryBean2);
+//		
+//		 UserBean userBean = new UserBean();
+//		 userBean.createCriteria().andUserAccountEqualTo("tongku@126.com");
+//		 
+//		 QueryBean criteriaBean = new QueryBean(201409, 201410, userBean);
+//		 criteriaBean.setStats(true);
+//		 userDao.count(criteriaBean);
+//		 
+//		 criteriaBean.setStats(false);
+//		 criteriaBean.setDistinct(true);
+//		 criteriaBean.setPageNo(2);
+//		 criteriaBean.setEndDate(201409);
+//		
+//		 userDao.pagedForList(criteriaBean);
 
 		params.setUserAccount("tongku@126.com");
 		QueryBean queryBean = new QueryBean();

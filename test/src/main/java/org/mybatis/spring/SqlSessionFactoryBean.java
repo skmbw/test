@@ -488,7 +488,7 @@ public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>,
 
 		Environment environment = new Environment(this.environment,
 				this.transactionFactory, this.dataSource);
-		environment.setProxyDataSource(proxyDataSource);// yinlei，设置持有的数据源
+		//environment.setProxyDataSource(proxyDataSource);// yinlei，设置持有的数据源
 		configuration.setEnvironment(environment);
 
 		if (this.databaseIdProvider != null) {
@@ -609,7 +609,17 @@ public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>,
         	tableIndex.add(201409L);
         	tableIndex.add(201410L);
         	tableInfo.setTableIndexList(tableIndex);
+        	
+        	ShardsTable tableInfo2 = new ShardsTable();
+        	tableInfo2.setCurrentTable("shards_table_201409m");
+        	tableInfo2.setTableName("shards_table");
+        	List<Long> tableIndex2 = new ArrayList<Long>();
+        	tableIndex2.add(201409L);
+        	tableIndex2.add(201410L);
+        	tableInfo2.setTableIndexList(tableIndex2);
+        	
         	ShardingTableCache.put("user", tableInfo);
+        	ShardingTableCache.put("shards_table", tableInfo2);
         }
 
 	}

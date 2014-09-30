@@ -15,12 +15,12 @@ public class TestCoder {
 		builder.setConfigFilePath("src/jndi.properties")
 		.setSrcPath("src/main/java/")
 		.schema("skmbw")
-		.className("User")
+		.className("ShardsTable")
 		.setDb(DB.MySQL)// 可以不使用，只要jdbc url是正确的
-		.keyType(KeyType.String)
-		.tableDesc("系统用户")
-		.tableName("user")
-		.module("com.vteba.user2")
+		.keyType(KeyType.Integer)
+		.tableDesc("分区表")
+		.tableName("shards_table")
+		.module("com.vteba.table")
 		.setPojo(false)
 		.setMongo(false)
 		.setGenAction(false)
@@ -28,6 +28,7 @@ public class TestCoder {
         .setGenMapper(false)
         .setGenModel(false)
         .setGenService(false)
+        .setMybatisShards(true)
 		.build();
 
 	}

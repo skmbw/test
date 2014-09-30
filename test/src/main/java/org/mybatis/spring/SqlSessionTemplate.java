@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 //import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.dao.support.PersistenceExceptionTranslator;
 
+import com.vteba.service.tenant.SchemaContextHolder;
 import com.vteba.tx.jdbc.mybatis.config.ShardingConfigFactory;
 import com.vteba.tx.jdbc.mybatis.converter.SqlConvertFactory;
 import com.vteba.tx.jdbc.mybatis.converter.internal.TemplateSqlConvertFactory;
@@ -143,13 +144,14 @@ public class SqlSessionTemplate implements SqlSession {
 	}
 
 	public SqlSessionFactory getSqlSessionFactory() {
-//		String schema = SchemaContextHolder.getSchema();
-//		if (schema == null) {// 如果没有，返回默认的SqlSessionFactory
-//			return this.sqlSessionFactory;
-//		} else {
-//			return proxySqlSessionFactory.get(schema);
-//		}
-		return this.sqlSessionFactory;
+		String schema = SchemaContextHolder.getSchema();
+		if (schema == null) {// 如果没有，返回默认的SqlSessionFactory
+			return this.sqlSessionFactory;
+		} else {
+			return proxySqlSessionFactory.get(schema);
+		}
+		
+//		return this.sqlSessionFactory;
 	}
 
 	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
@@ -371,11 +373,12 @@ public class SqlSessionTemplate implements SqlSession {
 
 	/**
 	 * {@inheritDoc}
-	 * <p>这里仍然使用，默认的SqlSessionFactory，一般情况是，不同的库，表结构是相同的，
-	 * 这里应该没有问题。
+	 * 
+	 * <p>这里的配置需要做切换的。SqlSessionFactory和Configuration是一一对应的。
 	 */
 	public Configuration getConfiguration() {
-		return this.sqlSessionFactory.getConfiguration();
+		//return this.sqlSessionFactory.getConfiguration();
+		return getSqlSessionFactory().getConfiguration();
 	}
 
 	/**
@@ -453,6 +456,11 @@ public class SqlSessionTemplate implements SqlSession {
 		this.proxySqlSessionFactory = proxySqlSessionFactory;
 	}
 
+	/**
+	 * 解析sql，替换逻辑表名，根据表名的分区策略，组成新的sql语句。
+	 * @param mapperId mybatis sql 映射id
+	 * @param params sql语句参数
+	 */
 	public void resolveSQL(String mapperId, Object params) {
 		MappedStatement mappedStatement = getConfiguration().getMappedStatement(mapperId);
 		BoundSql boundSql = mappedStatement.getBoundSql(params);

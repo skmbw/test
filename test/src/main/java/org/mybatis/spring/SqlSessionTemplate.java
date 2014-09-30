@@ -114,8 +114,7 @@ public class SqlSessionTemplate implements SqlSession {
 	public SqlSessionTemplate(SqlSessionFactory sqlSessionFactory,
 			ExecutorType executorType) {
 		this(sqlSessionFactory, executorType, new MyBatisExceptionTranslator(
-				sqlSessionFactory.getConfiguration().getEnvironment()
-						.getDataSource(), true));
+				sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(), true));
 	}
 
 	/**

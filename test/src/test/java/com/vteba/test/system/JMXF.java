@@ -75,6 +75,7 @@ public class JMXF {
 		} catch (SigarException e) {
 			e.printStackTrace();
 		}
+		
 		System.out.println("cpu idle:" + cpu.getIdle());
 		
 		

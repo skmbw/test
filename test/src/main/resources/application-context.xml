@@ -181,13 +181,22 @@
 		<property name="dataSource" ref="skmbw2DataSource"/>
 	</bean>
 
-	<bean id="chainedTransactionManager" class="com.vteba.tx.jdbc.datasource.ChainedTransactionManager">
-		<property name="transactionManagerMap">
-			<map>
-				<entry key="skmbw" value-ref="skmbwTransactionManager"/>
-				<entry key="skmbw2" value-ref="skmbw2TransactionManager"/>
-			</map>
-		</property>
+<!-- 	<bean id="chainedTransactionManager" class="com.vteba.tx.jdbc.datasource.ChainedTransactionManager"> -->
+<!-- 		<property name="transactionManagerMap"> -->
+<!-- 			<map> -->
+<!-- 				<entry key="skmbw" value-ref="skmbwTransactionManager"/> -->
+<!-- 				<entry key="skmbw2" value-ref="skmbw2TransactionManager"/> -->
+<!-- 			</map> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+
+	<bean id="chainedTransactionManager" class="org.springframework.data.transaction.ChainedTransactionManager">
+		<constructor-arg>
+			<list>
+				<ref bean="skmbwTransactionManager"/>
+				<ref bean="skmbw2TransactionManager"/>
+			</list>
+		</constructor-arg>
 	</bean>
 
 	<!-- SpringJdbcTemplate -->

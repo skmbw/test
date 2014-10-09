@@ -136,7 +136,7 @@
 	</bean>
 
 	<bean id="skmbwSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="skmbwDataSource" />
+		<property name="dataSource" ref="skmbw2DataSource" />
 		<property name="packagesToScan">
     		<list>
      			<value>com.vteba.user.model</value>
@@ -173,13 +173,30 @@
 		<property name="sessionFactory" ref="skmbwSessionFactory"/>
 	</bean>
 
+	<bean id="skmbwTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="skmbwDataSource"/>
+	</bean>
+	
+	<bean id="skmbw2TransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="skmbw2DataSource"/>
+	</bean>
+
+	<bean id="chainedTransactionManager" class="com.vteba.tx.jdbc.datasource.ChainedTransactionManager">
+		<property name="transactionManagerMap">
+			<map>
+				<entry key="skmbw" value-ref="skmbwTransactionManager"/>
+				<entry key="skmbw2" value-ref="skmbw2TransactionManager"/>
+			</map>
+		</property>
+	</bean>
+
 	<!-- SpringJdbcTemplate -->
 	<bean id="skmbwJdbcTemplate" class="com.vteba.tx.jdbc.spring.SpringJdbcTemplate">
-		<property name="dataSource" ref="skmbwDataSource"/>
+		<property name="dataSource" ref="skmbw2DataSource"/>
 	</bean>
 
 	<!-- aop transaction advice -->
-	<tx:advice id="transactionAdvice" transaction-manager="transactionManager"> 
+	<tx:advice id="transactionAdvice" transaction-manager="chainedTransactionManager"> 
 		<tx:attributes>
 			<tx:method name="get*" propagation="REQUIRED" read-only="true"/>
 			<tx:method name="query*" propagation="REQUIRED" read-only="true"/>

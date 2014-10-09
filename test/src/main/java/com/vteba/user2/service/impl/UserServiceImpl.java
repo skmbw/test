@@ -2,7 +2,6 @@ package com.vteba.user2.service.impl;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -63,7 +62,7 @@ public class UserServiceImpl implements UserService {
 		table.setCurrentTable("shards_table");
 		table.setDbschema("skmbw");
 		table.setStrategy("month");
-		table.setTableName("shards2_table_201410m" + new Random().nextInt(32));
+		table.setTableName("shards2_table_201410m" + uuidKeyGenerator.next());
 		shardsTableDao.save(table);
 		
 		record.setId(uuidKeyGenerator.next());
@@ -94,7 +93,9 @@ public class UserServiceImpl implements UserService {
 //		
 //		userDao.deleteBatch(batchDeleteBean);
 //		userDao.deleteBulks(bulkDeleteBean);
-
+//		if (new Random().nextInt() - 100 < 1) {
+//			throw new RuntimeException("");
+//		}
 		return userDao.save(record);
 	}
 

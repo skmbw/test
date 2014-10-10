@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
 		table.setCreateDate(new Date());
 		//table.setId(uuidKeyGenerator.nextInt());
 		table.setCurrentTable("shards_table");
-		table.setDbschema("skmbw");
+		table.setSchemaName("skmbw");
 		table.setStrategy("month");
 		table.setTableName("shards2_table_201410m" + uuidKeyGenerator.next());
 		shardsTableDao.save(table);

@@ -1,6 +1,8 @@
 package com.vteba;
 
 
+import org.mybatis.generator.GenMain;
+
 import com.vteba.ext.codegen.CodeBuilder;
 import com.vteba.ext.codegen.DB;
 import com.vteba.ext.codegen.KeyType;
@@ -10,7 +12,7 @@ public class TestCoder {
 
 	public static void main(String[] args) {
 	    //项目绝对路径
-		String rootPath = "C:/Users/Administrator/git/test/test/";
+		String rootPath = "C:\\Users\\Administrator\\git\\test\\test\\";
 		CodeBuilder builder = new CodeBuilder(rootPath, TempType.Mybatis);
 		builder.setConfigFilePath("src/jndi.properties")
 		.setSrcPath("src/main/java/")
@@ -31,6 +33,7 @@ public class TestCoder {
         .setMybatisShards(true)
 		.build();
 
+		GenMain.main(rootPath);
 	}
 
 }

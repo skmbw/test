@@ -63,7 +63,8 @@ import com.vteba.tx.jdbc.mybatis.converter.internal.TemplateSqlConvertFactory;
  * </pre>
  * <p>主要的调整在于，可以从当前线程获取绑定的schema。然后获取对应的SqlSessionFactory和Configuration等。
  * 该SqlSessionTemplate同时持有多个SqlSessionFactory。
- * 事务仍然切在Service层，跨库操作时，会开启两个子事务，如果其中一个事务出现异常，那么两个事务都会回滚的。有测试过。
+ * 事务仍然切在Service层，跨库操作时，会开启两个子事务，如果其中一个事务出现异常，那么两个事务都会回滚的。
+ * 使用一阶段提交模式，事务管理使用链式事务管理，同事持有对个具体的事务管理器。
  * 
  * @author Putthibong Boonbong
  * @author Hunter Presnall

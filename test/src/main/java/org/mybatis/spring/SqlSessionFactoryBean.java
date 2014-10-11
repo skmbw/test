@@ -58,10 +58,8 @@ import com.vteba.tx.matrix.info.ShardsTable;
  * multiple databases or when container managed transactions (CMT) are being
  * used.
  * 
- * <p>主要的改进是，同时持有多个数据源，根据参数切换到不同的数据源上。（x）
- * 还有将多个数据源设置给Environment，这里才是真正持有数据源的地方。（x）
- * 
- * <p>上面的调整已经去掉，现在主要的调整是解析该SqlSessionFactory下的表的分区策略。
+ * <p>主要的调整是，该SqlSessionFactory会解析该数据库下的表的分区策略。
+ * 代理数据源去掉了，在SqlSeesionTemplate中实现了。
  * 
  * @author Putthibong Boonbong
  * @author Hunter Presnall

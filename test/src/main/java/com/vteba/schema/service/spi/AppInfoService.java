@@ -11,7 +11,7 @@ import com.vteba.schema.model.AppInfo;
 /**
  * 应用配置信息相关的业务service接口。
  * @author yinlei
- * @date 2014-10-11 11:13:49
+ * @date 2014-10-11 14:51:55
  */
 public interface AppInfoService {
 

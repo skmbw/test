@@ -11,7 +11,7 @@ import com.vteba.schema.model.SchemaInfo;
 /**
  * schema配置信息相关的业务service接口。
  * @author yinlei
- * @date 2014-10-11 10:13:25
+ * @date 2014-10-11 14:51:55
  */
 public interface SchemaInfoService {
 

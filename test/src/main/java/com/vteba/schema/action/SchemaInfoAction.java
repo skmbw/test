@@ -20,7 +20,7 @@ import com.vteba.web.action.JsonBean;
 /**
  * schema配置信息控制器
  * @author yinlei
- * @date 2014-10-11 10:13:25
+ * @date 2014-10-11 14:51:55
  */
 @Controller
 @RequestMapping("/schemaInfo")

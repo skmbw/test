@@ -16,7 +16,7 @@ import com.vteba.schema.service.spi.AppInfoService;
 /**
  * 应用配置信息相关的service业务实现。
  * @author yinlei
- * @date 2014-10-11 11:13:49
+ * @date 2014-10-11 14:51:55
  */
 @Named
 public class AppInfoServiceImpl implements AppInfoService {

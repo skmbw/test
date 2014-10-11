@@ -20,7 +20,7 @@ import com.vteba.web.action.JsonBean;
 /**
  * 应用配置信息控制器
  * @author yinlei
- * @date 2014-10-11 11:13:49
+ * @date 2014-10-11 14:51:55
  */
 @Controller
 @RequestMapping("/appInfo")

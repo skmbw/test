@@ -16,7 +16,7 @@ import com.vteba.schema.service.spi.SchemaInfoService;
 /**
  * schema配置信息相关的service业务实现。
  * @author yinlei
- * @date 2014-10-11 10:13:25
+ * @date 2014-10-11 14:51:55
  */
 @Named
 public class SchemaInfoServiceImpl implements SchemaInfoService {

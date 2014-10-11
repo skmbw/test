@@ -170,73 +170,133 @@ public class ShardsTableBean {
             return (Criteria) this;
         }
 
-        public Criteria andDbschemaIsNull() {
-            addCriterion("dbschema is null");
+        public Criteria andSchemaNameIsNull() {
+            addCriterion("schema_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andDbschemaIsNotNull() {
-            addCriterion("dbschema is not null");
+        public Criteria andSchemaNameIsNotNull() {
+            addCriterion("schema_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDbschemaEqualTo(String value) {
-            addCriterion("dbschema =", value, "dbschema");
+        public Criteria andSchemaNameEqualTo(String value) {
+            addCriterion("schema_name =", value, "schemaName");
             return (Criteria) this;
         }
 
-        public Criteria andDbschemaNotEqualTo(String value) {
-            addCriterion("dbschema <>", value, "dbschema");
+        public Criteria andSchemaNameNotEqualTo(String value) {
+            addCriterion("schema_name <>", value, "schemaName");
             return (Criteria) this;
         }
 
-        public Criteria andDbschemaGreaterThan(String value) {
-            addCriterion("dbschema >", value, "dbschema");
+        public Criteria andSchemaNameGreaterThan(String value) {
+            addCriterion("schema_name >", value, "schemaName");
             return (Criteria) this;
         }
 
-        public Criteria andDbschemaGreaterThanOrEqualTo(String value) {
-            addCriterion("dbschema >=", value, "dbschema");
+        public Criteria andSchemaNameGreaterThanOrEqualTo(String value) {
+            addCriterion("schema_name >=", value, "schemaName");
             return (Criteria) this;
         }
 
-        public Criteria andDbschemaLessThan(String value) {
-            addCriterion("dbschema <", value, "dbschema");
+        public Criteria andSchemaNameLessThan(String value) {
+            addCriterion("schema_name <", value, "schemaName");
             return (Criteria) this;
         }
 
-        public Criteria andDbschemaLessThanOrEqualTo(String value) {
-            addCriterion("dbschema <=", value, "dbschema");
+        public Criteria andSchemaNameLessThanOrEqualTo(String value) {
+            addCriterion("schema_name <=", value, "schemaName");
             return (Criteria) this;
         }
 
-        public Criteria andDbschemaLike(String value) {
-            addCriterion("dbschema like", value, "dbschema");
+        public Criteria andSchemaNameLike(String value) {
+            addCriterion("schema_name like", value, "schemaName");
             return (Criteria) this;
         }
 
-        public Criteria andDbschemaNotLike(String value) {
-            addCriterion("dbschema not like", value, "dbschema");
+        public Criteria andSchemaNameNotLike(String value) {
+            addCriterion("schema_name not like", value, "schemaName");
             return (Criteria) this;
         }
 
-        public Criteria andDbschemaIn(List<String> values) {
-            addCriterion("dbschema in", values, "dbschema");
+        public Criteria andSchemaNameIn(List<String> values) {
+            addCriterion("schema_name in", values, "schemaName");
             return (Criteria) this;
         }
 
-        public Criteria andDbschemaNotIn(List<String> values) {
-            addCriterion("dbschema not in", values, "dbschema");
+        public Criteria andSchemaNameNotIn(List<String> values) {
+            addCriterion("schema_name not in", values, "schemaName");
             return (Criteria) this;
         }
 
-        public Criteria andDbschemaBetween(String value1, String value2) {
-            addCriterion("dbschema between", value1, value2, "dbschema");
+        public Criteria andSchemaNameBetween(String value1, String value2) {
+            addCriterion("schema_name between", value1, value2, "schemaName");
             return (Criteria) this;
         }
 
-        public Criteria andDbschemaNotBetween(String value1, String value2) {
-            addCriterion("dbschema not between", value1, value2, "dbschema");
+        public Criteria andSchemaNameNotBetween(String value1, String value2) {
+            addCriterion("schema_name not between", value1, value2, "schemaName");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchemaIdIsNull() {
+            addCriterion("schema_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchemaIdIsNotNull() {
+            addCriterion("schema_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchemaIdEqualTo(Long value) {
+            addCriterion("schema_id =", value, "schemaId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchemaIdNotEqualTo(Long value) {
+            addCriterion("schema_id <>", value, "schemaId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchemaIdGreaterThan(Long value) {
+            addCriterion("schema_id >", value, "schemaId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchemaIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("schema_id >=", value, "schemaId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchemaIdLessThan(Long value) {
+            addCriterion("schema_id <", value, "schemaId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchemaIdLessThanOrEqualTo(Long value) {
+            addCriterion("schema_id <=", value, "schemaId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchemaIdIn(List<Long> values) {
+            addCriterion("schema_id in", values, "schemaId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchemaIdNotIn(List<Long> values) {
+            addCriterion("schema_id not in", values, "schemaId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchemaIdBetween(Long value1, Long value2) {
+            addCriterion("schema_id between", value1, value2, "schemaId");
+            return (Criteria) this;
+        }
+
+        public Criteria andSchemaIdNotBetween(Long value1, Long value2) {
+            addCriterion("schema_id not between", value1, value2, "schemaId");
             return (Criteria) this;
         }
 
@@ -687,6 +747,76 @@ public class ShardsTableBean {
 
         public Criteria andUpdateDateNotBetween(Date value1, Date value2) {
             addCriterion("update_date not between", value1, value2, "updateDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateSqlIsNull() {
+            addCriterion("create_sql is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateSqlIsNotNull() {
+            addCriterion("create_sql is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateSqlEqualTo(String value) {
+            addCriterion("create_sql =", value, "createSql");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateSqlNotEqualTo(String value) {
+            addCriterion("create_sql <>", value, "createSql");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateSqlGreaterThan(String value) {
+            addCriterion("create_sql >", value, "createSql");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateSqlGreaterThanOrEqualTo(String value) {
+            addCriterion("create_sql >=", value, "createSql");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateSqlLessThan(String value) {
+            addCriterion("create_sql <", value, "createSql");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateSqlLessThanOrEqualTo(String value) {
+            addCriterion("create_sql <=", value, "createSql");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateSqlLike(String value) {
+            addCriterion("create_sql like", value, "createSql");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateSqlNotLike(String value) {
+            addCriterion("create_sql not like", value, "createSql");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateSqlIn(List<String> values) {
+            addCriterion("create_sql in", values, "createSql");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateSqlNotIn(List<String> values) {
+            addCriterion("create_sql not in", values, "createSql");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateSqlBetween(String value1, String value2) {
+            addCriterion("create_sql between", value1, value2, "createSql");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateSqlNotBetween(String value1, String value2) {
+            addCriterion("create_sql not between", value1, value2, "createSql");
             return (Criteria) this;
         }
     }

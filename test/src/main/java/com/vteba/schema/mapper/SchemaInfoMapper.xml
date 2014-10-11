@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vteba.schema.dao.SchemaInfoDao" >
+  <resultMap id="BaseResultMap" type="com.vteba.schema.model.SchemaInfo" >
+    <!--
+      WARNING - 结果集映射，不含Blob字段。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    <id column="schema_id" property="schemaId" jdbcType="BIGINT" />
+    <result column="schema_name" property="schemaName" jdbcType="VARCHAR" />
+    <result column="schema_desc" property="schemaDesc" jdbcType="VARCHAR" />
+    <result column="db_type" property="dbType" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="port" property="port" jdbcType="INTEGER" />
+    <result column="jdbc_url" property="jdbcUrl" jdbcType="VARCHAR" />
+    <result column="passwords" property="passwords" jdbcType="VARCHAR" />
+    <result column="app_id" property="appId" jdbcType="BIGINT" />
+    <result column="initial_size" property="initialSize" jdbcType="INTEGER" />
+    <result column="min_idle" property="minIdle" jdbcType="INTEGER" />
+    <result column="max_active" property="maxActive" jdbcType="INTEGER" />
+    <result column="max_wait" property="maxWait" jdbcType="BIGINT" />
+    <result column="between_eviction_runs" property="betweenEvictionRuns" jdbcType="BIGINT" />
+    <result column="min_evictable_idle" property="minEvictableIdle" jdbcType="BIGINT" />
+    <result column="validation_query" property="validationQuery" jdbcType="VARCHAR" />
+    <result column="test_while_idle" property="testWhileIdle" jdbcType="BIT" />
+    <result column="test_on_borrow" property="testOnBorrow" jdbcType="BIT" />
+    <result column="test_on_return" property="testOnReturn" jdbcType="BIT" />
+    <result column="pool_propared_stmt" property="poolProparedStmt" jdbcType="BIT" />
+    <result column="max_pstmt_per_conn" property="maxPstmtPerConn" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - 该表所有字段。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    schema_id, schema_name, schema_desc, db_type, ip, port, jdbc_url, passwords, app_id, 
+    initial_size, min_idle, max_active, max_wait, between_eviction_runs, min_evictable_idle, 
+    validation_query, test_while_idle, test_on_borrow, test_on_return, pool_propared_stmt, 
+    max_pstmt_per_conn
+  </sql>
+  <sql id="Example_Where_Clause" >
+    <!--
+      WARNING - Criteria条件查询的where语句。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    <where >
+      <foreach collection="params.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+    <if test="orderBy != null" >
+      order by ${orderBy}
+    </if>
+    <if test="start != null" >
+      limit ${start}, ${pageSize}
+    </if>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <!--
+      WARNING - Criteria条件查询的where语句。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    <where >
+      <foreach collection="params.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="model_where_clause" >
+    <!--
+      WARNING - 根据model条件，查询或更新的where语句。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    <where >
+      <trim prefixOverrides="and" >
+        <if test="params.schemaName != null" >
+          and schema_name = #{params.schemaName,jdbcType=VARCHAR}
+        </if>
+        <if test="params.schemaDesc != null" >
+          and schema_desc = #{params.schemaDesc,jdbcType=VARCHAR}
+        </if>
+        <if test="params.dbType != null" >
+          and db_type = #{params.dbType,jdbcType=VARCHAR}
+        </if>
+        <if test="params.ip != null" >
+          and ip = #{params.ip,jdbcType=VARCHAR}
+        </if>
+        <if test="params.port != null" >
+          and port = #{params.port,jdbcType=INTEGER}
+        </if>
+        <if test="params.jdbcUrl != null" >
+          and jdbc_url = #{params.jdbcUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="params.passwords != null" >
+          and passwords = #{params.passwords,jdbcType=VARCHAR}
+        </if>
+        <if test="params.appId != null" >
+          and app_id = #{params.appId,jdbcType=BIGINT}
+        </if>
+        <if test="params.initialSize != null" >
+          and initial_size = #{params.initialSize,jdbcType=INTEGER}
+        </if>
+        <if test="params.minIdle != null" >
+          and min_idle = #{params.minIdle,jdbcType=INTEGER}
+        </if>
+        <if test="params.maxActive != null" >
+          and max_active = #{params.maxActive,jdbcType=INTEGER}
+        </if>
+        <if test="params.maxWait != null" >
+          and max_wait = #{params.maxWait,jdbcType=BIGINT}
+        </if>
+        <if test="params.betweenEvictionRuns != null" >
+          and between_eviction_runs = #{params.betweenEvictionRuns,jdbcType=BIGINT}
+        </if>
+        <if test="params.minEvictableIdle != null" >
+          and min_evictable_idle = #{params.minEvictableIdle,jdbcType=BIGINT}
+        </if>
+        <if test="params.validationQuery != null" >
+          and validation_query = #{params.validationQuery,jdbcType=VARCHAR}
+        </if>
+        <if test="params.testWhileIdle != null" >
+          and test_while_idle = #{params.testWhileIdle,jdbcType=BIT}
+        </if>
+        <if test="params.testOnBorrow != null" >
+          and test_on_borrow = #{params.testOnBorrow,jdbcType=BIT}
+        </if>
+        <if test="params.testOnReturn != null" >
+          and test_on_return = #{params.testOnReturn,jdbcType=BIT}
+        </if>
+        <if test="params.poolProparedStmt != null" >
+          and pool_propared_stmt = #{params.poolProparedStmt,jdbcType=BIT}
+        </if>
+        <if test="params.maxPstmtPerConn != null" >
+          and max_pstmt_per_conn = #{params.maxPstmtPerConn,jdbcType=INTEGER}
+        </if>
+      </trim>
+    </where>
+    <if test="orderBy != null" >
+      order by ${orderBy}
+    </if>
+    <if test="start != null" >
+      limit ${start}, ${pageSize}
+    </if>
+  </sql>
+  <sql id="update_model_where_clause" >
+    <!--
+      WARNING - 根据model条件，更新的where语句。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    <where >
+      <trim prefixOverrides="and" >
+        <if test="params.schemaName != null" >
+          and schema_name = #{params.schemaName,jdbcType=VARCHAR}
+        </if>
+        <if test="params.schemaDesc != null" >
+          and schema_desc = #{params.schemaDesc,jdbcType=VARCHAR}
+        </if>
+        <if test="params.dbType != null" >
+          and db_type = #{params.dbType,jdbcType=VARCHAR}
+        </if>
+        <if test="params.ip != null" >
+          and ip = #{params.ip,jdbcType=VARCHAR}
+        </if>
+        <if test="params.port != null" >
+          and port = #{params.port,jdbcType=INTEGER}
+        </if>
+        <if test="params.jdbcUrl != null" >
+          and jdbc_url = #{params.jdbcUrl,jdbcType=VARCHAR}
+        </if>
+        <if test="params.passwords != null" >
+          and passwords = #{params.passwords,jdbcType=VARCHAR}
+        </if>
+        <if test="params.appId != null" >
+          and app_id = #{params.appId,jdbcType=BIGINT}
+        </if>
+        <if test="params.initialSize != null" >
+          and initial_size = #{params.initialSize,jdbcType=INTEGER}
+        </if>
+        <if test="params.minIdle != null" >
+          and min_idle = #{params.minIdle,jdbcType=INTEGER}
+        </if>
+        <if test="params.maxActive != null" >
+          and max_active = #{params.maxActive,jdbcType=INTEGER}
+        </if>
+        <if test="params.maxWait != null" >
+          and max_wait = #{params.maxWait,jdbcType=BIGINT}
+        </if>
+        <if test="params.betweenEvictionRuns != null" >
+          and between_eviction_runs = #{params.betweenEvictionRuns,jdbcType=BIGINT}
+        </if>
+        <if test="params.minEvictableIdle != null" >
+          and min_evictable_idle = #{params.minEvictableIdle,jdbcType=BIGINT}
+        </if>
+        <if test="params.validationQuery != null" >
+          and validation_query = #{params.validationQuery,jdbcType=VARCHAR}
+        </if>
+        <if test="params.testWhileIdle != null" >
+          and test_while_idle = #{params.testWhileIdle,jdbcType=BIT}
+        </if>
+        <if test="params.testOnBorrow != null" >
+          and test_on_borrow = #{params.testOnBorrow,jdbcType=BIT}
+        </if>
+        <if test="params.testOnReturn != null" >
+          and test_on_return = #{params.testOnReturn,jdbcType=BIT}
+        </if>
+        <if test="params.poolProparedStmt != null" >
+          and pool_propared_stmt = #{params.poolProparedStmt,jdbcType=BIT}
+        </if>
+        <if test="params.maxPstmtPerConn != null" >
+          and max_pstmt_per_conn = #{params.maxPstmtPerConn,jdbcType=INTEGER}
+        </if>
+      </trim>
+    </where>
+  </sql>
+  <select id="queryForList" resultMap="BaseResultMap" parameterType="com.vteba.tx.jdbc.params.QueryBean" >
+    <!--
+      WARNING - 根据Criteria所携带条件查询数据，不含Blob字段。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from {{schema_info}}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="queryList" resultMap="BaseResultMap" parameterType="com.vteba.tx.jdbc.params.QueryBean" >
+    <!--
+      WARNING - 根据params所携带条件查询数据。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from {{schema_info}}
+    <if test="_parameter != null" >
+      <include refid="model_where_clause" />
+    </if>
+  </select>
+  <select id="pagedForList" resultMap="BaseResultMap" parameterType="com.vteba.tx.jdbc.params.QueryBean" >
+    <!--
+      WARNING - 根据Criteria所携带条件分页查询数据。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from {{schema_info}}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="pagedList" resultMap="BaseResultMap" parameterType="com.vteba.tx.jdbc.params.QueryBean" >
+    <!--
+      WARNING - 根据params所携带条件分页查询数据。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from {{schema_info}}
+    <if test="_parameter != null" >
+      <include refid="model_where_clause" />
+    </if>
+  </select>
+  <select id="get" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    <!--
+      WARNING - 根据主键查询数据。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from {{schema_info}}
+    where schema_id = #{schemaId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Long" >
+    <!--
+      WARNING - 根据主键删除记录。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    delete from {{schema_info}}
+    where schema_id = #{schemaId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteBatch" parameterType="com.vteba.tx.jdbc.params.DeleteBean" >
+    <!--
+      WARNING - 根据Criteria所携带条件删除记录。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    delete from {{schema_info}}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </delete>
+  <delete id="deleteBulks" parameterType="com.vteba.tx.jdbc.params.DeleteBean" >
+    <!--
+      WARNING - 根据params所携带条件删除数据。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    delete from {{schema_info}}
+    <if test="_parameter != null" >
+      <include refid="update_model_where_clause" />
+    </if>
+  </delete>
+  <insert id="save" parameterType="com.vteba.schema.model.SchemaInfo" >
+    <!--
+      WARNING - 插入记录，只有非空字段才会插入到数据库。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    insert into {{schema_info}}
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="schemaId != null" >
+        schema_id,
+      </if>
+      <if test="schemaName != null" >
+        schema_name,
+      </if>
+      <if test="schemaDesc != null" >
+        schema_desc,
+      </if>
+      <if test="dbType != null" >
+        db_type,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="port != null" >
+        port,
+      </if>
+      <if test="jdbcUrl != null" >
+        jdbc_url,
+      </if>
+      <if test="passwords != null" >
+        passwords,
+      </if>
+      <if test="appId != null" >
+        app_id,
+      </if>
+      <if test="initialSize != null" >
+        initial_size,
+      </if>
+      <if test="minIdle != null" >
+        min_idle,
+      </if>
+      <if test="maxActive != null" >
+        max_active,
+      </if>
+      <if test="maxWait != null" >
+        max_wait,
+      </if>
+      <if test="betweenEvictionRuns != null" >
+        between_eviction_runs,
+      </if>
+      <if test="minEvictableIdle != null" >
+        min_evictable_idle,
+      </if>
+      <if test="validationQuery != null" >
+        validation_query,
+      </if>
+      <if test="testWhileIdle != null" >
+        test_while_idle,
+      </if>
+      <if test="testOnBorrow != null" >
+        test_on_borrow,
+      </if>
+      <if test="testOnReturn != null" >
+        test_on_return,
+      </if>
+      <if test="poolProparedStmt != null" >
+        pool_propared_stmt,
+      </if>
+      <if test="maxPstmtPerConn != null" >
+        max_pstmt_per_conn,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="schemaId != null" >
+        #{schemaId,jdbcType=BIGINT},
+      </if>
+      <if test="schemaName != null" >
+        #{schemaName,jdbcType=VARCHAR},
+      </if>
+      <if test="schemaDesc != null" >
+        #{schemaDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="dbType != null" >
+        #{dbType,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null" >
+        #{port,jdbcType=INTEGER},
+      </if>
+      <if test="jdbcUrl != null" >
+        #{jdbcUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="passwords != null" >
+        #{passwords,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=BIGINT},
+      </if>
+      <if test="initialSize != null" >
+        #{initialSize,jdbcType=INTEGER},
+      </if>
+      <if test="minIdle != null" >
+        #{minIdle,jdbcType=INTEGER},
+      </if>
+      <if test="maxActive != null" >
+        #{maxActive,jdbcType=INTEGER},
+      </if>
+      <if test="maxWait != null" >
+        #{maxWait,jdbcType=BIGINT},
+      </if>
+      <if test="betweenEvictionRuns != null" >
+        #{betweenEvictionRuns,jdbcType=BIGINT},
+      </if>
+      <if test="minEvictableIdle != null" >
+        #{minEvictableIdle,jdbcType=BIGINT},
+      </if>
+      <if test="validationQuery != null" >
+        #{validationQuery,jdbcType=VARCHAR},
+      </if>
+      <if test="testWhileIdle != null" >
+        #{testWhileIdle,jdbcType=BIT},
+      </if>
+      <if test="testOnBorrow != null" >
+        #{testOnBorrow,jdbcType=BIT},
+      </if>
+      <if test="testOnReturn != null" >
+        #{testOnReturn,jdbcType=BIT},
+      </if>
+      <if test="poolProparedStmt != null" >
+        #{poolProparedStmt,jdbcType=BIT},
+      </if>
+      <if test="maxPstmtPerConn != null" >
+        #{maxPstmtPerConn,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="count" parameterType="com.vteba.tx.jdbc.params.QueryBean" resultType="java.lang.Integer" >
+    <!--
+      WARNING - 根据Criteria所携带条件进行count计数。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    select count(*) from {{schema_info}}
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="countBy" parameterType="com.vteba.tx.jdbc.params.UpdateBean" resultType="java.lang.Integer" >
+    <!--
+      WARNING - 根据params所携带条件计数。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    select count(*) from {{schema_info}}
+    <if test="_parameter != null" >
+      <include refid="model_where_clause" />
+    </if>
+  </select>
+  <update id="updateBatch" parameterType="com.vteba.tx.jdbc.params.UpdateBean" >
+    <!--
+      WARNING - 根据Criteria所携带条件更新指定字段。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    update {{schema_info}}
+    <set >
+      <if test="record.schemaId != null" >
+        schema_id = #{record.schemaId,jdbcType=BIGINT},
+      </if>
+      <if test="record.schemaName != null" >
+        schema_name = #{record.schemaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schemaDesc != null" >
+        schema_desc = #{record.schemaDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dbType != null" >
+        db_type = #{record.dbType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null" >
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.port != null" >
+        port = #{record.port,jdbcType=INTEGER},
+      </if>
+      <if test="record.jdbcUrl != null" >
+        jdbc_url = #{record.jdbcUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passwords != null" >
+        passwords = #{record.passwords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appId != null" >
+        app_id = #{record.appId,jdbcType=BIGINT},
+      </if>
+      <if test="record.initialSize != null" >
+        initial_size = #{record.initialSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.minIdle != null" >
+        min_idle = #{record.minIdle,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxActive != null" >
+        max_active = #{record.maxActive,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxWait != null" >
+        max_wait = #{record.maxWait,jdbcType=BIGINT},
+      </if>
+      <if test="record.betweenEvictionRuns != null" >
+        between_eviction_runs = #{record.betweenEvictionRuns,jdbcType=BIGINT},
+      </if>
+      <if test="record.minEvictableIdle != null" >
+        min_evictable_idle = #{record.minEvictableIdle,jdbcType=BIGINT},
+      </if>
+      <if test="record.validationQuery != null" >
+        validation_query = #{record.validationQuery,jdbcType=VARCHAR},
+      </if>
+      <if test="record.testWhileIdle != null" >
+        test_while_idle = #{record.testWhileIdle,jdbcType=BIT},
+      </if>
+      <if test="record.testOnBorrow != null" >
+        test_on_borrow = #{record.testOnBorrow,jdbcType=BIT},
+      </if>
+      <if test="record.testOnReturn != null" >
+        test_on_return = #{record.testOnReturn,jdbcType=BIT},
+      </if>
+      <if test="record.poolProparedStmt != null" >
+        pool_propared_stmt = #{record.poolProparedStmt,jdbcType=BIT},
+      </if>
+      <if test="record.maxPstmtPerConn != null" >
+        max_pstmt_per_conn = #{record.maxPstmtPerConn,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateBulks" parameterType="com.vteba.tx.jdbc.params.UpdateBean" >
+    <!--
+      WARNING - 根据params所携带条件更新指定字段。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    update {{schema_info}}
+    <set >
+      <if test="record.schemaId != null" >
+        schema_id = #{record.schemaId,jdbcType=BIGINT},
+      </if>
+      <if test="record.schemaName != null" >
+        schema_name = #{record.schemaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schemaDesc != null" >
+        schema_desc = #{record.schemaDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dbType != null" >
+        db_type = #{record.dbType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null" >
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.port != null" >
+        port = #{record.port,jdbcType=INTEGER},
+      </if>
+      <if test="record.jdbcUrl != null" >
+        jdbc_url = #{record.jdbcUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passwords != null" >
+        passwords = #{record.passwords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appId != null" >
+        app_id = #{record.appId,jdbcType=BIGINT},
+      </if>
+      <if test="record.initialSize != null" >
+        initial_size = #{record.initialSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.minIdle != null" >
+        min_idle = #{record.minIdle,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxActive != null" >
+        max_active = #{record.maxActive,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxWait != null" >
+        max_wait = #{record.maxWait,jdbcType=BIGINT},
+      </if>
+      <if test="record.betweenEvictionRuns != null" >
+        between_eviction_runs = #{record.betweenEvictionRuns,jdbcType=BIGINT},
+      </if>
+      <if test="record.minEvictableIdle != null" >
+        min_evictable_idle = #{record.minEvictableIdle,jdbcType=BIGINT},
+      </if>
+      <if test="record.validationQuery != null" >
+        validation_query = #{record.validationQuery,jdbcType=VARCHAR},
+      </if>
+      <if test="record.testWhileIdle != null" >
+        test_while_idle = #{record.testWhileIdle,jdbcType=BIT},
+      </if>
+      <if test="record.testOnBorrow != null" >
+        test_on_borrow = #{record.testOnBorrow,jdbcType=BIT},
+      </if>
+      <if test="record.testOnReturn != null" >
+        test_on_return = #{record.testOnReturn,jdbcType=BIT},
+      </if>
+      <if test="record.poolProparedStmt != null" >
+        pool_propared_stmt = #{record.poolProparedStmt,jdbcType=BIT},
+      </if>
+      <if test="record.maxPstmtPerConn != null" >
+        max_pstmt_per_conn = #{record.maxPstmtPerConn,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="update_model_where_clause" />
+    </if>
+  </update>
+  <update id="updateById" parameterType="com.vteba.tx.jdbc.params.UpdateBean" >
+    <!--
+      WARNING - 根据主键更新指定字段的数据。
+      MyBatis代码工具自动生成，不要修改！
+    -->
+    update {{schema_info}}
+    <set >
+      <if test="record.schemaName != null" >
+        schema_name = #{record.schemaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schemaDesc != null" >
+        schema_desc = #{record.schemaDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dbType != null" >
+        db_type = #{record.dbType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null" >
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.port != null" >
+        port = #{record.port,jdbcType=INTEGER},
+      </if>
+      <if test="record.jdbcUrl != null" >
+        jdbc_url = #{record.jdbcUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passwords != null" >
+        passwords = #{record.passwords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appId != null" >
+        app_id = #{record.appId,jdbcType=BIGINT},
+      </if>
+      <if test="record.initialSize != null" >
+        initial_size = #{record.initialSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.minIdle != null" >
+        min_idle = #{record.minIdle,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxActive != null" >
+        max_active = #{record.maxActive,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxWait != null" >
+        max_wait = #{record.maxWait,jdbcType=BIGINT},
+      </if>
+      <if test="record.betweenEvictionRuns != null" >
+        between_eviction_runs = #{record.betweenEvictionRuns,jdbcType=BIGINT},
+      </if>
+      <if test="record.minEvictableIdle != null" >
+        min_evictable_idle = #{record.minEvictableIdle,jdbcType=BIGINT},
+      </if>
+      <if test="record.validationQuery != null" >
+        validation_query = #{record.validationQuery,jdbcType=VARCHAR},
+      </if>
+      <if test="record.testWhileIdle != null" >
+        test_while_idle = #{record.testWhileIdle,jdbcType=BIT},
+      </if>
+      <if test="record.testOnBorrow != null" >
+        test_on_borrow = #{record.testOnBorrow,jdbcType=BIT},
+      </if>
+      <if test="record.testOnReturn != null" >
+        test_on_return = #{record.testOnReturn,jdbcType=BIT},
+      </if>
+      <if test="record.poolProparedStmt != null" >
+        pool_propared_stmt = #{record.poolProparedStmt,jdbcType=BIT},
+      </if>
+      <if test="record.maxPstmtPerConn != null" >
+        max_pstmt_per_conn = #{record.maxPstmtPerConn,jdbcType=INTEGER},
+      </if>
+    </set>
+    where schema_id = #{record.schemaId,jdbcType=BIGINT}
+  </update>
+</mapper>

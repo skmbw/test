@@ -23,11 +23,12 @@
 		<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
 	</settings>
 	
+	<!-- 配置了类型别名，在xml文件中如果使用，就不需要指定类的包名了，否则使用全限定类名 -->
 	<typeAliases>
-		<typeAlias alias="User" type="com.vteba.user.model.User"/>
+		<typeAlias alias="User" type="com.vteba.user2.model.User"/>
 	</typeAliases>
 	
-	<!-- mybatis 自动扫描包下的bean
+	<!-- mybatis 自动扫描包下的bean，简化上面的配置，就不用一个一个的配置了，扫描子包即可
 	<typeAliases>
 		<package name="domain.blog"/>
 	</typeAliases> -->

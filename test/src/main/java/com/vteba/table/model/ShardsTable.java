@@ -9,9 +9,14 @@ public class ShardsTable {
     private Integer id;
 
     /**
-     * 对应数据库表字段 shards_table.dbschema
+     * 对应数据库表字段 shards_table.schema_name
      */
-    private String dbschema;
+    private String schemaName;
+
+    /**
+     * 对应数据库表字段 shards_table.schema_id
+     */
+    private Long schemaId;
 
     /**
      * 对应数据库表字段 shards_table.table_name
@@ -49,6 +54,11 @@ public class ShardsTable {
     private Date updateDate;
 
     /**
+     * 对应数据库表字段 shards_table.create_sql
+     */
+    private String createSql;
+
+    /**
      * 获得字段 shards_table.id 的值
      *
      * @return the value of shards_table.id
@@ -67,21 +77,39 @@ public class ShardsTable {
     }
 
     /**
-     * 获得字段 shards_table.dbschema 的值
+     * 获得字段 shards_table.schema_name 的值
      *
-     * @return the value of shards_table.dbschema
+     * @return the value of shards_table.schema_name
      */
-    public String getDbschema() {
-        return dbschema;
+    public String getSchemaName() {
+        return schemaName;
     }
 
     /**
-     * 设置字段 shards_table.dbschema 的值
+     * 设置字段 shards_table.schema_name 的值
      *
-     * @param dbschema the value for shards_table.dbschema
+     * @param schemaName the value for shards_table.schema_name
      */
-    public void setDbschema(String dbschema) {
-        this.dbschema = dbschema;
+    public void setSchemaName(String schemaName) {
+        this.schemaName = schemaName;
+    }
+
+    /**
+     * 获得字段 shards_table.schema_id 的值
+     *
+     * @return the value of shards_table.schema_id
+     */
+    public Long getSchemaId() {
+        return schemaId;
+    }
+
+    /**
+     * 设置字段 shards_table.schema_id 的值
+     *
+     * @param schemaId the value for shards_table.schema_id
+     */
+    public void setSchemaId(Long schemaId) {
+        this.schemaId = schemaId;
     }
 
     /**
@@ -208,5 +236,23 @@ public class ShardsTable {
      */
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    /**
+     * 获得字段 shards_table.create_sql 的值
+     *
+     * @return the value of shards_table.create_sql
+     */
+    public String getCreateSql() {
+        return createSql;
+    }
+
+    /**
+     * 设置字段 shards_table.create_sql 的值
+     *
+     * @param createSql the value for shards_table.create_sql
+     */
+    public void setCreateSql(String createSql) {
+        this.createSql = createSql;
     }
 }

@@ -14,20 +14,20 @@
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/skmbw" userId="root" password="3416763" />
 		
 		<!-- 实体文件的位置 -->
-		<javaModelGenerator targetPackage="com.vteba.table.model" targetProject="test" /><!-- targetProject之处代码产生在哪个项目中 -->
+		<javaModelGenerator targetPackage="com.vteba.schema.model" targetProject="test" /><!-- targetProject之处代码产生在哪个项目中 -->
 		
 		<!-- Mapper.xml文件的位置，sql映射文件的位置 -->
-		<sqlMapGenerator targetPackage="com.vteba.table.mapper" targetProject="test" />
+		<sqlMapGenerator targetPackage="com.vteba.schema.mapper" targetProject="test" />
 		
 		<!-- Mapper.java文件的位置，也就是DAO接口文件位置 -->
-		<javaClientGenerator targetPackage="com.vteba.table.dao" targetProject="test" type="XMLMAPPER" /><!-- ANNOTATEDMAPPER -->
+		<javaClientGenerator targetPackage="com.vteba.schema.dao" targetProject="test" type="XMLMAPPER" /><!-- ANNOTATEDMAPPER -->
 		
 		<!-- 要映射的表，schema可以不指定 -->
-		<table schema="" tableName="shards_table">
+		<table schema="" tableName="app_info">
 			<!-- 如果字段名和属性名不一致，在此处重载。column是DB字段 ，property是Model属性-->
 			<!-- <columnOverride column="user_name" property="name" /> -->
 		</table>
-		<table schema="" tableName="table_detail">
+		<table schema="" tableName="schema_info">
 		</table>
 	</context>
 </generatorConfiguration>

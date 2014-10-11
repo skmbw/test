@@ -1,4 +1,4 @@
-package com.vteba.table.action;
+package com.vteba.schema.action;
 
 import java.util.List;
 import java.util.Map;
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.vteba.table.model.ShardsTable;
-import com.vteba.table.service.spi.ShardsTableService;
+import com.vteba.schema.model.AppInfo;
+import com.vteba.schema.service.spi.AppInfoService;
 
 import com.vteba.tx.jdbc.params.QueryBean;
 import com.vteba.tx.jdbc.params.UpdateBean;
@@ -18,53 +18,53 @@ import com.vteba.web.action.GenericAction;
 import com.vteba.web.action.JsonBean;
 
 /**
- * 分区表控制器
+ * 应用配置信息控制器
  * @author yinlei
- * @date 2014-10-10 18:34:11
+ * @date 2014-10-11 11:13:49
  */
 @Controller
-@RequestMapping("/shardsTable")
-public class ShardsTableAction extends GenericAction<ShardsTable> {
+@RequestMapping("/appInfo")
+public class AppInfoAction extends GenericAction<AppInfo> {
 	@Inject
-	private ShardsTableService shardsTableServiceImpl;
+	private AppInfoService appInfoServiceImpl;
 	
 	/**
-     * 获得分区表List，初始化列表页。
+     * 获得应用配置信息List，初始化列表页。
      * @param model 参数
-     * @return 分区表List
+     * @return 应用配置信息List
      */
     @RequestMapping("/initial")
-    public String initial(ShardsTable model, Map<String, Object> maps) {
+    public String initial(AppInfo model, Map<String, Object> maps) {
     	QueryBean params = new QueryBean();
     	params.setParams(model);
-        List<ShardsTable> list = shardsTableServiceImpl.pagedList(params);
+        List<AppInfo> list = appInfoServiceImpl.pagedList(params);
         maps.put("list", list);
-        return "shardsTable/initial";
+        return "appInfo/initial";
     }
 	
 	/**
-	 * 获得分区表List，Json格式。
+	 * 获得应用配置信息List，Json格式。
 	 * @param model 参数
-	 * @return 分区表List
+	 * @return 应用配置信息List
 	 */
 	@ResponseBody
 	@RequestMapping("/list")
-	public List<ShardsTable> list(ShardsTable model) {
+	public List<AppInfo> list(AppInfo model) {
 		QueryBean params = new QueryBean();
     	params.setParams(model);
-		List<ShardsTable> list = shardsTableServiceImpl.pagedList(params);
+		List<AppInfo> list = appInfoServiceImpl.pagedList(params);
 		return list;
 	}
 	
 	/**
-     * 根据Id获得分区表实体，Json格式。
+     * 根据Id获得应用配置信息实体，Json格式。
      * @param id 参数id
-     * @return 分区表实体
+     * @return 应用配置信息实体
      */
     @ResponseBody
     @RequestMapping("/get")
-    public ShardsTable get(Integer id) {
-        ShardsTable model = shardsTableServiceImpl.get(id);
+    public AppInfo get(Long id) {
+        AppInfo model = appInfoServiceImpl.get(id);
         return model;
     }
 	
@@ -74,7 +74,7 @@ public class ShardsTableAction extends GenericAction<ShardsTable> {
      */
     @RequestMapping("/add")
     public String add() {
-        return "shardsTable/add";
+        return "appInfo/add";
     }
     
     /**
@@ -84,8 +84,8 @@ public class ShardsTableAction extends GenericAction<ShardsTable> {
      */
     @ResponseBody
     @RequestMapping("/doAdd")
-    public JsonBean doAdd(ShardsTable model) {
-        int result = shardsTableServiceImpl.save(model);
+    public JsonBean doAdd(AppInfo model) {
+        int result = appInfoServiceImpl.save(model);
         JsonBean bean = new JsonBean();
         if (result == 1) {
             bean.setMessage(SUCCESS);
@@ -97,15 +97,15 @@ public class ShardsTableAction extends GenericAction<ShardsTable> {
     }
     
     /**
-     * 查看分区表详情页。
+     * 查看应用配置信息详情页。
      * @param model 查询参数，携带ID
-     * @return 分区表详情页
+     * @return 应用配置信息详情页
      */
     @RequestMapping("/detail")
-    public String detail(ShardsTable model, Map<String, Object> maps) {
-        model = shardsTableServiceImpl.get(model.getId());
+    public String detail(AppInfo model, Map<String, Object> maps) {
+        model = appInfoServiceImpl.get(model.getAppId());
         maps.put("model", model);//将model放入视图中，供页面视图使用
-        return "shardsTable/detail";
+        return "appInfo/detail";
     }
     
     /**
@@ -114,23 +114,23 @@ public class ShardsTableAction extends GenericAction<ShardsTable> {
      * @return 编辑页面
      */
     @RequestMapping("/edit")
-    public String edit(ShardsTable model, Map<String, Object> maps) {
-        model = shardsTableServiceImpl.get(model.getId());
+    public String edit(AppInfo model, Map<String, Object> maps) {
+        model = appInfoServiceImpl.get(model.getAppId());
         maps.put("model", model);
-        return "shardsTable/edit";
+        return "appInfo/edit";
     }
     
     /**
-     * 更新分区表信息
-     * @param model 要更新的分区表信息，含有ID
+     * 更新应用配置信息信息
+     * @param model 要更新的应用配置信息信息，含有ID
      * @return 操作结果信息
      */
     @ResponseBody
     @RequestMapping("/update")
-    public JsonBean update(ShardsTable model) {
+    public JsonBean update(AppInfo model) {
     	UpdateBean updateBean = new UpdateBean();
     	updateBean.setParams(model);
-        int result = shardsTableServiceImpl.updateById(updateBean);
+        int result = appInfoServiceImpl.updateById(updateBean);
         JsonBean bean = new JsonBean();
         if (result == 1) {
             bean.setMessage(SUCCESS);
@@ -142,13 +142,13 @@ public class ShardsTableAction extends GenericAction<ShardsTable> {
     }
     
     /**
-     * 删除分区表信息
-     * @param id 要删除的分区表ID
+     * 删除应用配置信息信息
+     * @param id 要删除的应用配置信息ID
      */
     @ResponseBody
     @RequestMapping("/delete")
-    public JsonBean delete(Integer id) {
-        int result = shardsTableServiceImpl.deleteById(id);
+    public JsonBean delete(Long id) {
+        int result = appInfoServiceImpl.deleteById(id);
         JsonBean bean = new JsonBean();
         if (result == 1) {
             bean.setMessage(SUCCESS);

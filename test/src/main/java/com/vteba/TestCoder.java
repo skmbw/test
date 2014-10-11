@@ -14,15 +14,15 @@ public class TestCoder {
 	    //项目绝对路径
 		String rootPath = "C:\\Users\\Administrator\\git\\test\\test\\";
 		CodeBuilder builder = new CodeBuilder(rootPath, TempType.Mybatis);
-		builder.setConfigFilePath("src/jndi.properties")
+		builder.setConfigFilePath("src/main/resources/jndi.properties")
 		.setSrcPath("src/main/java/")
 		.schema("skmbw")
-		.className("ShardsTable")
+		.className("AppInfo")
 		.setDb(DB.MySQL)// 可以不使用，只要jdbc url是正确的
-		.keyType(KeyType.Integer)
-		.tableDesc("分区表")
-		.tableName("shards_table")
-		.module("com.vteba.table")
+		.keyType(KeyType.Long)
+		.tableDesc("应用配置信息")
+		.tableName("app_info")
+		.module("com.vteba.schema")
 		.setPojo(false)
 		.setMongo(false)
 		.setGenAction(false)

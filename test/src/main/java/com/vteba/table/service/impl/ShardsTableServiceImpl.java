@@ -16,7 +16,7 @@ import com.vteba.table.service.spi.ShardsTableService;
 /**
  * 分区表相关的service业务实现。
  * @author yinlei
- * @date 2014-9-22 13:21:53
+ * @date 2014-10-10 18:34:11
  */
 @Named
 public class ShardsTableServiceImpl implements ShardsTableService {

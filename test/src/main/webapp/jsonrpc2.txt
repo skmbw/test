@@ -1,0 +1,135 @@
+json-rpc2.0 翻译
+　　JSON-RPC2.0标准（草稿）
+　　1. 概述 
+JSON-RPC是一个无状态，轻量级的远程过程调用（RPC）协议。它使用JSON数据格式，它不但设计简单，而且是传输独立的。
+　　2. 约定 
+关键字“必须”，“必须不”，“要求”，“会”，“会不会”，“应该”，“不应该”，“建议”，“或许”，“可选”与RFC2119中的解释相同。 
+
+因为JSON－RPC使用的JSON，它共享相同的类型系统为JSON（见或RFC4627）。每当这个文件指的是任何JSON的类型，总是第一个字母大写：对象（Object），数组（Array），字符串（String），数字（Number），真（True），假（False），空（Null）。 
+所有名称（即方法的名称或参数名称）是大小写敏感的。 
+
+客户端的请求对象的来源。服务器是Response对象的来源。
+　　
+3. 兼容性 
+JSON-RPC的2.0无法使用的JSON-RPC的1.0客户端或服务器。 
+但是，很容易区分的JSON-RPC的2.0和JSON-RPC的1.0（由于“jsonrpc”版本域），以及例如建立一个联合的JSON-RPC的1.0/2.0-server。
+　　4. 请求（过程调用） 
+　　远程过程调用是指发送一个请求到一个远程服务。该请求被表示为一个单一的JSON对象，成员（域）如下：
+　　jsonrpc 
+　　　　 一个String指定的版本的JSON-RPC协议。必须填写“2.0”。 
+　　　　 如果jsonrpc丢失（没有填写），服务器可以当作JSON-RPC的1.0 请求来处理。 
+method 
+　　　 一个需要调用的远过程（如函数）的名称。 
+　　　 另外，以“rpc.”开头的函数是RPC的内部方法和扩展，并必须保证不被使用。 
+params 
+　　　 数组或对象，保存了该程序调用的实际参数值。 可以省略，如果空。 
+id 
+　　　 [注1]请求标识符必须是一个JSON标量（字符串，数字，真，假），但通常不能为空，如果为数字，它不应包含小数部分。 如果省略，服务器发送请求的通知（Notification）。 服务器的响应中，id必须具有相同的值。
+　　！！每个请求，除了通知请求（4.1），必须响应。
+　　注： 
+[1] id 为 Null 的请求，不鼓励使用，因为本规范使用Null 的id 来答复一个未知的id。 
+[2] id使用小数部分可能会有问题，因为许多小数不能精确地表示为二进制因子。
+　　4.1. 通知（无响应的过程调用） 
+通知是一个特殊的请求，没有id ，没有响应。服务器都不能答复通知。 
+
+请注意，通知从定义看是不可靠，因为他们没有响应，所以你不能检测错误（如“无效的参数。”，“内部错误。”，“超时或者甚至失去了线路上的数据包”）。 
+4.2. 参数（按位置和按名称的参数模式） 
+一个过程调用的参数，可以指定位置，或按参数名称解析。 
+按位置：params必须是数组，包含正确的顺序（如在JSON-RPC的1.0）的参数。 
+按名称：params必须是一个对象，包含参数的名称和它的值。该名称必须与形式参数定义的名称完全相同（包括大小写）。此时，参数与顺序无关。 
+注意： 
+1．位置和参数名的定义是源于程序参数列表。 
+2．混合“按名称”和“按位置”的参数模式是不可以的，必须二选一。
+　　5. 响应（程序返回） 
+当远程过程调用（request），服务必须响应（除通知）。这种响应表示为一个单一的JSON对象，成员如下： 
+jsonrpc 
+　　　　 一个String指定的版本的JSON-RPC协议。必须填写“2.0”。 
+result 
+　　　　 成功时才需要，此时error成员省略。 
+　　　　 过程返回值。 其内容由函数定义。 
+　　　　 如果出现错误，该成员必须省略。 
+error 
+　　　 错误时才需要，在成功时省略。 
+　　　 一个对象，包含错误有关的故障发生之前，期间或之后调用的信息。 
+　　　 如果没有错误，该成员必须省略。 
+id 
+　　　 与请求的id值一致，如响应之前，发现请求 id的错误（如解析错误/无效的请求），它必须为Null。
+　　！注意: result 和 error 成员有且只有一个。
+　　5.1. Error对象 
+当远程过程调用失败，函数返回对象必须包含错误的成员，其值为一个JSON对象：
+　　{"jsonrpc": "2.0", "error": {"code": -32601, "message": "Procedure not found."}, "id": "1"}
+　　code　　　　　 一个数字，指示的实际发生的错误的。这必须是一个整数。 
+message　 一个String提供了错误的简短说明。消息应限于简明一句话。 
+data　　　　　 其他信息，可以省略。 其内容是完全定义的应用程序（例如详细的错误信息，嵌套错误等）。 
+
+错误代码-32768 .. -32000（含）为协议定义错误。
+　　下表中没有明确定义的错误代码，是保留供将来使用的。
+code代码	message消息	Meaning意义
+-32700 -32700	Parse error.解析错误。	Invalid JSON.无效的JSON。错误发生在服务器在解析JSON文本。
+-32600 -32600	Invalid Request.无效的请求。	接收的JSON是不是有效的JSON-RPC请求。
+-32601 -32601	Method not found.找不到方法。	所要求的远程过程不存在/不可用。 
+-32602 -32602	Invalid params.参数无效。	无效的方法参数。
+-32603 -32603	Internal error.内部错误。	内部的JSON-RPC错误。
+-32099..-32000	Server error.服务器错误。	实施保留定义的服务器错误。
+　　在剩余的空间可供申请定义的错误。
+　　6. 批量/多请求 
+它也可以批量调用几个过程，通过发送的请求数组到一个远程服务。 
+响应是一个响应数组，与请求（除通知，而没有响应）有相同的顺序。 
+如果批量请求本身出现错误（错误的jason/Jason-rpc格式），只需要回复一个错误响应。 
+注意： 
+请求虽然是有顺序的，但是执行可能是并行的，因此不能依赖这个顺序。
+　　7. 示例
+　　下述例子中 
+--> 表示“数据发送到服务 
+<-- 表示“来自数据服务” 
+
+参数按位置的请求和响应: 
+--> {"jsonrpc": "2.0", "method": "subtract", "params": [42, 23], "id": 1} 
+<-- {"jsonrpc": "2.0", "result": 19, "id": 1} 
+
+
+--> {"jsonrpc": "2.0", "method": "subtract", "params": [23, 42], "id": 2} 
+<-- {"jsonrpc": "2.0", "result": -19, "id": 2} 
+
+参数按名称的请求和响应： 
+
+--> {"jsonrpc": "2.0", "method": "subtract", "params": {"subtrahend": 23, "minuend": 42}, "id": 3} 
+<-- {"jsonrpc": "2.0", "result": 19, "id": 3} 
+
+
+--> {"jsonrpc": "2.0", "method": "subtract", "params": {"minuend": 42, "subtrahend": 23}, "id": 4} 
+<-- {"jsonrpc": "2.0", "result": 19, "id": 4}
+　　通知请求和响应: 
+--> {"jsonrpc": "2.0", "method": "update", "params": [1,2,3,4,5]} 
+--> {"jsonrpc": "2.0", "method": "foobar"}
+　　请求不存在的过程（函数）： 
+--> {"jsonrpc": "2.0", "method": "foobar", "id": "1"} 
+<-- {"jsonrpc": "2.0", "error": {"code": -32601, "message": "Procedure not found."}, "id": "1"} 
+
+请求是一个非法的json格式： 
+
+--> {"jsonrpc": "2.0", "method": "foobar, "params": "bar", "baz] 
+<-- {"jsonrpc": "2.0", "error": {"code": -32700, "message": "Parse error."}, "id": null}
+　　请求是一个非法的json-rpc 格式: 
+--> [1,2,3] 
+<-- {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request."}, "id": null} 
+
+--> {"jsonrpc": "2.0", "method": 1, "params": "bar"} 
+<-- {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request."}, "id": null}
+　　批量请求，部分是非法json-rpc格式: 
+--> [ {"jsonrpc": "2.0", "method": "sum", "params": [1,2,4], "id": "1"}, 
+　　 {"jsonrpc": "2.0", "method": "notify_hello", "params": [7]}, 
+　　 {"jsonrpc": "2.0", "method": "subtract", "params": [42,23], "id": "2"}, 
+　　 {"foo": "boo"}, 
+　　 {"jsonrpc": "2.0", "method": "foo.get", "params": {"name": "myself"}, "id": "5"}, 
+　　 {"jsonrpc": "2.0", "method": "get_data", "id": "9"} ] 
+
+<-- [ {"jsonrpc": "2.0", "result": 7, "id": "1"}, 
+　　 {"jsonrpc": "2.0", "result": 19, "id": "2"}, 
+　　 {"jsonrpc": "2.0", "error": {"code": -32600, "message": "Invalid Request."}, "id": null}, 
+　　 {"jsonrpc": "2.0", "error": {"code": -32601, "message": "Method not found."}, id: "5"}, 
+　　 {"jsonrpc": "2.0", "result": ["hello", 5], "id": "9"} ]
+　　批量请求，部分是不合法json，只响应一个错误信息:
+　　--> [ {"jsonrpc": "2.0", "method": "sum", "params": [1,2,4], "id": "1"}, 
+　　 {"jsonrpc": "2.0", "method" ]
+　　<-- {"jsonrpc": "2.0", "error": {"code": -32700, "message": "Parse error."}, "id": null}

@@ -8,6 +8,7 @@ public class ThreadDemo {
 		ta.start();
 		Thread.sleep(2000);
 		System.out.println(ta.getName() + "正在被中断...");
+		//ta.stop();
 		ta.interrupt();
 		System.out.println("ta.isInterrupted()=" + ta.isInterrupted());
 	}

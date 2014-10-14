@@ -155,7 +155,7 @@
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-primary">添加用户</button> <a href="${ctx}/schemaInfo/initial" class="btn btn-info">返回列表页</a>
+      <button type="submit" class="btn btn-primary">新增schema配置</button> <a href="${ctx}/schemaInfo/initial" class="btn btn-info">返回列表页</a>
     </div>
   </div>
 </form>

@@ -129,7 +129,7 @@ public class SchemaInfoAction extends GenericAction<SchemaInfo> {
     @RequestMapping("/update")
     public JsonBean update(SchemaInfo model) {
     	UpdateBean updateBean = new UpdateBean();
-    	updateBean.setParams(model);
+    	updateBean.setRecord(model);
         int result = schemaInfoServiceImpl.updateById(updateBean);
         JsonBean bean = new JsonBean();
         if (result == 1) {

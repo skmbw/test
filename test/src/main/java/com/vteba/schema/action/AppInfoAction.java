@@ -1,5 +1,6 @@
 package com.vteba.schema.action;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.vteba.schema.model.AppInfo;
 import com.vteba.schema.service.spi.AppInfoService;
-
 import com.vteba.tx.jdbc.params.QueryBean;
 import com.vteba.tx.jdbc.params.UpdateBean;
 import com.vteba.web.action.GenericAction;
@@ -85,6 +85,9 @@ public class AppInfoAction extends GenericAction<AppInfo> {
     @ResponseBody
     @RequestMapping("/doAdd")
     public JsonBean doAdd(AppInfo model) {
+    	Date date = new Date();
+    	model.setCreateDate(date);
+    	model.setUpdateDate(date);
         int result = appInfoServiceImpl.save(model);
         JsonBean bean = new JsonBean();
         if (result == 1) {
@@ -128,8 +131,9 @@ public class AppInfoAction extends GenericAction<AppInfo> {
     @ResponseBody
     @RequestMapping("/update")
     public JsonBean update(AppInfo model) {
+    	model.setUpdateDate(new Date());
     	UpdateBean updateBean = new UpdateBean();
-    	updateBean.setParams(model);
+    	updateBean.setRecord(model);
         int result = appInfoServiceImpl.updateById(updateBean);
         JsonBean bean = new JsonBean();
         if (result == 1) {

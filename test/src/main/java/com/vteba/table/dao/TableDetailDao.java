@@ -1,10 +1,12 @@
 package com.vteba.table.dao;
 
+import com.vteba.service.tenant.annotation.Schema;
 import com.vteba.table.model.TableDetail;
 import com.vteba.tx.jdbc.mybatis.annotation.DaoMapper;
 import com.vteba.tx.jdbc.params.DeleteBean;
 import com.vteba.tx.jdbc.params.QueryBean;
 import com.vteba.tx.jdbc.params.UpdateBean;
+
 import java.util.List;
 
 /**
@@ -13,6 +15,7 @@ import java.util.List;
  * @date 2014-10-10 18:34:19
  */
 @DaoMapper
+@Schema(schemaName = "skmbw")
 public interface TableDetailDao {
     /**
      * 根据params所携带条件进行count计数。

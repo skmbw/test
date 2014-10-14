@@ -1,10 +1,12 @@
 package com.vteba.schema.dao;
 
 import com.vteba.schema.model.AppInfo;
+import com.vteba.service.tenant.annotation.Schema;
 import com.vteba.tx.jdbc.mybatis.annotation.DaoMapper;
 import com.vteba.tx.jdbc.params.DeleteBean;
 import com.vteba.tx.jdbc.params.QueryBean;
 import com.vteba.tx.jdbc.params.UpdateBean;
+
 import java.util.List;
 
 /**
@@ -13,6 +15,7 @@ import java.util.List;
  * @date 2014-10-11 14:51:56
  */
 @DaoMapper
+@Schema(schemaName = "skmbw")
 public interface AppInfoDao {
     /**
      * 根据params所携带条件进行count计数。

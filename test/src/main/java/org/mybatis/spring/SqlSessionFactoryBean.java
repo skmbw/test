@@ -60,6 +60,7 @@ import com.vteba.tx.matrix.info.ShardsTable;
  * 
  * <p>主要的调整是，该SqlSessionFactory会解析该数据库下的表的分区策略。
  * 代理数据源去掉了，在SqlSeesionTemplate中实现了。
+ * <p>增加了可以获取配置文件，映射文件，数据源的getter方法。创建动态SqlSessionFactory时，需要使用。
  * 
  * @author Putthibong Boonbong
  * @author Hunter Presnall
@@ -622,5 +623,17 @@ public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>,
         	ShardingTableCache.put("shards_table", tableInfo2);
         }
 
+	}
+
+	public Resource getConfigLocation() {
+		return configLocation;
+	}
+
+	public Resource[] getMapperLocations() {
+		return mapperLocations;
+	}
+
+	public DataSource getDataSource() {
+		return dataSource;
 	}
 }

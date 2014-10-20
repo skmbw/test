@@ -1,17 +1,26 @@
 package com.vteba.schema.service.impl;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.vteba.tx.jdbc.params.DeleteBean;
-import com.vteba.tx.jdbc.params.QueryBean;
-import com.vteba.tx.jdbc.params.UpdateBean;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.vteba.schema.dao.SchemaInfoDao;
 import com.vteba.schema.model.SchemaInfo;
 import com.vteba.schema.service.spi.SchemaInfoService;
+import com.vteba.service.context.spring.ApplicationContextHolder;
+import com.vteba.tx.jdbc.params.DeleteBean;
+import com.vteba.tx.jdbc.params.QueryBean;
+import com.vteba.tx.jdbc.params.UpdateBean;
 
 /**
  * schema配置信息相关的service业务实现。
@@ -20,10 +29,49 @@ import com.vteba.schema.service.spi.SchemaInfoService;
  */
 @Named
 public class SchemaInfoServiceImpl implements SchemaInfoService {
+	private static final Logger LOGGER = LoggerFactory.getLogger(SchemaInfoServiceImpl.class);
 	
 	@Inject
 	private SchemaInfoDao schemaInfoDao;
+	
+	@Inject
+	private SqlSessionTemplate sqlSessionTemplateProxy;
 
+	public boolean createSchema() {
+		Map<String, SqlSessionFactory> maps = sqlSessionTemplateProxy.getProxySqlSessionFactory();
+		SqlSessionFactoryBean skmbwSqlSessionFactory = ApplicationContextHolder.getBean("&skmbwSqlSessionFactory");
+		
+		DruidDataSource skmbwDataSource = (DruidDataSource) skmbwSqlSessionFactory.getDataSource();
+		DruidDataSource skmbw3DataSource = skmbwDataSource.cloneDruidDataSource();
+		String jdbcUrl = skmbw3DataSource.getUrl();
+		jdbcUrl = jdbcUrl + 3;
+		skmbw3DataSource.setUrl(jdbcUrl);
+		
+		try {
+			skmbw3DataSource.init();
+		} catch (SQLException e) {
+			LOGGER.error("动态创建数据源错误，jdbc_url=[{}]。", jdbcUrl, e);
+			return false;
+		}
+		
+		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+		factoryBean.setDataSource(skmbw3DataSource);
+		factoryBean.setConfigLocation(skmbwSqlSessionFactory.getConfigLocation());
+		factoryBean.setMapperLocations(skmbwSqlSessionFactory.getMapperLocations());
+		
+		SqlSessionFactory skmbw3SqlSessionFactory = null;
+		try {
+			factoryBean.afterPropertiesSet();
+			skmbw3SqlSessionFactory = factoryBean.getObject();
+		} catch (Exception e) {
+			LOGGER.error("动态创建SqlSessionFactory错误，jdbc_url=[{}]。", jdbcUrl, e);
+			return false;
+		}
+		
+		maps.put("skmbw3", skmbw3SqlSessionFactory);
+		return true;
+	}
+	
 	@Override
 	public int count(QueryBean params) {
 		return schemaInfoDao.count(params);
@@ -86,6 +134,7 @@ public class SchemaInfoServiceImpl implements SchemaInfoService {
 
     @Override
     public List<SchemaInfo> pagedList(QueryBean params) {
+    	createSchema();
         return schemaInfoDao.pagedList(params);
     }
 

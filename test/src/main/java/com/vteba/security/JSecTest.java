@@ -93,6 +93,10 @@ public class JSecTest {
 		}
 	}
 	
+	/**
+	 * 私钥签名，公钥验证
+	 * @throws Exception
+	 */
 	@Test
 	public void testRSAWithContentType() throws Exception {
 		
@@ -113,6 +117,10 @@ public class JSecTest {
 
 	}
 
+	/**
+	 * 公钥签名，私钥解密
+	 * @throws Exception
+	 */
 	@Test
 	public void testRSA() throws Exception {
 		//KeyPair keyPair = KeyPairGenerator.getInstance("RSA").generateKeyPair();
@@ -165,12 +173,16 @@ public class JSecTest {
 		}
 	}
 
+	/**
+	 * 直接加密和解密，不签名
+	 * @throws Exception
+	 */
 	@Test
 	public void testDirect() throws Exception {
 		String content = "Live long and prosper.";
-		String encoded = new JWEBuilder().contentBytes(content.getBytes())./*dir是加入盐值*/dir("geheim");
+		String encoded = new JWEBuilder().contentBytes(content.getBytes())./*dir是加入盐值*/dir("geheimaa");
 		System.out.println("encoded: " + encoded);
-		byte[] raw = new JWEInput(encoded).decrypt("geheim").getRawContent();
+		byte[] raw = new JWEInput(encoded).decrypt("geheimaa").getRawContent();
 		String from = new String(raw);
 		Assert.assertEquals(content, from);
 

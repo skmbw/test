@@ -101,9 +101,9 @@ public class JSecTest {
 	public void testRSAWithContentType() throws Exception {
 		
 
-		String encoded = new JWSBuilder()
-				.contentType(MediaType.TEXT_PLAIN_TYPE)
-				.content("Hello World", MediaType.TEXT_PLAIN_TYPE)
+		String encoded = new JWSBuilder().content("Hello World".getBytes())
+//				.contentType(MediaType.TEXT_PLAIN_TYPE)//这个也是可以的
+//				.content("Hello World", MediaType.TEXT_PLAIN_TYPE)
 				.rsa256(keyPair.getPrivate());
 
 		System.out.println("testRSAWithContentType encoded: " + encoded);
@@ -174,7 +174,7 @@ public class JSecTest {
 	}
 
 	/**
-	 * 直接加密和解密，不签名
+	 * 直接加密和解密，不签名，不使用公钥和私钥
 	 * @throws Exception
 	 */
 	@Test

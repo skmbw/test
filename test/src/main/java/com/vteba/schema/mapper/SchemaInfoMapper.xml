@@ -15,6 +15,7 @@
     <result column="jdbc_url" property="jdbcUrl" jdbcType="VARCHAR" />
     <result column="passwords" property="passwords" jdbcType="VARCHAR" />
     <result column="app_id" property="appId" jdbcType="BIGINT" />
+    <result column="app_name" property="appName" jdbcType="VARCHAR" />
     <result column="initial_size" property="initialSize" jdbcType="INTEGER" />
     <result column="min_idle" property="minIdle" jdbcType="INTEGER" />
     <result column="max_active" property="maxActive" jdbcType="INTEGER" />
@@ -27,6 +28,8 @@
     <result column="test_on_return" property="testOnReturn" jdbcType="BIT" />
     <result column="pool_propared_stmt" property="poolProparedStmt" jdbcType="BIT" />
     <result column="max_pstmt_per_conn" property="maxPstmtPerConn" jdbcType="INTEGER" />
+    <result column="peer_id" property="peerId" jdbcType="BIGINT" />
+    <result column="peer_name" property="peerName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     <!--
@@ -34,9 +37,9 @@
       MyBatis代码工具自动生成，不要修改！
     -->
     schema_id, schema_name, schema_desc, db_type, ip, port, jdbc_url, passwords, app_id, 
-    initial_size, min_idle, max_active, max_wait, between_eviction_runs, min_evictable_idle, 
+    app_name, initial_size, min_idle, max_active, max_wait, between_eviction_runs, min_evictable_idle, 
     validation_query, test_while_idle, test_on_borrow, test_on_return, pool_propared_stmt, 
-    max_pstmt_per_conn
+    max_pstmt_per_conn, peer_id, peer_name
   </sql>
   <sql id="Example_Where_Clause" >
     <!--
@@ -141,6 +144,9 @@
         <if test="params.appId != null" >
           and app_id = #{params.appId,jdbcType=BIGINT}
         </if>
+        <if test="params.appName != null" >
+          and app_name = #{params.appName,jdbcType=VARCHAR}
+        </if>
         <if test="params.initialSize != null" >
           and initial_size = #{params.initialSize,jdbcType=INTEGER}
         </if>
@@ -176,6 +182,12 @@
         </if>
         <if test="params.maxPstmtPerConn != null" >
           and max_pstmt_per_conn = #{params.maxPstmtPerConn,jdbcType=INTEGER}
+        </if>
+        <if test="params.peerId != null" >
+          and peer_id = #{params.peerId,jdbcType=BIGINT}
+        </if>
+        <if test="params.peerName != null" >
+          and peer_name = #{params.peerName,jdbcType=VARCHAR}
         </if>
       </trim>
     </where>
@@ -217,6 +229,9 @@
         <if test="params.appId != null" >
           and app_id = #{params.appId,jdbcType=BIGINT}
         </if>
+        <if test="params.appName != null" >
+          and app_name = #{params.appName,jdbcType=VARCHAR}
+        </if>
         <if test="params.initialSize != null" >
           and initial_size = #{params.initialSize,jdbcType=INTEGER}
         </if>
@@ -252,6 +267,12 @@
         </if>
         <if test="params.maxPstmtPerConn != null" >
           and max_pstmt_per_conn = #{params.maxPstmtPerConn,jdbcType=INTEGER}
+        </if>
+        <if test="params.peerId != null" >
+          and peer_id = #{params.peerId,jdbcType=BIGINT}
+        </if>
+        <if test="params.peerName != null" >
+          and peer_name = #{params.peerName,jdbcType=VARCHAR}
         </if>
       </trim>
     </where>
@@ -388,6 +409,9 @@
       <if test="appId != null" >
         app_id,
       </if>
+      <if test="appName != null" >
+        app_name,
+      </if>
       <if test="initialSize != null" >
         initial_size,
       </if>
@@ -424,6 +448,12 @@
       <if test="maxPstmtPerConn != null" >
         max_pstmt_per_conn,
       </if>
+      <if test="peerId != null" >
+        peer_id,
+      </if>
+      <if test="peerName != null" >
+        peer_name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="schemaId != null" >
@@ -452,6 +482,9 @@
       </if>
       <if test="appId != null" >
         #{appId,jdbcType=BIGINT},
+      </if>
+      <if test="appName != null" >
+        #{appName,jdbcType=VARCHAR},
       </if>
       <if test="initialSize != null" >
         #{initialSize,jdbcType=INTEGER},
@@ -488,6 +521,12 @@
       </if>
       <if test="maxPstmtPerConn != null" >
         #{maxPstmtPerConn,jdbcType=INTEGER},
+      </if>
+      <if test="peerId != null" >
+        #{peerId,jdbcType=BIGINT},
+      </if>
+      <if test="peerName != null" >
+        #{peerName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -545,6 +584,9 @@
       <if test="record.appId != null" >
         app_id = #{record.appId,jdbcType=BIGINT},
       </if>
+      <if test="record.appName != null" >
+        app_name = #{record.appName,jdbcType=VARCHAR},
+      </if>
       <if test="record.initialSize != null" >
         initial_size = #{record.initialSize,jdbcType=INTEGER},
       </if>
@@ -580,6 +622,12 @@
       </if>
       <if test="record.maxPstmtPerConn != null" >
         max_pstmt_per_conn = #{record.maxPstmtPerConn,jdbcType=INTEGER},
+      </if>
+      <if test="record.peerId != null" >
+        peer_id = #{record.peerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.peerName != null" >
+        peer_name = #{record.peerName,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -620,6 +668,9 @@
       <if test="record.appId != null" >
         app_id = #{record.appId,jdbcType=BIGINT},
       </if>
+      <if test="record.appName != null" >
+        app_name = #{record.appName,jdbcType=VARCHAR},
+      </if>
       <if test="record.initialSize != null" >
         initial_size = #{record.initialSize,jdbcType=INTEGER},
       </if>
@@ -655,6 +706,12 @@
       </if>
       <if test="record.maxPstmtPerConn != null" >
         max_pstmt_per_conn = #{record.maxPstmtPerConn,jdbcType=INTEGER},
+      </if>
+      <if test="record.peerId != null" >
+        peer_id = #{record.peerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.peerName != null" >
+        peer_name = #{record.peerName,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -692,6 +749,9 @@
       <if test="record.appId != null" >
         app_id = #{record.appId,jdbcType=BIGINT},
       </if>
+      <if test="record.appName != null" >
+        app_name = #{record.appName,jdbcType=VARCHAR},
+      </if>
       <if test="record.initialSize != null" >
         initial_size = #{record.initialSize,jdbcType=INTEGER},
       </if>
@@ -727,6 +787,12 @@
       </if>
       <if test="record.maxPstmtPerConn != null" >
         max_pstmt_per_conn = #{record.maxPstmtPerConn,jdbcType=INTEGER},
+      </if>
+      <if test="record.peerId != null" >
+        peer_id = #{record.peerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.peerName != null" >
+        peer_name = #{record.peerName,jdbcType=VARCHAR},
       </if>
     </set>
     where schema_id = #{record.schemaId,jdbcType=BIGINT}

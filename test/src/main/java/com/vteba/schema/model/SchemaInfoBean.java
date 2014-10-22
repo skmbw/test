@@ -709,6 +709,76 @@ public class SchemaInfoBean {
             return (Criteria) this;
         }
 
+        public Criteria andAppNameIsNull() {
+            addCriterion("app_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppNameIsNotNull() {
+            addCriterion("app_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppNameEqualTo(String value) {
+            addCriterion("app_name =", value, "appName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppNameNotEqualTo(String value) {
+            addCriterion("app_name <>", value, "appName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppNameGreaterThan(String value) {
+            addCriterion("app_name >", value, "appName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppNameGreaterThanOrEqualTo(String value) {
+            addCriterion("app_name >=", value, "appName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppNameLessThan(String value) {
+            addCriterion("app_name <", value, "appName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppNameLessThanOrEqualTo(String value) {
+            addCriterion("app_name <=", value, "appName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppNameLike(String value) {
+            addCriterion("app_name like", value, "appName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppNameNotLike(String value) {
+            addCriterion("app_name not like", value, "appName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppNameIn(List<String> values) {
+            addCriterion("app_name in", values, "appName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppNameNotIn(List<String> values) {
+            addCriterion("app_name not in", values, "appName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppNameBetween(String value1, String value2) {
+            addCriterion("app_name between", value1, value2, "appName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAppNameNotBetween(String value1, String value2) {
+            addCriterion("app_name not between", value1, value2, "appName");
+            return (Criteria) this;
+        }
+
         public Criteria andInitialSizeIsNull() {
             addCriterion("initial_size is null");
             return (Criteria) this;
@@ -1436,6 +1506,136 @@ public class SchemaInfoBean {
 
         public Criteria andMaxPstmtPerConnNotBetween(Integer value1, Integer value2) {
             addCriterion("max_pstmt_per_conn not between", value1, value2, "maxPstmtPerConn");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerIdIsNull() {
+            addCriterion("peer_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerIdIsNotNull() {
+            addCriterion("peer_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerIdEqualTo(Long value) {
+            addCriterion("peer_id =", value, "peerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerIdNotEqualTo(Long value) {
+            addCriterion("peer_id <>", value, "peerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerIdGreaterThan(Long value) {
+            addCriterion("peer_id >", value, "peerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("peer_id >=", value, "peerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerIdLessThan(Long value) {
+            addCriterion("peer_id <", value, "peerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerIdLessThanOrEqualTo(Long value) {
+            addCriterion("peer_id <=", value, "peerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerIdIn(List<Long> values) {
+            addCriterion("peer_id in", values, "peerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerIdNotIn(List<Long> values) {
+            addCriterion("peer_id not in", values, "peerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerIdBetween(Long value1, Long value2) {
+            addCriterion("peer_id between", value1, value2, "peerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerIdNotBetween(Long value1, Long value2) {
+            addCriterion("peer_id not between", value1, value2, "peerId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerNameIsNull() {
+            addCriterion("peer_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerNameIsNotNull() {
+            addCriterion("peer_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerNameEqualTo(String value) {
+            addCriterion("peer_name =", value, "peerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerNameNotEqualTo(String value) {
+            addCriterion("peer_name <>", value, "peerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerNameGreaterThan(String value) {
+            addCriterion("peer_name >", value, "peerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerNameGreaterThanOrEqualTo(String value) {
+            addCriterion("peer_name >=", value, "peerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerNameLessThan(String value) {
+            addCriterion("peer_name <", value, "peerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerNameLessThanOrEqualTo(String value) {
+            addCriterion("peer_name <=", value, "peerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerNameLike(String value) {
+            addCriterion("peer_name like", value, "peerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerNameNotLike(String value) {
+            addCriterion("peer_name not like", value, "peerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerNameIn(List<String> values) {
+            addCriterion("peer_name in", values, "peerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerNameNotIn(List<String> values) {
+            addCriterion("peer_name not in", values, "peerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerNameBetween(String value1, String value2) {
+            addCriterion("peer_name between", value1, value2, "peerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andPeerNameNotBetween(String value1, String value2) {
+            addCriterion("peer_name not between", value1, value2, "peerName");
             return (Criteria) this;
         }
     }

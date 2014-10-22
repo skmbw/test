@@ -429,6 +429,66 @@ public class AppInfoBean {
             addCriterion("update_date not between", value1, value2, "updateDate");
             return (Criteria) this;
         }
+
+        public Criteria andShardsIsNull() {
+            addCriterion("shards is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShardsIsNotNull() {
+            addCriterion("shards is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShardsEqualTo(Boolean value) {
+            addCriterion("shards =", value, "shards");
+            return (Criteria) this;
+        }
+
+        public Criteria andShardsNotEqualTo(Boolean value) {
+            addCriterion("shards <>", value, "shards");
+            return (Criteria) this;
+        }
+
+        public Criteria andShardsGreaterThan(Boolean value) {
+            addCriterion("shards >", value, "shards");
+            return (Criteria) this;
+        }
+
+        public Criteria andShardsGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("shards >=", value, "shards");
+            return (Criteria) this;
+        }
+
+        public Criteria andShardsLessThan(Boolean value) {
+            addCriterion("shards <", value, "shards");
+            return (Criteria) this;
+        }
+
+        public Criteria andShardsLessThanOrEqualTo(Boolean value) {
+            addCriterion("shards <=", value, "shards");
+            return (Criteria) this;
+        }
+
+        public Criteria andShardsIn(List<Boolean> values) {
+            addCriterion("shards in", values, "shards");
+            return (Criteria) this;
+        }
+
+        public Criteria andShardsNotIn(List<Boolean> values) {
+            addCriterion("shards not in", values, "shards");
+            return (Criteria) this;
+        }
+
+        public Criteria andShardsBetween(Boolean value1, Boolean value2) {
+            addCriterion("shards between", value1, value2, "shards");
+            return (Criteria) this;
+        }
+
+        public Criteria andShardsNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("shards not between", value1, value2, "shards");
+            return (Criteria) this;
+        }
     }
 
     /**

@@ -29,6 +29,11 @@ public class AppInfo {
     private Date updateDate;
 
     /**
+     * 对应数据库表字段 app_info.shards
+     */
+    private Boolean shards;
+
+    /**
      * 获得字段 app_info.app_id 的值
      *
      * @return the value of app_info.app_id
@@ -116,5 +121,23 @@ public class AppInfo {
      */
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    /**
+     * 获得字段 app_info.shards 的值
+     *
+     * @return the value of app_info.shards
+     */
+    public Boolean getShards() {
+        return shards;
+    }
+
+    /**
+     * 设置字段 app_info.shards 的值
+     *
+     * @param shards the value for app_info.shards
+     */
+    public void setShards(Boolean shards) {
+        this.shards = shards;
     }
 }

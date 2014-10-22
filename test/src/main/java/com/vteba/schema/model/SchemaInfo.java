@@ -47,6 +47,11 @@ public class SchemaInfo {
     private Long appId;
 
     /**
+     * 对应数据库表字段 schema_info.app_name
+     */
+    private String appName;
+
+    /**
      * 对应数据库表字段 schema_info.initial_size
      */
     private Integer initialSize;
@@ -105,6 +110,16 @@ public class SchemaInfo {
      * 对应数据库表字段 schema_info.max_pstmt_per_conn
      */
     private Integer maxPstmtPerConn;
+
+    /**
+     * 对应数据库表字段 schema_info.peer_id
+     */
+    private Long peerId;
+
+    /**
+     * 对应数据库表字段 schema_info.peer_name
+     */
+    private String peerName;
 
     /**
      * 获得字段 schema_info.schema_id 的值
@@ -266,6 +281,24 @@ public class SchemaInfo {
      */
     public void setAppId(Long appId) {
         this.appId = appId;
+    }
+
+    /**
+     * 获得字段 schema_info.app_name 的值
+     *
+     * @return the value of schema_info.app_name
+     */
+    public String getAppName() {
+        return appName;
+    }
+
+    /**
+     * 设置字段 schema_info.app_name 的值
+     *
+     * @param appName the value for schema_info.app_name
+     */
+    public void setAppName(String appName) {
+        this.appName = appName;
     }
 
     /**
@@ -482,5 +515,41 @@ public class SchemaInfo {
      */
     public void setMaxPstmtPerConn(Integer maxPstmtPerConn) {
         this.maxPstmtPerConn = maxPstmtPerConn;
+    }
+
+    /**
+     * 获得字段 schema_info.peer_id 的值
+     *
+     * @return the value of schema_info.peer_id
+     */
+    public Long getPeerId() {
+        return peerId;
+    }
+
+    /**
+     * 设置字段 schema_info.peer_id 的值
+     *
+     * @param peerId the value for schema_info.peer_id
+     */
+    public void setPeerId(Long peerId) {
+        this.peerId = peerId;
+    }
+
+    /**
+     * 获得字段 schema_info.peer_name 的值
+     *
+     * @return the value of schema_info.peer_name
+     */
+    public String getPeerName() {
+        return peerName;
+    }
+
+    /**
+     * 设置字段 schema_info.peer_name 的值
+     *
+     * @param peerName the value for schema_info.peer_name
+     */
+    public void setPeerName(String peerName) {
+        this.peerName = peerName;
     }
 }

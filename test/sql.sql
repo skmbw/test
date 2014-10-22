@@ -8,7 +8,7 @@ CREATE TABLE `app_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `schema_info` (
-  `schema_id` bigint(20) NOT NULL,
+  `schema_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `schema_name` varchar(150) NOT NULL,
   `schema_desc` varchar(150) DEFAULT NULL,
   `db_type` varchar(50) DEFAULT NULL COMMENT '数据库类型',
@@ -29,8 +29,10 @@ CREATE TABLE `schema_info` (
   `test_on_return` tinyint(1) DEFAULT NULL COMMENT '是否验证归还的连接',
   `pool_propared_stmt` tinyint(1) DEFAULT NULL COMMENT '是否池化预处理语句',
   `max_pstmt_per_conn` int(10) DEFAULT NULL COMMENT '每个连接的最大预处理语句数',
+  `peer_id` bigint(20) DEFAULT NULL COMMENT '对等库的id',
+  `peer_name` varchar(150) DEFAULT NULL COMMENT '对等库的名字',
   PRIMARY KEY (`schema_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `shards_table` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '主键',

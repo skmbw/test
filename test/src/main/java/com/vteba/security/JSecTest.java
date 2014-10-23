@@ -86,7 +86,6 @@ public class JSecTest {
 		try {
 			dsaKeyPair = KeyPairGenerator.getInstance("DSA").genKeyPair();// 和方法generateKeyPair等同
 			KeyPairGenerator rsaKeyPairGenerator = KeyPairGenerator.getInstance("RSA");
-			AlgorithmParameterSpec spec;
 			keyPair = rsaKeyPairGenerator.generateKeyPair();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();

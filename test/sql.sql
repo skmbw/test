@@ -4,6 +4,7 @@ CREATE TABLE `app_info` (
   `app_desc` varchar(250) DEFAULT NULL,
   `create_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `update_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `shards` tinyint(1) DEFAULT NULL COMMENT '数据库是否分表',
   PRIMARY KEY (`app_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -17,6 +18,7 @@ CREATE TABLE `schema_info` (
   `jdbc_url` varchar(300) DEFAULT NULL COMMENT 'jdbc连接url',
   `passwords` varchar(50) DEFAULT NULL,
   `app_id` bigint(20) DEFAULT NULL COMMENT '关联app_info的主键',
+  `app_name` varchar(150) DEFAULT NULL COMMENT '应用的名字，和app_id同时更新',
   `initial_size` int(10) DEFAULT NULL COMMENT '连接池初始化大小',
   `min_idle` int(10) DEFAULT NULL COMMENT '连接池最小空闲数',
   `max_active` int(10) DEFAULT NULL COMMENT '连接池最大连接数',

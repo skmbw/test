@@ -1,5 +1,7 @@
 package com.vteba.test.proto;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -16,7 +18,8 @@ public class FirstProtoTest {
 		builder.setPageNumber(32);
 		builder.setQuery("yinlei尹雷");
 		builder.setResultPerPage(10);
-//		builder.setSamples(0, 2);
+		builder.addSamples(1);// list类型，或者数组类型
+		builder.addSamples(2);
 		
 		SearchRequest searchRequest = builder.build();
 		bytes = searchRequest.toByteArray();
@@ -31,7 +34,8 @@ public class FirstProtoTest {
 			searchRequest.getPageNumber();
 			searchRequest.getQuery();
 			searchRequest.getResultPerPage();
-			searchRequest.getSamplesList();
+			List<Integer> samples = searchRequest.getSamplesList();
+			System.out.println(samples);
 		} catch (InvalidProtocolBufferException e) {
 			
 		}

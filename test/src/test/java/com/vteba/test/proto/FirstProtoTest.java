@@ -11,7 +11,7 @@ public class FirstProtoTest {
 	@Test
 	public void test() {
 		long d = System.currentTimeMillis();
-		SearchRequest.Builder builder = SearchRequest.newBuilder();
+		SearchRequest.Builder builder = SearchRequest.newBuilder();// 这里很消耗性能
 		builder.setPageNumber(32);
 		builder.setQuery("yinlei尹雷");
 		builder.setResultPerPage(10);

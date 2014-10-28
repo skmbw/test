@@ -5,6 +5,7 @@ import org.junit.Test;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.vteba.protobuf.FirstProtobuf.SearchRequest;
 
+// protoc.exe SearchRequest.proto --java_out=./
 public class FirstProtoTest {
 	private static byte[] bytes;
 	

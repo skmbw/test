@@ -164,6 +164,7 @@ public class SchemaInfoAction extends GenericAction<SchemaInfo> {
      * @param schemaInfo 参数信息，起码有对等的schema name或者id
      * @return 返回消息
      */
+    @ResponseBody
     @RequestMapping("/createSchema")
     public JsonBean createSchema(SchemaInfo schemaInfo) {
     	JsonBean bean = new JsonBean();

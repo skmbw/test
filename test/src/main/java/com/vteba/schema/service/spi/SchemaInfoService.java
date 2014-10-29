@@ -122,5 +122,13 @@ public interface SchemaInfoService {
      * @return 更新记录条数
      */
     public int updateById(UpdateBean params);
+    
+    /**
+     * 根据已经定义好的SchemaInfo，动态添加一个数据源到SqlSession中，
+     * <p>实现分库，分担现有数据的压力，是一个对等库和已经存在的某一个库中的表示一样的。
+     * @param schemaInfo 携带参数，如果不包含全部信息，起码携带id信息，供查询
+     * @return 如果成功添加，返回true，否则false
+     */
+    public boolean createSchema(SchemaInfo schemaInfo);
 
 }

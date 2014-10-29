@@ -33,6 +33,9 @@ CREATE TABLE `schema_info` (
   `max_pstmt_per_conn` int(10) DEFAULT NULL COMMENT '每个连接的最大预处理语句数',
   `peer_id` bigint(20) DEFAULT NULL COMMENT '对等库的id',
   `peer_name` varchar(150) DEFAULT NULL COMMENT '对等库的名字',
+  `weight` int(3) DEFAULT NULL COMMENT '该数据库的权重',
+  `read_weight` int(3) DEFAULT NULL COMMENT '读权重',
+  `write_weight` int(3) DEFAULT NULL COMMENT '写权重',
   PRIMARY KEY (`schema_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 

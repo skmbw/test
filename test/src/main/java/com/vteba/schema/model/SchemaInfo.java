@@ -122,6 +122,21 @@ public class SchemaInfo {
     private String peerName;
 
     /**
+     * 对应数据库表字段 schema_info.weight
+     */
+    private Integer weight;
+
+    /**
+     * 对应数据库表字段 schema_info.read_weight
+     */
+    private Integer readWeight;
+
+    /**
+     * 对应数据库表字段 schema_info.write_weight
+     */
+    private Integer writeWeight;
+
+    /**
      * 获得字段 schema_info.schema_id 的值
      *
      * @return the value of schema_info.schema_id
@@ -551,5 +566,59 @@ public class SchemaInfo {
      */
     public void setPeerName(String peerName) {
         this.peerName = peerName;
+    }
+
+    /**
+     * 获得字段 schema_info.weight 的值
+     *
+     * @return the value of schema_info.weight
+     */
+    public Integer getWeight() {
+        return weight;
+    }
+
+    /**
+     * 设置字段 schema_info.weight 的值
+     *
+     * @param weight the value for schema_info.weight
+     */
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    /**
+     * 获得字段 schema_info.read_weight 的值
+     *
+     * @return the value of schema_info.read_weight
+     */
+    public Integer getReadWeight() {
+        return readWeight;
+    }
+
+    /**
+     * 设置字段 schema_info.read_weight 的值
+     *
+     * @param readWeight the value for schema_info.read_weight
+     */
+    public void setReadWeight(Integer readWeight) {
+        this.readWeight = readWeight;
+    }
+
+    /**
+     * 获得字段 schema_info.write_weight 的值
+     *
+     * @return the value of schema_info.write_weight
+     */
+    public Integer getWriteWeight() {
+        return writeWeight;
+    }
+
+    /**
+     * 设置字段 schema_info.write_weight 的值
+     *
+     * @param writeWeight the value for schema_info.write_weight
+     */
+    public void setWriteWeight(Integer writeWeight) {
+        this.writeWeight = writeWeight;
     }
 }

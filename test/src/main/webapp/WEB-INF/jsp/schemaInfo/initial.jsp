@@ -32,6 +32,23 @@
 	        });
 		}
 	}
+	function create(id) {
+		var del = confirm('你确定要动态创建该schema数据源的对等数据库schema数据源？');
+		if (del) {
+			$.ajax({
+	            type:"post",
+	            dataType:"text",
+	            url: '${ctx}/schemaInfo/createSchema?schemaId=' + id,
+	            success: function(msg){
+	            	//$('#myModal').modal('show');
+	            	window.location.reload();
+	            },
+	            error: function (msg) {
+	                alert(msg.responseText);
+	            }
+	        });
+		}
+	}
 	$(document).ready(function(){
 		$('#add_user').click(function(){
 			window.location.href="${ctx}/schemaInfo/add";
@@ -67,7 +84,7 @@
 <td>${model.port}</td>
 <td>${model.jdbcUrl}</td>
 <td>${model.appId}</td>
-<td><a href="${ctx}/schemaInfo/detail?schemaId=${model.schemaId}">详情</a> <a href="${ctx}/schemaInfo/edit?schemaId=${model.schemaId}">编辑</a> <a href="javascript:void(0);" onclick="javascript:deleteUser('${model.schemaId}');">删除</a></td>
+<td><a href="${ctx}/schemaInfo/detail?schemaId=${model.schemaId}">详情</a> <a href="${ctx}/schemaInfo/edit?schemaId=${model.schemaId}">编辑</a> <a href="javascript:void(0);" onclick="javascript:deleteUser('${model.schemaId}');">删除</a> <a href="javascript:void(0);" onclick="javascript:create('${model.schemaId}');">创建</a></td>
 </tr>
 
 </c:forEach>

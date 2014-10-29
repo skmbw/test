@@ -1638,6 +1638,186 @@ public class SchemaInfoBean {
             addCriterion("peer_name not between", value1, value2, "peerName");
             return (Criteria) this;
         }
+
+        public Criteria andWeightIsNull() {
+            addCriterion("weight is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightIsNotNull() {
+            addCriterion("weight is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightEqualTo(Integer value) {
+            addCriterion("weight =", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightNotEqualTo(Integer value) {
+            addCriterion("weight <>", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGreaterThan(Integer value) {
+            addCriterion("weight >", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGreaterThanOrEqualTo(Integer value) {
+            addCriterion("weight >=", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightLessThan(Integer value) {
+            addCriterion("weight <", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightLessThanOrEqualTo(Integer value) {
+            addCriterion("weight <=", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightIn(List<Integer> values) {
+            addCriterion("weight in", values, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightNotIn(List<Integer> values) {
+            addCriterion("weight not in", values, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightBetween(Integer value1, Integer value2) {
+            addCriterion("weight between", value1, value2, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightNotBetween(Integer value1, Integer value2) {
+            addCriterion("weight not between", value1, value2, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadWeightIsNull() {
+            addCriterion("read_weight is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadWeightIsNotNull() {
+            addCriterion("read_weight is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadWeightEqualTo(Integer value) {
+            addCriterion("read_weight =", value, "readWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadWeightNotEqualTo(Integer value) {
+            addCriterion("read_weight <>", value, "readWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadWeightGreaterThan(Integer value) {
+            addCriterion("read_weight >", value, "readWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadWeightGreaterThanOrEqualTo(Integer value) {
+            addCriterion("read_weight >=", value, "readWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadWeightLessThan(Integer value) {
+            addCriterion("read_weight <", value, "readWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadWeightLessThanOrEqualTo(Integer value) {
+            addCriterion("read_weight <=", value, "readWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadWeightIn(List<Integer> values) {
+            addCriterion("read_weight in", values, "readWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadWeightNotIn(List<Integer> values) {
+            addCriterion("read_weight not in", values, "readWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadWeightBetween(Integer value1, Integer value2) {
+            addCriterion("read_weight between", value1, value2, "readWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andReadWeightNotBetween(Integer value1, Integer value2) {
+            addCriterion("read_weight not between", value1, value2, "readWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWriteWeightIsNull() {
+            addCriterion("write_weight is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWriteWeightIsNotNull() {
+            addCriterion("write_weight is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWriteWeightEqualTo(Integer value) {
+            addCriterion("write_weight =", value, "writeWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWriteWeightNotEqualTo(Integer value) {
+            addCriterion("write_weight <>", value, "writeWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWriteWeightGreaterThan(Integer value) {
+            addCriterion("write_weight >", value, "writeWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWriteWeightGreaterThanOrEqualTo(Integer value) {
+            addCriterion("write_weight >=", value, "writeWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWriteWeightLessThan(Integer value) {
+            addCriterion("write_weight <", value, "writeWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWriteWeightLessThanOrEqualTo(Integer value) {
+            addCriterion("write_weight <=", value, "writeWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWriteWeightIn(List<Integer> values) {
+            addCriterion("write_weight in", values, "writeWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWriteWeightNotIn(List<Integer> values) {
+            addCriterion("write_weight not in", values, "writeWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWriteWeightBetween(Integer value1, Integer value2) {
+            addCriterion("write_weight between", value1, value2, "writeWeight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWriteWeightNotBetween(Integer value1, Integer value2) {
+            addCriterion("write_weight not between", value1, value2, "writeWeight");
+            return (Criteria) this;
+        }
     }
 
     /**

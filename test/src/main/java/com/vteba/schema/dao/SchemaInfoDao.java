@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 分区表schema_info的MyBatis Dao Mapper。
  * 由代码工具自动生成，可以新增方法，但是不要修改自动生成的方法。
- * @date 2014-10-22 14:00:31
+ * @date 2014-10-29 17:12:30
  */
 @DaoMapper
 public interface SchemaInfoDao {

@@ -30,6 +30,9 @@
     <result column="max_pstmt_per_conn" property="maxPstmtPerConn" jdbcType="INTEGER" />
     <result column="peer_id" property="peerId" jdbcType="BIGINT" />
     <result column="peer_name" property="peerName" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="INTEGER" />
+    <result column="read_weight" property="readWeight" jdbcType="INTEGER" />
+    <result column="write_weight" property="writeWeight" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     <!--
@@ -39,7 +42,7 @@
     schema_id, schema_name, schema_desc, db_type, ip, port, jdbc_url, passwords, app_id, 
     app_name, initial_size, min_idle, max_active, max_wait, between_eviction_runs, min_evictable_idle, 
     validation_query, test_while_idle, test_on_borrow, test_on_return, pool_propared_stmt, 
-    max_pstmt_per_conn, peer_id, peer_name
+    max_pstmt_per_conn, peer_id, peer_name, weight, read_weight, write_weight
   </sql>
   <sql id="Example_Where_Clause" >
     <!--
@@ -189,6 +192,15 @@
         <if test="params.peerName != null" >
           and peer_name = #{params.peerName,jdbcType=VARCHAR}
         </if>
+        <if test="params.weight != null" >
+          and weight = #{params.weight,jdbcType=INTEGER}
+        </if>
+        <if test="params.readWeight != null" >
+          and read_weight = #{params.readWeight,jdbcType=INTEGER}
+        </if>
+        <if test="params.writeWeight != null" >
+          and write_weight = #{params.writeWeight,jdbcType=INTEGER}
+        </if>
       </trim>
     </where>
     <if test="orderBy != null" >
@@ -273,6 +285,15 @@
         </if>
         <if test="params.peerName != null" >
           and peer_name = #{params.peerName,jdbcType=VARCHAR}
+        </if>
+        <if test="params.weight != null" >
+          and weight = #{params.weight,jdbcType=INTEGER}
+        </if>
+        <if test="params.readWeight != null" >
+          and read_weight = #{params.readWeight,jdbcType=INTEGER}
+        </if>
+        <if test="params.writeWeight != null" >
+          and write_weight = #{params.writeWeight,jdbcType=INTEGER}
         </if>
       </trim>
     </where>
@@ -454,6 +475,15 @@
       <if test="peerName != null" >
         peer_name,
       </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="readWeight != null" >
+        read_weight,
+      </if>
+      <if test="writeWeight != null" >
+        write_weight,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="schemaId != null" >
@@ -527,6 +557,15 @@
       </if>
       <if test="peerName != null" >
         #{peerName,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="readWeight != null" >
+        #{readWeight,jdbcType=INTEGER},
+      </if>
+      <if test="writeWeight != null" >
+        #{writeWeight,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -629,6 +668,15 @@
       <if test="record.peerName != null" >
         peer_name = #{record.peerName,jdbcType=VARCHAR},
       </if>
+      <if test="record.weight != null" >
+        weight = #{record.weight,jdbcType=INTEGER},
+      </if>
+      <if test="record.readWeight != null" >
+        read_weight = #{record.readWeight,jdbcType=INTEGER},
+      </if>
+      <if test="record.writeWeight != null" >
+        write_weight = #{record.writeWeight,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -713,6 +761,15 @@
       <if test="record.peerName != null" >
         peer_name = #{record.peerName,jdbcType=VARCHAR},
       </if>
+      <if test="record.weight != null" >
+        weight = #{record.weight,jdbcType=INTEGER},
+      </if>
+      <if test="record.readWeight != null" >
+        read_weight = #{record.readWeight,jdbcType=INTEGER},
+      </if>
+      <if test="record.writeWeight != null" >
+        write_weight = #{record.writeWeight,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="update_model_where_clause" />
@@ -793,6 +850,15 @@
       </if>
       <if test="record.peerName != null" >
         peer_name = #{record.peerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weight != null" >
+        weight = #{record.weight,jdbcType=INTEGER},
+      </if>
+      <if test="record.readWeight != null" >
+        read_weight = #{record.readWeight,jdbcType=INTEGER},
+      </if>
+      <if test="record.writeWeight != null" >
+        write_weight = #{record.writeWeight,jdbcType=INTEGER},
       </if>
     </set>
     where schema_id = #{record.schemaId,jdbcType=BIGINT}

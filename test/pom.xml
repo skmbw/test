@@ -24,6 +24,12 @@
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>jose-jwt</artifactId>
 			<version>3.0.9.Final</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.bouncycastle</groupId>
+					<artifactId>bcprov-jdk16</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>

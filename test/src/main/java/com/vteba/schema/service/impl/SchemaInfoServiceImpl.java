@@ -38,7 +38,7 @@ public class SchemaInfoServiceImpl implements SchemaInfoService {
 	private SqlSessionTemplate sqlSessionTemplateProxy;
 
 	public boolean createSchema(SchemaInfo schemaInfo) {
-		
+		schemaInfo = schemaInfoDao.get(schemaInfo.getSchemaId());
 		Map<String, SqlSessionFactory> maps = sqlSessionTemplateProxy.getProxySqlSessionFactory();
 		SqlSessionFactoryBean skmbwSqlSessionFactory = ApplicationContextHolder.getBean("&skmbwSqlSessionFactory");
 		
@@ -135,8 +135,8 @@ public class SchemaInfoServiceImpl implements SchemaInfoService {
 
     @Override
     public List<SchemaInfo> pagedList(QueryBean params) {
-    	SchemaInfo schemaInfo = (SchemaInfo) params.getParams();
-    	createSchema(schemaInfo);
+//    	SchemaInfo schemaInfo = (SchemaInfo) params.getParams();
+//    	createSchema(schemaInfo);
         return schemaInfoDao.pagedList(params);
     }
 

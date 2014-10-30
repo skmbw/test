@@ -11,7 +11,7 @@ import com.vteba.schema.model.AppInfo;
 /**
  * 应用配置信息相关的业务service接口。
  * @author yinlei
- * @date 2014-10-11 14:51:55
+ * @date 2014-10-30 10:17:56
  */
 public interface AppInfoService {
 
@@ -122,5 +122,19 @@ public interface AppInfoService {
      * @return 更新记录条数
      */
     public int updateById(UpdateBean params);
+    
+    /**
+     * 根据条件查询唯一结果。params参数是实体bean
+     * @param params 参数，是简单等于条件
+     * @return 唯一结果
+     */
+    public AppInfo unique(QueryBean params);
+    
+    /**
+     * 根据条件查询唯一结果。
+     * @param params 参数，是简单等于条件
+     * @return 唯一结果
+     */
+    public AppInfo unique(AppInfo appInfo);
 
 }

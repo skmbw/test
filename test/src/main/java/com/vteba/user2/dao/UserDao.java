@@ -2,7 +2,7 @@ package com.vteba.user2.dao;
 
 import java.util.List;
 
-import com.vteba.service.tenant.annotation.Schema;
+import com.vteba.service.tenant.annotation.Application;
 import com.vteba.tx.jdbc.mybatis.mapper.BaseMapper;
 import com.vteba.tx.jdbc.params.DeleteBean;
 import com.vteba.tx.jdbc.params.QueryBean;
@@ -14,7 +14,8 @@ import com.vteba.user2.model.User;
  * 由代码工具自动生成，可以新增方法，但是不要修改自动生成的方法。
  * @date 2014-09-23 13:53:07
  */
-@Schema(schemaName = "skmbw2")
+//@Schema(name = "skmbw2")
+@Application(name = "skmbw2")
 public interface UserDao extends BaseMapper {
     /**
      * 根据params所携带条件进行count计数。

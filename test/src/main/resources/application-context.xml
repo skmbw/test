@@ -282,12 +282,13 @@
 		
 	</bean>
 	
-	<bean id="schemaInterceptor" class="com.vteba.service.tenant.interceptor.DetermineSchemaInterceptor"/>
+<!-- 	<bean id="schemaInterceptor" class="com.vteba.service.tenant.interceptor.DetermineSchemaInterceptor"/> -->
 	<!--schema拦截器定义 -->
 	<!-- proxy-target-class="true"使用cglib代理 expose-proxy="true"将该aop暴漏给AopContext，供查询-->
 	<aop:config>
 		<aop:pointcut expression="execution(* com.vteba.*.*.dao.*.*(..)) or execution(* com.vteba.*.dao.*.*(..))" id="schemaPointcut"/>
-		<aop:advisor advice-ref="schemaInterceptor" pointcut-ref="schemaPointcut" />
+<!-- 		<aop:advisor advice-ref="schemaInterceptor" pointcut-ref="schemaPointcut" /> -->
+		<aop:advisor advice-ref="applicationSchemaWeightInterceptor" pointcut-ref="schemaPointcut"/>
 	</aop:config>
 	
 	

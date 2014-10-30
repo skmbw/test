@@ -1,11 +1,13 @@
 package com.vteba.schema.dao;
 
+import java.util.List;
+
 import com.vteba.schema.model.SchemaInfo;
+import com.vteba.service.tenant.annotation.Schema;
 import com.vteba.tx.jdbc.mybatis.annotation.DaoMapper;
 import com.vteba.tx.jdbc.params.DeleteBean;
 import com.vteba.tx.jdbc.params.QueryBean;
 import com.vteba.tx.jdbc.params.UpdateBean;
-import java.util.List;
 
 /**
  * 分区表schema_info的MyBatis Dao Mapper。
@@ -13,6 +15,7 @@ import java.util.List;
  * @date 2014-10-29 17:12:30
  */
 @DaoMapper
+@Schema(name = "skmbw")
 public interface SchemaInfoDao {
     /**
      * 根据params所携带条件进行count计数。

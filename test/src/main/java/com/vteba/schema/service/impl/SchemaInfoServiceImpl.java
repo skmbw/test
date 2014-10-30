@@ -62,16 +62,15 @@ public class SchemaInfoServiceImpl implements SchemaInfoService {
 		factoryBean.setConfigLocation(skmbwSqlSessionFactory.getConfigLocation());
 		factoryBean.setMapperLocations(skmbwSqlSessionFactory.getMapperLocations());
 		
-		SqlSessionFactory skmbw3SqlSessionFactory = null;
+		SqlSessionFactory sqlSessionFactory = null;
 		try {
 			factoryBean.afterPropertiesSet();
-			skmbw3SqlSessionFactory = factoryBean.getObject();
+			sqlSessionFactory = factoryBean.getObject();
 		} catch (Exception e) {
 			LOGGER.error("动态创建SqlSessionFactory错误，jdbc_url=[{}]。", jdbcUrl, e);
 			return false;
 		}
-		factoryBean = null;// 回收掉
-		maps.put("skmbw3", skmbw3SqlSessionFactory);
+		maps.put(schemaInfo.getSchemaName(), sqlSessionFactory);
 		return true;
 	}
 	

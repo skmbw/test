@@ -31,6 +31,8 @@ import com.vteba.tx.jdbc.params.UpdateBean;
 public class SchemaInfoServiceImpl implements SchemaInfoService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SchemaInfoServiceImpl.class);
 	
+	private static final String SQL_SESSION_FACTORY = "SqlSessionFactory";
+	
 	@Inject
 	private SchemaInfoDao schemaInfoDao;
 	
@@ -39,8 +41,9 @@ public class SchemaInfoServiceImpl implements SchemaInfoService {
 
 	public boolean createSchema(SchemaInfo schemaInfo) {
 		schemaInfo = schemaInfoDao.get(schemaInfo.getSchemaId());
-		Map<String, SqlSessionFactory> maps = sqlSessionTemplateProxy.getProxySqlSessionFactory();
-		SqlSessionFactoryBean skmbwSqlSessionFactory = ApplicationContextHolder.getBean("&" + schemaInfo.getPeerName() + "SqlSessionFactory");
+		
+		String beanName = schemaInfo.getPeerName() + SQL_SESSION_FACTORY;
+		SqlSessionFactoryBean skmbwSqlSessionFactory = ApplicationContextHolder.getFactoryBean(beanName);
 		
 		DruidDataSource peerDataSource = (DruidDataSource) skmbwSqlSessionFactory.getDataSource();
 		DruidDataSource dataSource = peerDataSource.cloneDruidDataSource();
@@ -70,6 +73,7 @@ public class SchemaInfoServiceImpl implements SchemaInfoService {
 			LOGGER.error("动态创建SqlSessionFactory错误，jdbc_url=[{}]。", jdbcUrl, e);
 			return false;
 		}
+		Map<String, SqlSessionFactory> maps = sqlSessionTemplateProxy.getProxySqlSessionFactory();
 		maps.put(schemaInfo.getSchemaName(), sqlSessionFactory);
 		return true;
 	}

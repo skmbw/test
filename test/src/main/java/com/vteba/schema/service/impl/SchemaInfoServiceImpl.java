@@ -40,23 +40,25 @@ public class SchemaInfoServiceImpl implements SchemaInfoService {
 	public boolean createSchema(SchemaInfo schemaInfo) {
 		schemaInfo = schemaInfoDao.get(schemaInfo.getSchemaId());
 		Map<String, SqlSessionFactory> maps = sqlSessionTemplateProxy.getProxySqlSessionFactory();
-		SqlSessionFactoryBean skmbwSqlSessionFactory = ApplicationContextHolder.getBean("&skmbwSqlSessionFactory");
+		SqlSessionFactoryBean skmbwSqlSessionFactory = ApplicationContextHolder.getBean("&" + schemaInfo.getPeerName() + "SqlSessionFactory");
 		
-		DruidDataSource skmbwDataSource = (DruidDataSource) skmbwSqlSessionFactory.getDataSource();
-		DruidDataSource skmbw3DataSource = skmbwDataSource.cloneDruidDataSource();
-		String jdbcUrl = skmbw3DataSource.getUrl();
-		jdbcUrl = jdbcUrl + 3;
-		skmbw3DataSource.setUrl(jdbcUrl);
+		DruidDataSource peerDataSource = (DruidDataSource) skmbwSqlSessionFactory.getDataSource();
+		DruidDataSource dataSource = peerDataSource.cloneDruidDataSource();
+		String jdbcUrl = schemaInfo.getJdbcUrl();
+//		jdbcUrl = jdbcUrl.substring(0, StringUtils.lastIndexOf(jdbcUrl, "/") + 1);// java原生的按正则表达式处理了
+//		jdbcUrl += schemaInfo.getPeerName();
+		dataSource.setUrl(schemaInfo.getJdbcUrl());
 		
 		try {
-			skmbw3DataSource.init();
+			dataSource.init();
 		} catch (SQLException e) {
 			LOGGER.error("动态创建数据源错误，jdbc_url=[{}]。", jdbcUrl, e);
 			return false;
 		}
 		
+		// 手动生成SqlSessionFactory
 		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
-		factoryBean.setDataSource(skmbw3DataSource);
+		factoryBean.setDataSource(dataSource);
 		factoryBean.setConfigLocation(skmbwSqlSessionFactory.getConfigLocation());
 		factoryBean.setMapperLocations(skmbwSqlSessionFactory.getMapperLocations());
 		
@@ -68,8 +70,27 @@ public class SchemaInfoServiceImpl implements SchemaInfoService {
 			LOGGER.error("动态创建SqlSessionFactory错误，jdbc_url=[{}]。", jdbcUrl, e);
 			return false;
 		}
-		
+		factoryBean = null;// 回收掉
 		maps.put("skmbw3", skmbw3SqlSessionFactory);
+		return true;
+	}
+	
+	/**
+	 * 动态移除某一应用的分区schema数据源
+	 * @param schemaInfo 移除条件
+	 * @return true成功，false失败
+	 */
+	public boolean removeSchema(SchemaInfo schemaInfo) {
+		schemaInfo = schemaInfoDao.get(schemaInfo.getSchemaId());
+		Map<String, SqlSessionFactory> maps = sqlSessionTemplateProxy.getProxySqlSessionFactory();
+		
+		String schema = schemaInfo.getSchemaName();
+		SqlSessionFactory sqlSessionFactory = maps.remove(schema);// 移除对应的SqlSessionFactory
+		
+		DruidDataSource ds = (DruidDataSource) sqlSessionFactory.getConfiguration().getEnvironment().getDataSource();
+		ds.close();
+		
+		sqlSessionFactory = null;
 		return true;
 	}
 	

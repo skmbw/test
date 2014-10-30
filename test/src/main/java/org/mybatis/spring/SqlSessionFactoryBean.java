@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -112,7 +111,7 @@ public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>,
 
 	private ObjectWrapperFactory objectWrapperFactory;
 
-	private Map<String, DataSource> proxyDataSource;// 该SqlSessionFactory所代理的DataSource下
+//	private Map<String, DataSource> proxyDataSource;// 该SqlSessionFactory所代理的DataSource下
 
 	/**
 	 * Sets the ObjectFactory.
@@ -568,14 +567,6 @@ public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>,
 			// fail-fast -> check all statements are completed
 			this.sqlSessionFactory.getConfiguration().getMappedStatementNames();
 		}
-	}
-
-	public Map<String, DataSource> getProxyDataSource() {
-		return proxyDataSource;
-	}
-
-	public void setProxyDataSource(Map<String, DataSource> proxyDataSource) {
-		this.proxyDataSource = proxyDataSource;
 	}
 
 	public void setProperties(Properties properties) {

@@ -1,7 +1,5 @@
 package com.vteba.schema.dao;
 
-import java.util.List;
-
 import com.vteba.schema.model.SchemaInfo;
 import com.vteba.service.tenant.annotation.Schema;
 import com.vteba.tx.jdbc.mybatis.annotation.DaoMapper;
@@ -9,10 +7,12 @@ import com.vteba.tx.jdbc.params.DeleteBean;
 import com.vteba.tx.jdbc.params.QueryBean;
 import com.vteba.tx.jdbc.params.UpdateBean;
 
+import java.util.List;
+
 /**
  * 分区表schema_info的MyBatis Dao Mapper。
  * 由代码工具自动生成，可以新增方法，但是不要修改自动生成的方法。
- * @date 2014-10-29 17:12:30
+ * @date 2014-10-31 09:46:50
  */
 @DaoMapper
 @Schema(name = "skmbw")

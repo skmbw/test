@@ -36,6 +36,8 @@ CREATE TABLE `schema_info` (
   `weight` int(3) DEFAULT NULL COMMENT '该数据库的权重',
   `read_weight` int(3) DEFAULT NULL COMMENT '读权重',
   `write_weight` int(3) DEFAULT NULL COMMENT '写权重',
+  `startup` tinyint(1) DEFAULT NULL COMMENT '是否应用启动时加载',
+  `state` int(3) DEFAULT NULL COMMENT '该schema的状态，1使用中，2可用，3不可用',
   PRIMARY KEY (`schema_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 

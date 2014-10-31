@@ -137,6 +137,16 @@ public class SchemaInfo {
     private Integer writeWeight;
 
     /**
+     * 对应数据库表字段 schema_info.startup
+     */
+    private Boolean startup;
+
+    /**
+     * 对应数据库表字段 schema_info.state
+     */
+    private Integer state;
+
+    /**
      * 获得字段 schema_info.schema_id 的值
      *
      * @return the value of schema_info.schema_id
@@ -620,5 +630,41 @@ public class SchemaInfo {
      */
     public void setWriteWeight(Integer writeWeight) {
         this.writeWeight = writeWeight;
+    }
+
+    /**
+     * 获得字段 schema_info.startup 的值
+     *
+     * @return the value of schema_info.startup
+     */
+    public Boolean getStartup() {
+        return startup;
+    }
+
+    /**
+     * 设置字段 schema_info.startup 的值
+     *
+     * @param startup the value for schema_info.startup
+     */
+    public void setStartup(Boolean startup) {
+        this.startup = startup;
+    }
+
+    /**
+     * 获得字段 schema_info.state 的值
+     *
+     * @return the value of schema_info.state
+     */
+    public Integer getState() {
+        return state;
+    }
+
+    /**
+     * 设置字段 schema_info.state 的值
+     *
+     * @param state the value for schema_info.state
+     */
+    public void setState(Integer state) {
+        this.state = state;
     }
 }

@@ -1818,6 +1818,126 @@ public class SchemaInfoBean {
             addCriterion("write_weight not between", value1, value2, "writeWeight");
             return (Criteria) this;
         }
+
+        public Criteria andStartupIsNull() {
+            addCriterion("startup is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartupIsNotNull() {
+            addCriterion("startup is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartupEqualTo(Boolean value) {
+            addCriterion("startup =", value, "startup");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartupNotEqualTo(Boolean value) {
+            addCriterion("startup <>", value, "startup");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartupGreaterThan(Boolean value) {
+            addCriterion("startup >", value, "startup");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartupGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("startup >=", value, "startup");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartupLessThan(Boolean value) {
+            addCriterion("startup <", value, "startup");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartupLessThanOrEqualTo(Boolean value) {
+            addCriterion("startup <=", value, "startup");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartupIn(List<Boolean> values) {
+            addCriterion("startup in", values, "startup");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartupNotIn(List<Boolean> values) {
+            addCriterion("startup not in", values, "startup");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartupBetween(Boolean value1, Boolean value2) {
+            addCriterion("startup between", value1, value2, "startup");
+            return (Criteria) this;
+        }
+
+        public Criteria andStartupNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("startup not between", value1, value2, "startup");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateIsNull() {
+            addCriterion("state is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateIsNotNull() {
+            addCriterion("state is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateEqualTo(Integer value) {
+            addCriterion("state =", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateNotEqualTo(Integer value) {
+            addCriterion("state <>", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateGreaterThan(Integer value) {
+            addCriterion("state >", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateGreaterThanOrEqualTo(Integer value) {
+            addCriterion("state >=", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateLessThan(Integer value) {
+            addCriterion("state <", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateLessThanOrEqualTo(Integer value) {
+            addCriterion("state <=", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateIn(List<Integer> values) {
+            addCriterion("state in", values, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateNotIn(List<Integer> values) {
+            addCriterion("state not in", values, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateBetween(Integer value1, Integer value2) {
+            addCriterion("state between", value1, value2, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateNotBetween(Integer value1, Integer value2) {
+            addCriterion("state not between", value1, value2, "state");
+            return (Criteria) this;
+        }
     }
 
     /**

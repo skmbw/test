@@ -33,6 +33,8 @@
     <result column="weight" property="weight" jdbcType="INTEGER" />
     <result column="read_weight" property="readWeight" jdbcType="INTEGER" />
     <result column="write_weight" property="writeWeight" jdbcType="INTEGER" />
+    <result column="startup" property="startup" jdbcType="BIT" />
+    <result column="state" property="state" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     <!--
@@ -42,7 +44,8 @@
     schema_id, schema_name, schema_desc, db_type, ip, port, jdbc_url, passwords, app_id, 
     app_name, initial_size, min_idle, max_active, max_wait, between_eviction_runs, min_evictable_idle, 
     validation_query, test_while_idle, test_on_borrow, test_on_return, pool_propared_stmt, 
-    max_pstmt_per_conn, peer_id, peer_name, weight, read_weight, write_weight
+    max_pstmt_per_conn, peer_id, peer_name, weight, read_weight, write_weight, startup, 
+    state
   </sql>
   <sql id="Example_Where_Clause" >
     <!--
@@ -201,6 +204,12 @@
         <if test="params.writeWeight != null" >
           and write_weight = #{params.writeWeight,jdbcType=INTEGER}
         </if>
+        <if test="params.startup != null" >
+          and startup = #{params.startup,jdbcType=BIT}
+        </if>
+        <if test="params.state != null" >
+          and state = #{params.state,jdbcType=INTEGER}
+        </if>
       </trim>
     </where>
     <if test="orderBy != null" >
@@ -294,6 +303,12 @@
         </if>
         <if test="params.writeWeight != null" >
           and write_weight = #{params.writeWeight,jdbcType=INTEGER}
+        </if>
+        <if test="params.startup != null" >
+          and startup = #{params.startup,jdbcType=BIT}
+        </if>
+        <if test="params.state != null" >
+          and state = #{params.state,jdbcType=INTEGER}
         </if>
       </trim>
     </where>
@@ -484,6 +499,12 @@
       <if test="writeWeight != null" >
         write_weight,
       </if>
+      <if test="startup != null" >
+        startup,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="schemaId != null" >
@@ -566,6 +587,12 @@
       </if>
       <if test="writeWeight != null" >
         #{writeWeight,jdbcType=INTEGER},
+      </if>
+      <if test="startup != null" >
+        #{startup,jdbcType=BIT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -677,6 +704,12 @@
       <if test="record.writeWeight != null" >
         write_weight = #{record.writeWeight,jdbcType=INTEGER},
       </if>
+      <if test="record.startup != null" >
+        startup = #{record.startup,jdbcType=BIT},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -770,6 +803,12 @@
       <if test="record.writeWeight != null" >
         write_weight = #{record.writeWeight,jdbcType=INTEGER},
       </if>
+      <if test="record.startup != null" >
+        startup = #{record.startup,jdbcType=BIT},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="update_model_where_clause" />
@@ -859,6 +898,12 @@
       </if>
       <if test="record.writeWeight != null" >
         write_weight = #{record.writeWeight,jdbcType=INTEGER},
+      </if>
+      <if test="record.startup != null" >
+        startup = #{record.startup,jdbcType=BIT},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
       </if>
     </set>
     where schema_id = #{record.schemaId,jdbcType=BIGINT}

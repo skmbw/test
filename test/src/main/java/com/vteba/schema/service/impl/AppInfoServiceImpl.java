@@ -6,13 +6,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.vteba.common.exception.NonUniqueException;
-import com.vteba.tx.jdbc.params.DeleteBean;
-import com.vteba.tx.jdbc.params.QueryBean;
-import com.vteba.tx.jdbc.params.UpdateBean;
-
 import com.vteba.schema.dao.AppInfoDao;
 import com.vteba.schema.model.AppInfo;
 import com.vteba.schema.service.spi.AppInfoService;
+import com.vteba.tx.jdbc.params.DeleteBean;
+import com.vteba.tx.jdbc.params.QueryBean;
+import com.vteba.tx.jdbc.params.UpdateBean;
 
 /**
  * 应用配置信息相关的service业务实现。
@@ -24,7 +23,7 @@ public class AppInfoServiceImpl implements AppInfoService {
 	
 	@Inject
 	private AppInfoDao appInfoDao;
-
+	
 	@Override
 	public int count(QueryBean params) {
 		return appInfoDao.count(params);

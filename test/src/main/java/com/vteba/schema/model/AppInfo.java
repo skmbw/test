@@ -2,6 +2,11 @@ package com.vteba.schema.model;
 
 import java.util.Date;
 
+/**
+ * 分区表，应用信息配置（app_info）的实体类。
+ * 由代码工具自动生成。
+ * @date 2014-10-31 13:58:51
+ */
 public class AppInfo {
     /**
      * 应用id。app_info.app_id

@@ -3,14 +3,19 @@ package com.vteba.schema.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 分区表，schema信息配置，其实就是数据源的配置（schema_info）的复杂条件查询类。
+ * 由代码工具自动生成。
+ * @date 2014-10-31 13:58:51
+ */
 public class SchemaInfoBean {
     /**
      * 逻辑or语句
-     * 对应数据库表属性 schema_info
      */
     protected List<Criteria> oredCriteria;
 
     /**
+     * 创建schema信息配置，其实就是数据源的配置的复杂条件查询实例
      */
     public SchemaInfoBean() {
         oredCriteria = new ArrayList<Criteria>();
@@ -66,7 +71,7 @@ public class SchemaInfoBean {
     }
 
     /**
-     * 该类对应数据库表 schema_info
+     * schema信息配置，其实就是数据源的配置，对应数据库表 schema_info
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -1951,7 +1956,7 @@ public class SchemaInfoBean {
     }
 
     /**
-     * 该类对应数据库表 schema_info
+     * schema信息配置，其实就是数据源的配置，对应数据库表 schema_info
      */
     public static class Criterion {
         private String condition;

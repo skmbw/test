@@ -1,5 +1,10 @@
 package com.vteba.schema.model;
 
+/**
+ * 分区表，schema信息配置，其实就是数据源的配置（schema_info）的实体类。
+ * 由代码工具自动生成。
+ * @date 2014-10-31 13:58:51
+ */
 public class SchemaInfo {
     /**
      * schema主键。schema_info.schema_id

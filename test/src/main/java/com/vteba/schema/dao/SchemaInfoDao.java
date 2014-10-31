@@ -8,9 +8,9 @@ import com.vteba.tx.jdbc.params.UpdateBean;
 import java.util.List;
 
 /**
- * 分区表schema_info的MyBatis Dao Mapper。
+ * 分区表，schema信息配置，其实就是数据源的配置（schema_info）的MyBatis Dao Mapper。
  * 由代码工具自动生成，可以新增方法，但是不要修改自动生成的方法。
- * @date 2014-10-31 10:44:56
+ * @date 2014-10-31 13:58:51
  */
 @DaoMapper
 public interface SchemaInfoDao {

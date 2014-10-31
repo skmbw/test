@@ -4,14 +4,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 分区表，应用信息配置（app_info）的复杂条件查询类。
+ * 由代码工具自动生成。
+ * @date 2014-10-31 13:58:51
+ */
 public class AppInfoBean {
     /**
      * 逻辑or语句
-     * 对应数据库表属性 app_info
      */
     protected List<Criteria> oredCriteria;
 
     /**
+     * 创建应用信息配置的复杂条件查询实例
      */
     public AppInfoBean() {
         oredCriteria = new ArrayList<Criteria>();
@@ -67,7 +72,7 @@ public class AppInfoBean {
     }
 
     /**
-     * 该类对应数据库表 app_info
+     * 应用信息配置，对应数据库表 app_info
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -502,7 +507,7 @@ public class AppInfoBean {
     }
 
     /**
-     * 该类对应数据库表 app_info
+     * 应用信息配置，对应数据库表 app_info
      */
     public static class Criterion {
         private String condition;

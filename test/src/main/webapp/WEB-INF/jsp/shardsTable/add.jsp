@@ -3,18 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html ng-app="shardsTableService">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>新增用户</title>
 <script type="text/javascript" src="${ctx}/js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="${ctx}/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${ctx}/bootstrap/css/bootstrap.min.css">
-<script type="text/javascript" src="${ctx}/js/angular.js"></script>
-<script type="text/javascript" src="${ctx}/js/angular-resource.js"></script>
-<script type="text/javascript" src="${ctx}/js/angular-shards-table.js"></script>
+<%-- <script type="text/javascript" src="${ctx}/js/angular.js"></script> --%>
+<%-- <script type="text/javascript" src="${ctx}/js/angular-resource.js"></script> --%>
+<%-- <script type="text/javascript" src="${ctx}/js/angular-shards-table.js"></script> --%>
 </head>
-<body ng-controller="shardsTableController">
+<body>
 
 <div class="container">
 
@@ -29,7 +29,7 @@
   <div class="form-group">
     <label for="inputAccount3" class="col-sm-2 control-label">数据库</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputAccount3" name="dbschema" ng-model="saveData.dbschema" placeholder="schema">
+      <input type="text" class="form-control" id="inputAccount3" name="schemaName" ng-model="saveData.dbschema" placeholder="schema">
     </div>
   </div>
   <div class="form-group">
@@ -45,9 +45,9 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="inputAccoun6" class="col-sm-2 control-label">手机号</label>
+    <label for="inputAccoun6" class="col-sm-2 control-label">创建表sql语句</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputAccoun6" name="mobilePhone" placeholder="手机号">
+      <input type="text" class="form-control" id="inputAccoun6" name="createSql" placeholder="SQL语句">
     </div>
   </div>
 <!--   <div class="form-group"> -->
@@ -76,7 +76,7 @@
 <!--   </div> -->
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="button" class="btn btn-primary" ng-click="addShardsTable()">添加分区表</button> <a href="${ctx}/shardsTable/initial" class="btn btn-info">返回列表页</a>
+      <button type="submit" class="btn btn-primary">添加分区表</button> <a href="${ctx}/shardsTable/initial" class="btn btn-info">返回列表页</a>
     </div>
   </div>
 </form>
@@ -84,7 +84,5 @@
 </div>
 
 </div>
-
-
 </body>
 </html>

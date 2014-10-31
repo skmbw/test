@@ -5,16 +5,16 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html ng-app="shardsTableService">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>用户列表</title>
 <script type="text/javascript" src="${ctx}/js/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="${ctx}/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${ctx}/bootstrap/js/modal.js"></script>
-<script type="text/javascript" src="${ctx}/js/angular.js"></script>
-<script type="text/javascript" src="${ctx}/js/angular-resource.js"></script>
-<script type="text/javascript" src="${ctx}/js/angular-shards-table.js"></script>
+<%-- <script type="text/javascript" src="${ctx}/js/angular.js"></script> --%>
+<%-- <script type="text/javascript" src="${ctx}/js/angular-resource.js"></script> --%>
+<%-- <script type="text/javascript" src="${ctx}/js/angular-shards-table.js"></script> --%>
 <link rel="stylesheet" href="${ctx}/bootstrap/css/bootstrap.min.css">
 <script type="text/javascript">
 
@@ -42,7 +42,7 @@
 	});
 </script>
 </head>
-<body ng-controller="shardsTableController">
+<body>
 <div class="container">
 <div class="row" style="margin-top:20px;">
 <form class="form-horizontal" role="form" action="${ctx}/shardsTable/doAdd" method="post">
@@ -55,7 +55,7 @@
   <div class="form-group">
     <label for="inputAccount3" class="col-sm-2 control-label">数据库</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputAccount3" name="dbschema" ng-model="saveData.dbschema" placeholder="schema">
+      <input type="text" class="form-control" id="inputAccount3" name="schemaName" ng-model="saveData.schemaName" placeholder="schema">
     </div>
   </div>
   <div class="form-group">
@@ -71,9 +71,9 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="inputAccoun6" class="col-sm-2 control-label">手机号</label>
+    <label for="inputAccoun6" class="col-sm-2 control-label">创建表sql语句</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputAccoun6" name="mobilePhone" placeholder="手机号">
+      <input type="text" class="form-control" id="inputAccoun6" name="createSql" ng-model="saveData.createSql" placeholder="SQL语句">
     </div>
   </div>
 <!--   <div class="form-group"> -->
@@ -127,7 +127,7 @@
 <td>{{table.id}}</td>
 <td>{{table.tableName}}</td>
 <td>{{table.currentTable}}</td>
-<td>{{table.dbschema}}</td>
+<td>{{table.schemaName}}</td>
 <td>{{table.strategy}}</td>
 <td><a href="${ctx}/shardsTable/detail?id=${user.id}">详情</a> <a href="" ng-click="updateShardsTable(table)">编辑</a> <a href="javascript:void(0);" onclick="javascript:deleteUser('${user.id}');">删除</a></td>
 </tr>

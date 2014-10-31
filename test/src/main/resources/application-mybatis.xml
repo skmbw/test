@@ -109,7 +109,7 @@
 		
 	</bean>
 	
-	<bean id="" class="com.vteba.tx.jdbc.mybatis.strategy.impl.DefaultShardingStrategy">
-		<property name="shardsTableCache" ref="shardingTableCacheService"/>
+	<bean id="defaultShardingStrategy" class="com.vteba.tx.jdbc.mybatis.strategy.impl.DefaultShardingStrategy">
+		<property name="shardsTableCacheService" ref="shardingTableCacheService"/>
 	</bean>
 </beans>

@@ -15,6 +15,11 @@ import com.vteba.tx.jdbc.mybatis.cache.ShardsTableCache;
 import com.vteba.tx.jdbc.params.QueryBean;
 import com.vteba.tx.matrix.info.ShardsTables;
 
+/**
+ * 分区表缓存服务。所有的分区表都配置在数据库中，启动时加载到缓存中。
+ * @author yinlei
+ * @date 2014-3-2
+ */
 @Named
 public class ShardingTableCacheService implements InitializingBean, ShardsTableCache {
 	private static final ConcurrentMap<String, ShardsTables> CACHE = new ConcurrentHashMap<String, ShardsTables>();

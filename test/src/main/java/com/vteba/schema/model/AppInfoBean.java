@@ -7,7 +7,7 @@ import java.util.List;
 public class AppInfoBean {
     /**
      * 逻辑or语句
-     * 对应数据库表字段 app_info
+     * 对应数据库表属性 app_info
      */
     protected List<Criteria> oredCriteria;
 

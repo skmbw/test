@@ -4,138 +4,138 @@ import java.util.Date;
 
 public class AppInfo {
     /**
-     * 对应数据库表字段 app_info.app_id
+     * 应用id。app_info.app_id
      */
     private Long appId;
 
     /**
-     * 对应数据库表字段 app_info.app_name
+     * 应用的名字，具有唯一性。app_info.app_name
      */
     private String appName;
 
     /**
-     * 对应数据库表字段 app_info.app_desc
+     * 应用描述。app_info.app_desc
      */
     private String appDesc;
 
     /**
-     * 对应数据库表字段 app_info.create_date
+     * 创建时间。app_info.create_date
      */
     private Date createDate;
 
     /**
-     * 对应数据库表字段 app_info.update_date
+     * 更新时间。app_info.update_date
      */
     private Date updateDate;
 
     /**
-     * 对应数据库表字段 app_info.shards
+     * 数据库是否分表。app_info.shards
      */
     private Boolean shards;
 
     /**
-     * 获得字段 app_info.app_id 的值
+     * 获得属性，应用id(app_info.app_id)的值
      *
-     * @return the value of app_info.app_id
+     * @return 属性应用id的值
      */
     public Long getAppId() {
         return appId;
     }
 
     /**
-     * 设置字段 app_info.app_id 的值
+     * 设置属性，应用id(app_info.app_id)的值
      *
-     * @param appId the value for app_info.app_id
+     * @param appId 属性应用id的值
      */
     public void setAppId(Long appId) {
         this.appId = appId;
     }
 
     /**
-     * 获得字段 app_info.app_name 的值
+     * 获得属性，应用的名字，具有唯一性(app_info.app_name)的值
      *
-     * @return the value of app_info.app_name
+     * @return 属性应用的名字，具有唯一性的值
      */
     public String getAppName() {
         return appName;
     }
 
     /**
-     * 设置字段 app_info.app_name 的值
+     * 设置属性，应用的名字，具有唯一性(app_info.app_name)的值
      *
-     * @param appName the value for app_info.app_name
+     * @param appName 属性应用的名字，具有唯一性的值
      */
     public void setAppName(String appName) {
         this.appName = appName;
     }
 
     /**
-     * 获得字段 app_info.app_desc 的值
+     * 获得属性，应用描述(app_info.app_desc)的值
      *
-     * @return the value of app_info.app_desc
+     * @return 属性应用描述的值
      */
     public String getAppDesc() {
         return appDesc;
     }
 
     /**
-     * 设置字段 app_info.app_desc 的值
+     * 设置属性，应用描述(app_info.app_desc)的值
      *
-     * @param appDesc the value for app_info.app_desc
+     * @param appDesc 属性应用描述的值
      */
     public void setAppDesc(String appDesc) {
         this.appDesc = appDesc;
     }
 
     /**
-     * 获得字段 app_info.create_date 的值
+     * 获得属性，创建时间(app_info.create_date)的值
      *
-     * @return the value of app_info.create_date
+     * @return 属性创建时间的值
      */
     public Date getCreateDate() {
         return createDate;
     }
 
     /**
-     * 设置字段 app_info.create_date 的值
+     * 设置属性，创建时间(app_info.create_date)的值
      *
-     * @param createDate the value for app_info.create_date
+     * @param createDate 属性创建时间的值
      */
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
     /**
-     * 获得字段 app_info.update_date 的值
+     * 获得属性，更新时间(app_info.update_date)的值
      *
-     * @return the value of app_info.update_date
+     * @return 属性更新时间的值
      */
     public Date getUpdateDate() {
         return updateDate;
     }
 
     /**
-     * 设置字段 app_info.update_date 的值
+     * 设置属性，更新时间(app_info.update_date)的值
      *
-     * @param updateDate the value for app_info.update_date
+     * @param updateDate 属性更新时间的值
      */
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
 
     /**
-     * 获得字段 app_info.shards 的值
+     * 获得属性，数据库是否分表(app_info.shards)的值
      *
-     * @return the value of app_info.shards
+     * @return 属性数据库是否分表的值
      */
     public Boolean getShards() {
         return shards;
     }
 
     /**
-     * 设置字段 app_info.shards 的值
+     * 设置属性，数据库是否分表(app_info.shards)的值
      *
-     * @param shards the value for app_info.shards
+     * @param shards 属性数据库是否分表的值
      */
     public void setShards(Boolean shards) {
         this.shards = shards;

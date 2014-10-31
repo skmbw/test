@@ -6,7 +6,7 @@ import java.util.List;
 public class SchemaInfoBean {
     /**
      * 逻辑or语句
-     * 对应数据库表字段 schema_info
+     * 对应数据库表属性 schema_info
      */
     protected List<Criteria> oredCriteria;
 

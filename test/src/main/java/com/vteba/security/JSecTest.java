@@ -13,10 +13,7 @@ import java.security.PublicKey;
 import java.security.Signature;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
-import java.security.spec.AlgorithmParameterSpec;
 import java.util.Date;
-
-import javax.ws.rs.core.MediaType;
 
 import org.jboss.resteasy.jose.jwe.JWEBuilder;
 import org.jboss.resteasy.jose.jwe.JWEInput;
@@ -76,6 +73,7 @@ public class JSecTest {
 		System.out.println(signature);
 		
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+		System.out.println(keyFactory);
 		
 	}
 

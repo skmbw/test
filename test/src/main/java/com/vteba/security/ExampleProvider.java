@@ -29,9 +29,14 @@ import javax.crypto.SecretKey;
  * Note that this is only a simple example provider designed to demonstrate
  * several of the new features.  It is not explicitly designed for efficiency.
  */
+@SuppressWarnings({"rawtypes", "unchecked", "unused"})
 public final class ExampleProvider extends Provider {
 
-    // reference to the crypto backend that implements all the algorithms
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	// reference to the crypto backend that implements all the algorithms
     final CryptoBackend cryptoBackend;
 
     public ExampleProvider(String name, CryptoBackend cryptoBackend) {
@@ -65,7 +70,7 @@ public final class ExampleProvider extends Provider {
     // that calls the (Provider, String) constructor instead of the no-args constructor
     private static class MyService extends Service {
 
-        private static final Class[] paramTypes = {Provider.class, String.class};
+		private static final Class[] paramTypes = {Provider.class, String.class};
 
         MyService(Provider provider, String type, String algorithm,
                 String className) {
@@ -84,7 +89,7 @@ public final class ExampleProvider extends Provider {
                     clazz = loader.loadClass(getClassName());
                 }
                 // fetch the (Provider, String) constructor
-                Constructor cons = clazz.getConstructor(paramTypes);
+				Constructor cons = clazz.getConstructor(paramTypes);
                 // invoke constructor and return the SPI object
                 Object obj = cons.newInstance(new Object[] {provider, getAlgorithm()});
                 return obj;
@@ -153,13 +158,13 @@ public final class ExampleProvider extends Provider {
     // our generic Cipher implementation, only partially complete. It implements
     // all cipher algorithms in a single class. We implement only as many of the
     // CipherSpi methods as required to show how it could work
-    private static abstract class MyCipher extends CipherSpi {
+	private static abstract class MyCipher extends CipherSpi {
         private final ExampleProvider provider;
         private final String algorithm;
         private int opmode;
         private MySecretKey myKey;
         private ByteArrayOutputStream buffer;
-        MyCipher(Provider provider, String algorithm) {
+        public MyCipher(Provider provider, String algorithm) {
             super();
             this.provider = (ExampleProvider)provider;
             this.algorithm = algorithm;
@@ -201,7 +206,11 @@ public final class ExampleProvider extends Provider {
     // encoded form of these keys.
     private static final class MySecretKey implements SecretKey {
 
-        final String algorithm;
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		final String algorithm;
         final Provider provider;
         final KeyHandle handle;
 

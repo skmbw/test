@@ -1,7 +1,5 @@
 package com.vteba.table.dao;
 
-import java.util.List;
-
 import com.vteba.service.tenant.annotation.Schema;
 import com.vteba.table.model.ShardsTable;
 import com.vteba.tx.jdbc.mybatis.annotation.DaoMapper;
@@ -9,10 +7,12 @@ import com.vteba.tx.jdbc.params.DeleteBean;
 import com.vteba.tx.jdbc.params.QueryBean;
 import com.vteba.tx.jdbc.params.UpdateBean;
 
+import java.util.List;
+
 /**
- * 分区表shards_table的MyBatis Dao Mapper。
+ * 分区表，schema下的分区表配置（shards_table）的MyBatis Dao Mapper。
  * 由代码工具自动生成，可以新增方法，但是不要修改自动生成的方法。
- * @date 2014-10-10 18:34:19
+ * @date 2014-10-31 15:51:24
  */
 @DaoMapper
 @Schema(name = "skmbw")

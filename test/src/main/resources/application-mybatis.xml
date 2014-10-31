@@ -89,23 +89,27 @@
 		</property>
 	</bean>
 	
-	<bean id="shardingPluginsInterceptor" class="com.vteba.tx.jdbc.mybatis.plugins.ShardingPluginsInterceptor">
-		<property name="properties">
-			<props>
-				<prop key="shardingConfig">sharding-config.xml</prop>
-			</props>
-		</property>
-	</bean>
+<!-- 	<bean id="shardingPluginsInterceptor" class="com.vteba.tx.jdbc.mybatis.plugins.ShardingPluginsInterceptor"> -->
+<!-- 		<property name="properties"> -->
+<!-- 			<props> -->
+<!-- 				<prop key="shardingConfig">sharding-config.xml</prop> -->
+<!-- 			</props> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
 	
-	<bean id="executorPluginsInterceptor" class="com.vteba.tx.jdbc.mybatis.plugins.ExecutorPluginsInterceptor">
-		<property name="properties">
-			<props>
-				<prop key="shardingConfig">sharding-config.xml</prop>
-			</props>
-		</property>
-	</bean>
+<!-- 	<bean id="executorPluginsInterceptor" class="com.vteba.tx.jdbc.mybatis.plugins.ExecutorPluginsInterceptor"> -->
+<!-- 		<property name="properties"> -->
+<!-- 			<props> -->
+<!-- 				<prop key="shardingConfig">sharding-config.xml</prop> -->
+<!-- 			</props> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
 	
 	<bean id="uuidKeyGenerator" class="com.vteba.tx.jdbc.sequence.UuidKeyGenerator">
 		
+	</bean>
+	
+	<bean id="" class="com.vteba.tx.jdbc.mybatis.strategy.impl.DefaultShardingStrategy">
+		<property name="shardsTableCache" ref="shardingTableCacheService"/>
 	</bean>
 </beans>

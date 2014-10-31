@@ -1,258 +1,278 @@
 package com.vteba.table.model;
 
 import java.util.Date;
+import java.util.List;
 
-public class ShardsTable {
+import com.vteba.tx.matrix.info.ShardsTables;
+
+/**
+ * 分区表，schema下的分区表配置（shards_table）的实体类。
+ * 由代码工具自动生成。
+ * @date 2014-10-31 15:51:24
+ */
+public class ShardsTable implements ShardsTables {
     /**
-     * 对应数据库表字段 shards_table.id
+     * 主键。shards_table.id
      */
     private Integer id;
 
     /**
-     * 对应数据库表字段 shards_table.schema_name
+     * table schema。shards_table.schema_name
      */
     private String schemaName;
 
     /**
-     * 对应数据库表字段 shards_table.schema_id
+     * 。shards_table.schema_id
      */
     private Long schemaId;
 
     /**
-     * 对应数据库表字段 shards_table.table_name
+     * 表名。shards_table.table_name
      */
     private String tableName;
 
     /**
-     * 对应数据库表字段 shards_table.current_table
+     * 现在的表名。shards_table.current_table
      */
     private String currentTable;
 
     /**
-     * 对应数据库表字段 shards_table.strategy
+     * 分区策略。shards_table.strategy
      */
     private String strategy;
 
     /**
-     * 对应数据库表字段 shards_table.from_index
+     * 表id开始记录。shards_table.from_index
      */
     private Long fromIndex;
 
     /**
-     * 对应数据库表字段 shards_table.end_index
+     * 表id结束记录。shards_table.end_index
      */
     private Long endIndex;
 
     /**
-     * 对应数据库表字段 shards_table.create_date
+     * 。shards_table.create_date
      */
     private Date createDate;
 
     /**
-     * 对应数据库表字段 shards_table.update_date
+     * 。shards_table.update_date
      */
     private Date updateDate;
 
     /**
-     * 对应数据库表字段 shards_table.create_sql
+     * 创建表的sql语句。shards_table.create_sql
      */
     private String createSql;
 
     /**
-     * 获得字段 shards_table.id 的值
+     * 获得属性，主键(shards_table.id)的值
      *
-     * @return the value of shards_table.id
+     * @return 属性主键的值
      */
     public Integer getId() {
         return id;
     }
 
     /**
-     * 设置字段 shards_table.id 的值
+     * 设置属性，主键(shards_table.id)的值
      *
-     * @param id the value for shards_table.id
+     * @param id 属性主键的值
      */
     public void setId(Integer id) {
         this.id = id;
     }
 
     /**
-     * 获得字段 shards_table.schema_name 的值
+     * 获得属性，table schema(shards_table.schema_name)的值
      *
-     * @return the value of shards_table.schema_name
+     * @return 属性table schema的值
      */
     public String getSchemaName() {
         return schemaName;
     }
 
     /**
-     * 设置字段 shards_table.schema_name 的值
+     * 设置属性，table schema(shards_table.schema_name)的值
      *
-     * @param schemaName the value for shards_table.schema_name
+     * @param schemaName 属性table schema的值
      */
     public void setSchemaName(String schemaName) {
         this.schemaName = schemaName;
     }
 
     /**
-     * 获得字段 shards_table.schema_id 的值
+     * 获得属性，(shards_table.schema_id)的值
      *
-     * @return the value of shards_table.schema_id
+     * @return 属性的值
      */
     public Long getSchemaId() {
         return schemaId;
     }
 
     /**
-     * 设置字段 shards_table.schema_id 的值
+     * 设置属性，(shards_table.schema_id)的值
      *
-     * @param schemaId the value for shards_table.schema_id
+     * @param schemaId 属性的值
      */
     public void setSchemaId(Long schemaId) {
         this.schemaId = schemaId;
     }
 
     /**
-     * 获得字段 shards_table.table_name 的值
+     * 获得属性，表名(shards_table.table_name)的值
      *
-     * @return the value of shards_table.table_name
+     * @return 属性表名的值
      */
     public String getTableName() {
         return tableName;
     }
 
     /**
-     * 设置字段 shards_table.table_name 的值
+     * 设置属性，表名(shards_table.table_name)的值
      *
-     * @param tableName the value for shards_table.table_name
+     * @param tableName 属性表名的值
      */
     public void setTableName(String tableName) {
         this.tableName = tableName;
     }
 
     /**
-     * 获得字段 shards_table.current_table 的值
+     * 获得属性，现在的表名(shards_table.current_table)的值
      *
-     * @return the value of shards_table.current_table
+     * @return 属性现在的表名的值
      */
     public String getCurrentTable() {
         return currentTable;
     }
 
     /**
-     * 设置字段 shards_table.current_table 的值
+     * 设置属性，现在的表名(shards_table.current_table)的值
      *
-     * @param currentTable the value for shards_table.current_table
+     * @param currentTable 属性现在的表名的值
      */
     public void setCurrentTable(String currentTable) {
         this.currentTable = currentTable;
     }
 
     /**
-     * 获得字段 shards_table.strategy 的值
+     * 获得属性，分区策略(shards_table.strategy)的值
      *
-     * @return the value of shards_table.strategy
+     * @return 属性分区策略的值
      */
     public String getStrategy() {
         return strategy;
     }
 
     /**
-     * 设置字段 shards_table.strategy 的值
+     * 设置属性，分区策略(shards_table.strategy)的值
      *
-     * @param strategy the value for shards_table.strategy
+     * @param strategy 属性分区策略的值
      */
     public void setStrategy(String strategy) {
         this.strategy = strategy;
     }
 
     /**
-     * 获得字段 shards_table.from_index 的值
+     * 获得属性，表id开始记录(shards_table.from_index)的值
      *
-     * @return the value of shards_table.from_index
+     * @return 属性表id开始记录的值
      */
     public Long getFromIndex() {
         return fromIndex;
     }
 
     /**
-     * 设置字段 shards_table.from_index 的值
+     * 设置属性，表id开始记录(shards_table.from_index)的值
      *
-     * @param fromIndex the value for shards_table.from_index
+     * @param fromIndex 属性表id开始记录的值
      */
     public void setFromIndex(Long fromIndex) {
         this.fromIndex = fromIndex;
     }
 
     /**
-     * 获得字段 shards_table.end_index 的值
+     * 获得属性，表id结束记录(shards_table.end_index)的值
      *
-     * @return the value of shards_table.end_index
+     * @return 属性表id结束记录的值
      */
     public Long getEndIndex() {
         return endIndex;
     }
 
     /**
-     * 设置字段 shards_table.end_index 的值
+     * 设置属性，表id结束记录(shards_table.end_index)的值
      *
-     * @param endIndex the value for shards_table.end_index
+     * @param endIndex 属性表id结束记录的值
      */
     public void setEndIndex(Long endIndex) {
         this.endIndex = endIndex;
     }
 
     /**
-     * 获得字段 shards_table.create_date 的值
+     * 获得属性，(shards_table.create_date)的值
      *
-     * @return the value of shards_table.create_date
+     * @return 属性的值
      */
     public Date getCreateDate() {
         return createDate;
     }
 
     /**
-     * 设置字段 shards_table.create_date 的值
+     * 设置属性，(shards_table.create_date)的值
      *
-     * @param createDate the value for shards_table.create_date
+     * @param createDate 属性的值
      */
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
     /**
-     * 获得字段 shards_table.update_date 的值
+     * 获得属性，(shards_table.update_date)的值
      *
-     * @return the value of shards_table.update_date
+     * @return 属性的值
      */
     public Date getUpdateDate() {
         return updateDate;
     }
 
     /**
-     * 设置字段 shards_table.update_date 的值
+     * 设置属性，(shards_table.update_date)的值
      *
-     * @param updateDate the value for shards_table.update_date
+     * @param updateDate 属性的值
      */
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
 
     /**
-     * 获得字段 shards_table.create_sql 的值
+     * 获得属性，创建表的sql语句(shards_table.create_sql)的值
      *
-     * @return the value of shards_table.create_sql
+     * @return 属性创建表的sql语句的值
      */
     public String getCreateSql() {
         return createSql;
     }
 
     /**
-     * 设置字段 shards_table.create_sql 的值
+     * 设置属性，创建表的sql语句(shards_table.create_sql)的值
      *
-     * @param createSql the value for shards_table.create_sql
+     * @param createSql 属性创建表的sql语句的值
      */
     public void setCreateSql(String createSql) {
         this.createSql = createSql;
     }
+
+	@Override
+	public List<Long> getTableIndexList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setTableIndexList(List<Long> tableIndexList) {
+		// TODO Auto-generated method stub
+		
+	}
 }

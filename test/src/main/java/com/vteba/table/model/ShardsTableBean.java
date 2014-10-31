@@ -4,14 +4,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 分区表，schema下的分区表配置（shards_table）的复杂条件查询类。
+ * 由代码工具自动生成。
+ * @date 2014-10-31 15:51:24
+ */
 public class ShardsTableBean {
     /**
      * 逻辑or语句
-     * 对应数据库表字段 shards_table
      */
     protected List<Criteria> oredCriteria;
 
     /**
+     * 创建schema下的分区表配置的复杂条件查询实例
      */
     public ShardsTableBean() {
         oredCriteria = new ArrayList<Criteria>();
@@ -67,7 +72,7 @@ public class ShardsTableBean {
     }
 
     /**
-     * 该类对应数据库表 shards_table
+     * schema下的分区表配置，对应数据库表 shards_table
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -832,7 +837,7 @@ public class ShardsTableBean {
     }
 
     /**
-     * 该类对应数据库表 shards_table
+     * schema下的分区表配置，对应数据库表 shards_table
      */
     public static class Criterion {
         private String condition;

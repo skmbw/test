@@ -3,14 +3,19 @@ package com.vteba.table.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 分区表，分区表明细信息，一个分区表下共有几个表（table_detail）的复杂条件查询类。
+ * 由代码工具自动生成。
+ * @date 2014-10-31 15:51:24
+ */
 public class TableDetailBean {
     /**
      * 逻辑or语句
-     * 对应数据库表字段 table_detail
      */
     protected List<Criteria> oredCriteria;
 
     /**
+     * 创建分区表明细信息，一个分区表下共有几个表的复杂条件查询实例
      */
     public TableDetailBean() {
         oredCriteria = new ArrayList<Criteria>();
@@ -66,7 +71,7 @@ public class TableDetailBean {
     }
 
     /**
-     * 该类对应数据库表 table_detail
+     * 分区表明细信息，一个分区表下共有几个表，对应数据库表 table_detail
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -301,7 +306,7 @@ public class TableDetailBean {
     }
 
     /**
-     * 该类对应数据库表 table_detail
+     * 分区表明细信息，一个分区表下共有几个表，对应数据库表 table_detail
      */
     public static class Criterion {
         private String condition;

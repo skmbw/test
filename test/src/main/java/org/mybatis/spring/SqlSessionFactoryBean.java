@@ -8,12 +8,11 @@ import static org.springframework.util.StringUtils.tokenizeToStringArray;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.builder.xml.XMLConfigBuilder;
 import org.apache.ibatis.builder.xml.XMLMapperBuilder;
 import org.apache.ibatis.executor.ErrorContext;
@@ -41,9 +40,7 @@ import org.springframework.core.NestedIOException;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 
-import com.vteba.tx.jdbc.mybatis.cache.ShardingTableCache;
 import com.vteba.tx.jdbc.mybatis.config.ShardingConfigParser;
-import com.vteba.tx.matrix.info.ShardsTable;
 
 /**
  * {@code FactoryBean} that creates an MyBatis {@code SqlSessionFactory}. This
@@ -584,34 +581,28 @@ public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>,
         	} catch (Exception e) {
         		throw new IllegalArgumentException("解析mybatis分表配置文件[" + config + "]异常。", e);
         	} finally {
-        		if (input != null) {
-        			try {
-        				input.close();
-        			} catch (IOException e) {
-        				logger.error(e.getMessage(), e);
-        			}
-        		}
+        		IOUtils.closeQuietly(input);
         	}
         	
         	// 临时处理的，以后会将配置放到数据库中的
-        	ShardsTable tableInfo = new ShardsTable();
-        	tableInfo.setCurrentTable("user_201409m");
-        	tableInfo.setTableName("user");
-        	List<Long> tableIndex = new ArrayList<Long>();
-        	tableIndex.add(201409L);
-        	tableIndex.add(201410L);
-        	tableInfo.setTableIndexList(tableIndex);
-        	
-        	ShardsTable tableInfo2 = new ShardsTable();
-        	tableInfo2.setCurrentTable("shards_table_201409m");
-        	tableInfo2.setTableName("shards_table");
-        	List<Long> tableIndex2 = new ArrayList<Long>();
-        	tableIndex2.add(201409L);
-        	tableIndex2.add(201410L);
-        	tableInfo2.setTableIndexList(tableIndex2);
-        	
-        	ShardingTableCache.put("user", tableInfo);
-        	ShardingTableCache.put("shards_table", tableInfo2);
+//        	ShardsTable tableInfo = new ShardsTable();
+//        	tableInfo.setCurrentTable("user_201409m");
+//        	tableInfo.setTableName("user");
+//        	List<Long> tableIndex = new ArrayList<Long>();
+//        	tableIndex.add(201409L);
+//        	tableIndex.add(201410L);
+//        	tableInfo.setTableIndexList(tableIndex);
+//        	
+//        	ShardsTable tableInfo2 = new ShardsTable();
+//        	tableInfo2.setCurrentTable("shards_table_201409m");
+//        	tableInfo2.setTableName("shards_table");
+//        	List<Long> tableIndex2 = new ArrayList<Long>();
+//        	tableIndex2.add(201409L);
+//        	tableIndex2.add(201410L);
+//        	tableInfo2.setTableIndexList(tableIndex2);
+//        	
+//        	ShardingTableCache.put("user", tableInfo);
+//        	ShardingTableCache.put("shards_table", tableInfo2);
         }
 
 	}

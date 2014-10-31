@@ -1,70 +1,75 @@
 package com.vteba.table.model;
 
+/**
+ * 分区表，分区表明细信息，一个分区表下共有几个表（table_detail）的实体类。
+ * 由代码工具自动生成。
+ * @date 2014-10-31 15:51:24
+ */
 public class TableDetail {
     /**
-     * 对应数据库表字段 table_detail.id
+     * 。table_detail.id
      */
     private Long id;
 
     /**
-     * 对应数据库表字段 table_detail.table_index
+     * 。table_detail.table_index
      */
     private Long tableIndex;
 
     /**
-     * 对应数据库表字段 table_detail.shards_table_id
+     * 。table_detail.shards_table_id
      */
     private Integer shardsTableId;
 
     /**
-     * 获得字段 table_detail.id 的值
+     * 获得属性，(table_detail.id)的值
      *
-     * @return the value of table_detail.id
+     * @return 属性的值
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * 设置字段 table_detail.id 的值
+     * 设置属性，(table_detail.id)的值
      *
-     * @param id the value for table_detail.id
+     * @param id 属性的值
      */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * 获得字段 table_detail.table_index 的值
+     * 获得属性，(table_detail.table_index)的值
      *
-     * @return the value of table_detail.table_index
+     * @return 属性的值
      */
     public Long getTableIndex() {
         return tableIndex;
     }
 
     /**
-     * 设置字段 table_detail.table_index 的值
+     * 设置属性，(table_detail.table_index)的值
      *
-     * @param tableIndex the value for table_detail.table_index
+     * @param tableIndex 属性的值
      */
     public void setTableIndex(Long tableIndex) {
         this.tableIndex = tableIndex;
     }
 
     /**
-     * 获得字段 table_detail.shards_table_id 的值
+     * 获得属性，(table_detail.shards_table_id)的值
      *
-     * @return the value of table_detail.shards_table_id
+     * @return 属性的值
      */
     public Integer getShardsTableId() {
         return shardsTableId;
     }
 
     /**
-     * 设置字段 table_detail.shards_table_id 的值
+     * 设置属性，(table_detail.shards_table_id)的值
      *
-     * @param shardsTableId the value for table_detail.shards_table_id
+     * @param shardsTableId 属性的值
      */
     public void setShardsTableId(Integer shardsTableId) {
         this.shardsTableId = shardsTableId;

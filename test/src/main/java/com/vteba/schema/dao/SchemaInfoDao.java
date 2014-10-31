@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2014-10-31 13:58:51
  */
 @DaoMapper
-@Schema(name = "schema")
+@Schema(name = "skmbw")
 public interface SchemaInfoDao {
     /**
      * 根据params所携带条件进行count计数。

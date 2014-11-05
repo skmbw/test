@@ -147,7 +147,7 @@ public class SqlSessionTemplate implements SqlSession {
 		} else {
 			SqlSessionFactory factory = proxySqlSessionFactory.get(schema);
 			if (factory == null) {
-				throw new IllegalStateException("没有找到schema=[" + schema + "]所对应的SqlSessionFactory，可能是没有动态添加。");
+				throw new IllegalStateException("没有找到schema=[" + schema + "]所对应的SqlSessionFactory，可能是没有配置或者动态添加。");
 			}
 			return factory;
 		}

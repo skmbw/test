@@ -177,4 +177,23 @@ public class SchemaInfoAction extends GenericAction<SchemaInfo> {
         }
         return bean;
     }
+    
+    /**
+     * 根据参数，删除某一个schema的对等schema数据源
+     * @param schemaInfo 参数信息，起码有对等的schema name或者id
+     * @return 返回消息
+     */
+    @ResponseBody
+    @RequestMapping("/removeSchema")
+    public JsonBean removeSchema(SchemaInfo schemaInfo) {
+    	JsonBean bean = new JsonBean();
+    	boolean result = schemaInfoServiceImpl.removeSchema(schemaInfo);
+    	if (result) {
+            bean.setMessage(SUCCESS);
+        } else {
+            bean.setCode(1);
+            bean.setMessage(ERROR);
+        }
+        return bean;
+    }
 }

@@ -190,13 +190,19 @@
 <!-- 		</property> -->
 <!-- 	</bean> -->
 
-	<bean id="chainedTransactionManager" class="org.springframework.data.transaction.ChainedTransactionManager">
-		<constructor-arg>
-			<list>
-				<ref bean="skmbwTransactionManager"/>
-				<ref bean="skmbw2TransactionManager"/>
-			</list>
-		</constructor-arg>
+	<bean id="chainedTransactionManager" class="com.vteba.tx.jdbc.datasource.MultiDataSourceTransactionManager">
+<!-- 		<constructor-arg> -->
+<!-- 			<list> -->
+<!-- 				<ref bean="skmbwTransactionManager"/> -->
+<!-- 				<ref bean="skmbw2TransactionManager"/> -->
+<!-- 			</list> -->
+<!-- 		</constructor-arg> -->
+		<property name="transactionManagerMap">
+			<map>
+				<entry key="skmbw" value-ref="skmbwTransactionManager"/>
+				<entry key="skmbw2" value-ref="skmbw2TransactionManager"/>
+			</map>
+		</property>
 	</bean>
 
 	<!-- SpringJdbcTemplate -->

@@ -131,4 +131,10 @@ public interface SchemaInfoService {
      */
     public boolean createSchema(SchemaInfo schemaInfo);
 
+    /**
+	 * 动态移除某一应用的分区schema数据源
+	 * @param schemaInfo 移除条件
+	 * @return true成功，false失败
+	 */
+	public boolean removeSchema(SchemaInfo schemaInfo);
 }

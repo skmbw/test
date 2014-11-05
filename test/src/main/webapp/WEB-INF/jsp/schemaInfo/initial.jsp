@@ -84,7 +84,8 @@
 <td>${model.port}</td>
 <td>${model.jdbcUrl}</td>
 <td>${model.appId}</td>
-<td><a href="${ctx}/schemaInfo/detail?schemaId=${model.schemaId}">详情</a> <a href="${ctx}/schemaInfo/edit?schemaId=${model.schemaId}">编辑</a> <a href="javascript:void(0);" onclick="javascript:deleteUser('${model.schemaId}');">删除</a> <a href="javascript:void(0);" onclick="javascript:create('${model.schemaId}');">创建</a></td>
+<td><a href="${ctx}/schemaInfo/detail?schemaId=${model.schemaId}">详情</a> <a href="${ctx}/schemaInfo/edit?schemaId=${model.schemaId}">编辑</a> <a href="javascript:void(0);" onclick="javascript:deleteUser('${model.schemaId}');">删除</a> <a href="javascript:void(0);" onclick="javascript:create('${model.schemaId}');">加载</a>
+<a href="${ctx}/schemaInfo/removeSchema?schemaId=${model.schemaId}">卸载</a></td>
 </tr>
 
 </c:forEach>

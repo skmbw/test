@@ -12,12 +12,14 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.vteba.schema.dao.SchemaInfoDao;
 import com.vteba.schema.model.SchemaInfo;
 import com.vteba.schema.service.spi.SchemaInfoService;
 import com.vteba.service.context.spring.ApplicationContextHolder;
+import com.vteba.tx.jdbc.datasource.MultiDataSourceTransactionManager;
 import com.vteba.tx.jdbc.params.DeleteBean;
 import com.vteba.tx.jdbc.params.QueryBean;
 import com.vteba.tx.jdbc.params.UpdateBean;
@@ -38,6 +40,9 @@ public class SchemaInfoServiceImpl implements SchemaInfoService {
 	
 	@Inject
 	private SqlSessionTemplate sqlSessionTemplateProxy;
+	
+	@Inject
+	private MultiDataSourceTransactionManager chainedTransactionManager;
 
 	public boolean createSchema(SchemaInfo schemaInfo) {
 		schemaInfo = schemaInfoDao.get(schemaInfo.getSchemaId());
@@ -73,6 +78,11 @@ public class SchemaInfoServiceImpl implements SchemaInfoService {
 			LOGGER.error("动态创建SqlSessionFactory错误，jdbc_url=[{}]。", jdbcUrl, e);
 			return false;
 		}
+		// 添加事务管理器
+		DataSourceTransactionManager dsTransactionManager = new DataSourceTransactionManager(dataSource);
+		chainedTransactionManager.addTransactionManager(schemaInfo.getSchemaName(), dsTransactionManager);
+		
+		// 添加SqlSessionFactory
 		Map<String, SqlSessionFactory> maps = sqlSessionTemplateProxy.getProxySqlSessionFactory();
 		maps.put(schemaInfo.getSchemaName(), sqlSessionFactory);
 		return true;
@@ -94,6 +104,9 @@ public class SchemaInfoServiceImpl implements SchemaInfoService {
 		ds.close();
 		
 		sqlSessionFactory = null;
+		
+		chainedTransactionManager.removeTransactionManager(schema);
+		
 		return true;
 	}
 	

@@ -77,7 +77,6 @@ import com.vteba.tx.jdbc.mybatis.converter.internal.TemplateSqlConvertFactory;
  */
 public class SqlSessionTemplate implements SqlSession {
 	
-//	private static final Logger LOGGER = LoggerFactory.getLogger(SqlSessionTemplate.class);
 	private static final ConcurrentMap<String, Boolean> NEED_PARSE_CACHE = new ConcurrentHashMap<String, Boolean>();
 	
 	private Map<String, SqlSessionFactory> proxySqlSessionFactory;
@@ -97,8 +96,7 @@ public class SqlSessionTemplate implements SqlSession {
 	 * @param sqlSessionFactory
 	 */
 	public SqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
-		this(sqlSessionFactory, sqlSessionFactory.getConfiguration()
-				.getDefaultExecutorType());
+		this(sqlSessionFactory, sqlSessionFactory.getConfiguration().getDefaultExecutorType());
 	}
 
 	/**
@@ -110,8 +108,7 @@ public class SqlSessionTemplate implements SqlSession {
 	 * @param sqlSessionFactory
 	 * @param executorType
 	 */
-	public SqlSessionTemplate(SqlSessionFactory sqlSessionFactory,
-			ExecutorType executorType) {
+	public SqlSessionTemplate(SqlSessionFactory sqlSessionFactory, ExecutorType executorType) {
 		this(sqlSessionFactory, executorType, new MyBatisExceptionTranslator(
 				sqlSessionFactory.getConfiguration().getEnvironment().getDataSource(), true));
 	}
@@ -129,8 +126,7 @@ public class SqlSessionTemplate implements SqlSession {
 	 * @param executorType
 	 * @param exceptionTranslator
 	 */
-	public SqlSessionTemplate(SqlSessionFactory sqlSessionFactory,
-			ExecutorType executorType,
+	public SqlSessionTemplate(SqlSessionFactory sqlSessionFactory, ExecutorType executorType,
 			PersistenceExceptionTranslator exceptionTranslator) {
 
 		notNull(sqlSessionFactory, "Property 'sqlSessionFactory' is required");
@@ -149,10 +145,12 @@ public class SqlSessionTemplate implements SqlSession {
 		if (schema == null) {// 如果没有，返回默认的SqlSessionFactory
 			return this.sqlSessionFactory;
 		} else {
-			return proxySqlSessionFactory.get(schema);
+			SqlSessionFactory factory = proxySqlSessionFactory.get(schema);
+			if (factory == null) {
+				throw new IllegalStateException("没有找到schema=[" + schema + "]所对应的SqlSessionFactory，可能是没有动态添加。");
+			}
+			return factory;
 		}
-		
-//		return this.sqlSessionFactory;
 	}
 
 	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {

@@ -20,7 +20,7 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
 	protected void initChannel(SocketChannel ch) throws Exception {
 		ChannelPipeline pipeline = ch.pipeline();// 管道线，相当于过滤器
 		
-		/******ChannelOutboundHandler（返回数据给调用端）向外发送数据，放在第一个ChannelInboundHandler前面，逆序执行******/
+		/******ChannelOutboundHandler（返回数据给调用端）向外发送数据，逆序执行******/
 		// 2、加上头长度
 		pipeline.addLast("lengthPrepender", new LengthFieldPrepender(4));
 		// 1、将字符转成字节
@@ -29,7 +29,7 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
 		// logger既是Inbound，又是Outbound
 		pipeline.addLast("logger", new LoggingHandler(LogLevel.INFO));
 		
-		/**********ChannelInboundHandler（接受数据），进来数据，放在最后一个ChannelOutboundHandler后面，顺序执行*************/
+		/**********ChannelInboundHandler（接受数据），进来数据，顺序执行*************/
 		
 		// 1、获取去掉头长度的数据
 		pipeline.addLast("lengthFieldFrameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));

@@ -5,8 +5,14 @@ import java.util.List;
 import org.junit.Test;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.vteba.protobuf.FirstProtobuf.SearchRequest;
+import com.vteba.protobuf.FirstProtobuf2.SearchRequest;
 
+/**
+ * 2.5.0版本的
+ * @author  Administrator 
+ * @see
+ * @since
+ */
 // protoc.exe SearchRequest.proto --java_out=./
 public class FirstProtoTest {
 	private static byte[] bytes;
@@ -40,5 +46,7 @@ public class FirstProtoTest {
 			
 		}
 		System.out.println(System.currentTimeMillis() - d);
+		System.out.println(Integer.MAX_VALUE);
+		System.out.println(Integer.MIN_VALUE);
 	}
 }

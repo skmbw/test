@@ -8,6 +8,106 @@ public final class AddressBookProtos {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
+  /**
+   * Protobuf enum {@code tutorial.MessageType}
+   */
+  public enum MessageType
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>REQUEST = 0;</code>
+     */
+    REQUEST(0, 0),
+    /**
+     * <code>RESPONSE = 1;</code>
+     */
+    RESPONSE(1, 1),
+    /**
+     * <code>PING = 2;</code>
+     */
+    PING(2, 2),
+    /**
+     * <code>PONG = 3;</code>
+     */
+    PONG(3, 3),
+    ;
+
+    /**
+     * <code>REQUEST = 0;</code>
+     */
+    public static final int REQUEST_VALUE = 0;
+    /**
+     * <code>RESPONSE = 1;</code>
+     */
+    public static final int RESPONSE_VALUE = 1;
+    /**
+     * <code>PING = 2;</code>
+     */
+    public static final int PING_VALUE = 2;
+    /**
+     * <code>PONG = 3;</code>
+     */
+    public static final int PONG_VALUE = 3;
+
+
+    public final int getNumber() { return value; }
+
+    public static MessageType valueOf(int value) {
+      switch (value) {
+        case 0: return REQUEST;
+        case 1: return RESPONSE;
+        case 2: return PING;
+        case 3: return PONG;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<MessageType>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static com.google.protobuf.Internal.EnumLiteMap<MessageType>
+        internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<MessageType>() {
+            public MessageType findValueByNumber(int number) {
+              return MessageType.valueOf(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(index);
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.vteba.protobuf.AddressBookProtos.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final MessageType[] VALUES = values();
+
+    public static MessageType valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int index;
+    private final int value;
+
+    private MessageType(int index, int value) {
+      this.index = index;
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:tutorial.MessageType)
+  }
+
   public interface PersonOrBuilder extends
       // @@protoc_insertion_point(interface_extends:tutorial.Person)
       com.google.protobuf.MessageOrBuilder {
@@ -352,7 +452,7 @@ public final class AddressBookProtos {
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
         initFields();
-        //int mutable_bitField0_ = 0;
+//        int mutable_bitField0_ = 0;
         com.google.protobuf.UnknownFieldSet.Builder unknownFields =
             com.google.protobuf.UnknownFieldSet.newBuilder();
         try {
@@ -1828,6 +1928,15 @@ public final class AddressBookProtos {
      */
     com.vteba.protobuf.AddressBookProtos.PersonOrBuilder getPersonOrBuilder(
         int index);
+
+    /**
+     * <code>optional .tutorial.MessageType type = 2 [default = REQUEST];</code>
+     */
+    boolean hasType();
+    /**
+     * <code>optional .tutorial.MessageType type = 2 [default = REQUEST];</code>
+     */
+    com.vteba.protobuf.AddressBookProtos.MessageType getType();
   }
   /**
    * Protobuf type {@code tutorial.AddressBook}
@@ -1893,6 +2002,17 @@ public final class AddressBookProtos {
               person_.add(input.readMessage(com.vteba.protobuf.AddressBookProtos.Person.PARSER, extensionRegistry));
               break;
             }
+            case 16: {
+              int rawValue = input.readEnum();
+              com.vteba.protobuf.AddressBookProtos.MessageType value = com.vteba.protobuf.AddressBookProtos.MessageType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(2, rawValue);
+              } else {
+                bitField0_ |= 0x00000001;
+                type_ = value;
+              }
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1935,6 +2055,7 @@ public final class AddressBookProtos {
       return PARSER;
     }
 
+    private int bitField0_;
     public static final int PERSON_FIELD_NUMBER = 1;
     private java.util.List<com.vteba.protobuf.AddressBookProtos.Person> person_;
     /**
@@ -1970,8 +2091,24 @@ public final class AddressBookProtos {
       return person_.get(index);
     }
 
+    public static final int TYPE_FIELD_NUMBER = 2;
+    private com.vteba.protobuf.AddressBookProtos.MessageType type_;
+    /**
+     * <code>optional .tutorial.MessageType type = 2 [default = REQUEST];</code>
+     */
+    public boolean hasType() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional .tutorial.MessageType type = 2 [default = REQUEST];</code>
+     */
+    public com.vteba.protobuf.AddressBookProtos.MessageType getType() {
+      return type_;
+    }
+
     private void initFields() {
       person_ = java.util.Collections.emptyList();
+      type_ = com.vteba.protobuf.AddressBookProtos.MessageType.REQUEST;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1995,6 +2132,9 @@ public final class AddressBookProtos {
       for (int i = 0; i < person_.size(); i++) {
         output.writeMessage(1, person_.get(i));
       }
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeEnum(2, type_.getNumber());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -2007,6 +2147,10 @@ public final class AddressBookProtos {
       for (int i = 0; i < person_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, person_.get(i));
+      }
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, type_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2136,6 +2280,8 @@ public final class AddressBookProtos {
         } else {
           personBuilder_.clear();
         }
+        type_ = com.vteba.protobuf.AddressBookProtos.MessageType.REQUEST;
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -2162,7 +2308,8 @@ public final class AddressBookProtos {
 
       public com.vteba.protobuf.AddressBookProtos.AddressBook buildPartial() {
         com.vteba.protobuf.AddressBookProtos.AddressBook result = new com.vteba.protobuf.AddressBookProtos.AddressBook(this);
-        //int from_bitField0_ = bitField0_;
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
         if (personBuilder_ == null) {
           if (((bitField0_ & 0x00000001) == 0x00000001)) {
             person_ = java.util.Collections.unmodifiableList(person_);
@@ -2172,6 +2319,11 @@ public final class AddressBookProtos {
         } else {
           result.person_ = personBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.type_ = type_;
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -2212,6 +2364,9 @@ public final class AddressBookProtos {
               personBuilder_.addAllMessages(other.person_);
             }
           }
+        }
+        if (other.hasType()) {
+          setType(other.getType());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -2486,6 +2641,41 @@ public final class AddressBookProtos {
         return personBuilder_;
       }
 
+      private com.vteba.protobuf.AddressBookProtos.MessageType type_ = com.vteba.protobuf.AddressBookProtos.MessageType.REQUEST;
+      /**
+       * <code>optional .tutorial.MessageType type = 2 [default = REQUEST];</code>
+       */
+      public boolean hasType() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional .tutorial.MessageType type = 2 [default = REQUEST];</code>
+       */
+      public com.vteba.protobuf.AddressBookProtos.MessageType getType() {
+        return type_;
+      }
+      /**
+       * <code>optional .tutorial.MessageType type = 2 [default = REQUEST];</code>
+       */
+      public Builder setType(com.vteba.protobuf.AddressBookProtos.MessageType value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000002;
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.MessageType type = 2 [default = REQUEST];</code>
+       */
+      public Builder clearType() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        type_ = com.vteba.protobuf.AddressBookProtos.MessageType.REQUEST;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:tutorial.AddressBook)
     }
 
@@ -2527,9 +2717,12 @@ public final class AddressBookProtos {
       "Number\032M\n\013PhoneNumber\022\016\n\006number\030\001 \002(\t\022.\n" +
       "\004type\030\002 \001(\0162\032.tutorial.Person.PhoneType:" +
       "\004HOME\"+\n\tPhoneType\022\n\n\006MOBILE\020\000\022\010\n\004HOME\020\001" +
-      "\022\010\n\004WORK\020\002\"/\n\013AddressBook\022 \n\006person\030\001 \003(" +
-      "\0132\020.tutorial.PersonB\'\n\022com.vteba.protobu" +
-      "fB\021AddressBookProtos"
+      "\022\010\n\004WORK\020\002\"]\n\013AddressBook\022 \n\006person\030\001 \003(" +
+      "\0132\020.tutorial.Person\022,\n\004type\030\002 \001(\0162\025.tuto" +
+      "rial.MessageType:\007REQUEST*<\n\013MessageType" +
+      "\022\013\n\007REQUEST\020\000\022\014\n\010RESPONSE\020\001\022\010\n\004PING\020\002\022\010\n",
+      "\004PONG\020\003B\'\n\022com.vteba.protobufB\021AddressBo" +
+      "okProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -2560,7 +2753,7 @@ public final class AddressBookProtos {
     internal_static_tutorial_AddressBook_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_tutorial_AddressBook_descriptor,
-        new java.lang.String[] { "Person", });
+        new java.lang.String[] { "Person", "Type", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -21,7 +21,7 @@ import com.vteba.service.tenant.annotation.Schema;
 import com.vteba.tx.jdbc.params.QueryBean;
 
 /**
- * 解析注解@Application。回去当前应用的名字，然后根据应用的配置，回去改应用
+ * 解析注解@Application。获取当前应用的名字，然后根据应用的配置，获取该应用
  * 连接的分区数据库，如果有权重，根据权重获取对应的数据库schema
  * @author yinlei
  * @date 2013-8-16

@@ -1,13 +1,10 @@
 package com.vteba.user2.service.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.vteba.table.dao.ShardsTableDao;
-import com.vteba.table.model.ShardsTable;
 import com.vteba.tx.jdbc.params.DeleteBean;
 import com.vteba.tx.jdbc.params.QueryBean;
 import com.vteba.tx.jdbc.params.UpdateBean;
@@ -29,8 +26,8 @@ public class UserServiceImpl implements UserService {
 	@Inject
 	private UserDao userDao;
 	
-	@Inject
-	private ShardsTableDao shardsTableDao;
+//	@Inject
+//	private ShardsTableDao shardsTableDao;
 
 	@Inject
 	private KeyGenerator uuidKeyGenerator;
@@ -56,14 +53,14 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int save(User record) {
-		ShardsTable table = new ShardsTable();
-		table.setCreateDate(new Date());
-		//table.setId(uuidKeyGenerator.nextInt());
-		table.setCurrentTable("shards_table");
-		table.setSchemaName("skmbw");
-		table.setStrategy("month");
-		table.setTableName("shards2_table_201410m" + uuidKeyGenerator.next());
-		shardsTableDao.save(table);
+//		ShardsTable table = new ShardsTable();
+//		table.setCreateDate(new Date());
+//		//table.setId(uuidKeyGenerator.nextInt());
+//		table.setCurrentTable("shards_table");
+//		table.setSchemaName("skmbw");
+//		table.setStrategy("month");
+//		table.setTableName("shards2_table_201410m" + uuidKeyGenerator.next());
+//		shardsTableDao.save(table);
 		
 		record.setId(uuidKeyGenerator.next());
 //		User user = new User();

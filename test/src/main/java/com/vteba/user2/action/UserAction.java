@@ -26,6 +26,9 @@ public class UserAction extends GenericAction<User> {
 	@Inject
 	private UserService userServiceImpl;
 	
+//	@Inject
+//	private SpringJdbcTemplate skmbwJdbcTemplate;
+	
 	/**
      * 获得系统用户List，初始化列表页。
      * @param model 参数
@@ -33,7 +36,36 @@ public class UserAction extends GenericAction<User> {
      */
     @RequestMapping("/initial")
     public String initial(User model, Map<String, Object> maps) {
-        List<User> list = userServiceImpl.pagedList(model);
+    	List<User> list = userServiceImpl.pagedList(model);
+    	// mysql每秒插入记录大约54左右，开启事务。mybatis插入大约30笔，因为uuid消耗了性能
+//    	User user = new User();
+//    	user.setCompany("IBM232");
+//    	user.setPassword("12121");
+//    	user.setState(true);
+//    	Date date = new Date();
+//    	user.setCreateDate(date);
+//    	long d = System.currentTimeMillis();
+//    	for (int i = 0; i < 100; i++) {
+//    		userServiceImpl.save(user);
+//    	}
+    	
+//    	List<Object[]> argsList = new ArrayList<Object[]>();
+//    	for (int i = 0; i < 100; i++) {
+//    		Object[] args = new Object[5];
+//    		args[0] = i;
+//    		args[1] = "IBM232";
+//    		args[2] = "12121";
+//    		args[3] = 1;
+//    		args[4] = date;
+//    		argsList.add(args);
+//    	}
+//    	long d = System.currentTimeMillis();
+//        
+//        String sql = "insert into user(id, company, password, state, create_date) values(?,?,?,?,?)";
+//        skmbwJdbcTemplate.batchUpdate(sql, argsList);
+//        System.out.println(System.currentTimeMillis() - d);
+//        user.setCreateDate(null);
+//        userServiceImpl.deleteBulks(user);
         maps.put("list", list);
         return "user/initial";
     }

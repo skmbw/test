@@ -18,7 +18,22 @@
 	<!-- 会自动注册了validator和ConversionService  -->
     <mvc:annotation-driven validator="validator" conversion-service="formattingConversionService">
     	<mvc:message-converters register-defaults="true">
-    		<bean class="com.vteba.web.servlet.converter.json.FastJsonHttpMessageConverter"/>
+    		<bean class="com.vteba.web.servlet.converter.json.FastJsonHttpMessageConverter">
+    			<property name="filterHibernateProxy" value="true"></property>
+    			<property name="dateFormat" value="yyyy-MM-dd"></property>
+    			<property name="serializeFilters">
+    				<list>
+    					<bean class="com.vteba.web.servlet.converter.json.SimplePropertyFilter" />
+    				</list>
+    			</property>
+    			<property name="features">
+    				<list><!-- 这个是枚举类型，两种配置方式，一种是spring传统的bean的方式，另一种是使用util名空间util:constant -->
+    					<bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+    						<property name="staticField" value="com.alibaba.fastjson.serializer.WriteDateUseDateFormat"/>
+    					</bean>
+    				</list>
+    			</property>
+    		</bean>
 <!-- 			<bean class="com.vteba.web.servlet.converter.json.MappingJackson2HttpMessageConverter"/> -->
 <!--     		<bean class="org.springframework.http.converter.StringHttpMessageConverter"> -->
 <!-- 				<property name="writeAcceptCharset" value="false"/> -->

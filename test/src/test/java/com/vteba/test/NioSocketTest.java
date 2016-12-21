@@ -23,7 +23,7 @@ public class NioSocketTest {
 		// 4、将ServerSocketChannel注册到Reactor线程的多路复用器Selector上，监听ACCEPT状态位
 		serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 		while (true) {// 5、多路复用器在线程run方法的无限循环体内轮询准备就绪的Key
-			selector.select();// 开始监听事件，这里会阻塞，直到有时间发生
+			selector.select();// 开始监听事件，这里会阻塞，直到有事件发生
 			Set<SelectionKey> selectedKeys = selector.selectedKeys();
 			for (SelectionKey key : selectedKeys) {
 				switch (key.readyOps()) {// 处理就绪的事件

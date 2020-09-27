@@ -1,13 +1,12 @@
 package com.vteba.netty.server;
 
+import io.netty.channel.ChannelHandler.Sharable;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.channel.ChannelHandler.Sharable;
-
-@Sharable
+@Sharable // 说明Handler是可复用的，可被添加到Pipeline中多次，但是不保证，需要自己保证，仅是一个标记接口而已
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServerHandler.class);
 	
@@ -32,7 +31,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
 			throws Exception {
 		if (LOGGER.isInfoEnabled()) {
-			LOGGER.info("ServerHandler处理异常，", cause.getMessage());
+			LOGGER.info("ServerHandler处理异常，[{}].", cause.getMessage());
 		}
 		ctx.close();// 出现异常关闭链接
 	}

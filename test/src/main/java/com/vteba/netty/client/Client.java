@@ -11,7 +11,6 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +34,8 @@ public class Client {
 					@Override
 					protected void initChannel(SocketChannel ch) throws Exception {
 						ChannelPipeline pipeline = ch.pipeline();
+						// 这些handler，进来的时候（接收服务端返回的数据）是顺序执行handler，从上到下
+						// 出去的时候（发送数据给server端），是逆序执行handler，从下到上
 						pipeline.addLast("logger", new LoggingHandler(LogLevel.INFO));
 						pipeline.addLast("lengthFrameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 0));
 						pipeline.addLast("clientHandler", new ClientHandler());
